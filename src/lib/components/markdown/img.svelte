@@ -3,8 +3,6 @@
 	import Zoom from 'svelte-medium-image-zoom';
 	import { resolvePostImage } from '$lib/utils';
 	import type { SvelteHTMLElements } from 'svelte/elements';
-	import { dev } from '$app/environment';
-	import { page } from '$app/state';
 
 	type EnhancedImgAttributes = Omit<SvelteHTMLElements['img'], 'src'> & { src: string };
 
@@ -45,7 +43,7 @@
 			{#if isExcalidrawSvg}
 				<a
 					class="group text-xs text-gray-600 italic dark:text-gray-400"
-					href={`https://excalidraw.com/#url=${page.url.origin}${resolvedSrc}`}
+					href={`https://excalidraw.com/#url=${resolvedSrc}`}
 					target="_blank"
 				>
 					Edit on <span class="font-bold">Excalidraw</span>
