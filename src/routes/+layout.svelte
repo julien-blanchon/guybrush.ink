@@ -3,6 +3,7 @@
 	import '../mathjax.css';
 	import '../app.css';
 	import '../gfm.css';
+	import '../zoom.css';
 	import '@shikijs/twoslash/style-rich.css';
 
 	import { ModeWatcher } from 'mode-watcher';
@@ -72,6 +73,7 @@
 		href: string;
 		icon?: ClassValue;
 		className?: ClassValue;
+		disabled?: boolean;
 	};
 
 	const navBarItems: NavBarItem[] = [
@@ -80,6 +82,7 @@
 			href: '/',
 			className: '!mr-auto'
 		},
+		{ label: 'Photos', href: '/photos', disabled: true },
 		{ label: 'Projects', href: '/projects' },
 		{ label: 'Blog', href: '/blog' }
 	];

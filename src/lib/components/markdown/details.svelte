@@ -9,4 +9,5 @@
 	let { children, ...props }: Props = $props();
 </script>
 
+sdlkm
 <details {...props}>{@render children()}</details>

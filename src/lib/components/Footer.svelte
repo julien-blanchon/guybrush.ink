@@ -73,6 +73,11 @@
 						>
 					</li>
 					<li>
+						<a href="/photos" class="hover:text-coffee-900 transition-colors dark:hover:text-white"
+							>Photos</a
+						>
+					</li>
+					<li>
 						<a
 							href="/projects"
 							class="hover:text-coffee-900 transition-colors dark:hover:text-white">Projects</a

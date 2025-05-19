@@ -1,6 +1,7 @@
 <script>
 	import { Button } from '$lib/components/ui/button';
 	import Hover from '$lib/components/ui/hover/hover.svelte';
+	import Zoom from 'svelte-medium-image-zoom';
 </script>
 
 <svelte:head>
@@ -255,15 +256,37 @@
 
 					<div class="w-full sm:w-2/5">
 						<figure class="relative flex w-full flex-col items-center">
-							<enhanced:img
-								src="$lib/assets/projects/anyfurnish/after.webp"
-								alt="Perfectly integrated chair after inpainting"
-								class="aspect-video w-full rounded border border-gray-200 object-cover dark:border-gray-700"
-								sizes="(min-width: 1280px) 384px, (min-width: 768px) 320px, (min-width: 640px) 384px, 100vw"
-								loading="lazy"
-								width="768"
-								height="432"
-							/>
+							<!-- svelte-ignore a11y_media_has_caption -->
+							<!-- <Zoom> -->
+							<!-- {#snippet zoom_content({ img, button_unzoom, modal_state, handle_unzoom })}
+									{@render button_unzoom()}
+									<div>
+										Hello
+										{@render img()}
+									</div>
+								{/snippet} -->
+							<video
+								class={[
+									'aspect-video w-full rounded border border-gray-200 object-cover dark:border-gray-700',
+									'mx-auto block max-w-full rounded-lg drop-shadow-md transition-[filter,scale] duration-300 ease-in-out will-change-transform hover:scale-105 hover:drop-shadow-xl'
+								]}
+								data-zoom
+								loop
+								muted
+								controls={false}
+								autoplay={false}
+								onmouseenter={(e) => {
+									e.currentTarget.play();
+									e.currentTarget.controls = true;
+								}}
+								onmouseleave={(e) => {
+									e.currentTarget.pause();
+									e.currentTarget.controls = false;
+								}}
+							>
+								<source src="/projects/montelimar/demo.mp4" type="video/mp4" />
+							</video>
+							<!-- </Zoom> -->
 							<figcaption
 								class="mt-2 text-center text-sm tracking-normal text-gray-600 dark:text-gray-400"
 							>

@@ -243,7 +243,7 @@
 														></Command.GroupHeading> -->
 														<Command.LinkItem
 															href="/"
-															class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
+															class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-disabled:opacity-50 data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
 															keywords={['home']}
 															onclick={closeCommandPalette}
 														>
@@ -259,8 +259,26 @@
 															</div>
 														</Command.LinkItem>
 														<Command.LinkItem
+															href="/photos"
+															disabled
+															class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-disabled:opacity-50 data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
+															keywords={['photos']}
+															onclick={closeCommandPalette}
+														>
+															<span
+																class="icon-[lucide--camera] size-5 text-stone-600 dark:text-gray-400"
+															></span>
+															<div class="flex flex-col">
+																<span class="font-medium tracking-wide">Photos</span>
+																<span
+																	class="text-xs tracking-wide text-stone-600 dark:text-gray-400"
+																	>View my photos</span
+																>
+															</div>
+														</Command.LinkItem>
+														<Command.LinkItem
 															href="/projects"
-															class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
+															class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-disabled:opacity-50 data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
 															keywords={['projects']}
 															onclick={closeCommandPalette}
 														>
@@ -329,7 +347,7 @@
 																		keywords={post.categories}
 																		onclick={closeCommandPalette}
 																		value={post.slug}
-																		class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
+																		class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-disabled:opacity-50 data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
 																	>
 																		<span
 																			class="icon-[lucide--book-open] size-5 text-stone-600 dark:text-gray-400"

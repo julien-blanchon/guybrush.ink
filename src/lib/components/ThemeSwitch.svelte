@@ -7,6 +7,8 @@
 	import { browser } from '$app/environment';
 	import { prefersReducedMotion } from 'svelte/motion';
 
+	const isDark = $derived(mode.current === 'dark');
+
 	// Function to handle theme toggle with view transition
 	async function handleToggle(event: MouseEvent) {
 		// Only run in browser environment
@@ -39,7 +41,6 @@
 		);
 
 		// Store current mode before toggling
-		const isDark = $derived(mode.current === 'dark');
 
 		try {
 			const transition = document.startViewTransition(async () => {
@@ -53,22 +54,16 @@
 			// Create and apply a custom animation for the transition
 			const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
 
-			// Determine which element to animate based on the direction of the transition
-			const pseudoElement = '::view-transition-new(root)';
-
-			// Determine the clip path direction based on the transition direction
-			const animationClipPath = clipPath;
-
 			// Apply the animation
 			document.documentElement.animate(
 				{
-					clipPath: animationClipPath,
+					clipPath: isDark ? clipPath.toReversed() : clipPath,
 					easing: 'ease-out'
 				},
 				{
 					duration: 500,
 					easing: 'ease-in',
-					pseudoElement: pseudoElement
+					pseudoElement: isDark ? '::view-transition-old(root)' : '::view-transition-new(root)'
 				}
 			);
 		} catch (error) {

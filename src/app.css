@@ -708,6 +708,22 @@ body {
 		mix-blend-mode: normal;
 		will-change: clip-path, opacity, transform;
 	}
+
+	::view-transition-old(root) {
+		z-index: 1;
+	}
+
+	::view-transition-new(root) {
+		z-index: 9999;
+	}
+
+	.dark::view-transition-old(root) {
+		z-index: 9999;
+	}
+
+	.dark::view-transition-new(root) {
+		z-index: 1;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {

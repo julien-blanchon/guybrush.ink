@@ -16,6 +16,7 @@
 		href: string;
 		icon?: ClassValue;
 		className?: ClassValue;
+		disabled?: boolean;
 	};
 
 	type ImagePair = {
@@ -128,15 +129,17 @@
 							<li
 								data-navigation-menu-item
 								data-active={item.href === page.url.pathname}
+								data-disabled={item.disabled}
 								class={[
 									item.className,
 									'group relative',
 									'flex h-9 items-center justify-center',
 									'px-4 transition-colors hover:text-stone-950 dark:hover:text-white',
-									'data-[active=true]:text-stone-950 dark:data-[active=true]:text-white'
+									'data-[active=true]:text-stone-950 dark:data-[active=true]:text-white',
+									'data-disabled:cursor-not-allowed data-disabled:opacity-50'
 								]}
 							>
-								<a href={item.href} aria-label={item.label}>
+								{#snippet content()}
 									<!-- Improved active marker with better styling -->
 									{#if item.href === page.url.pathname}
 										<span
@@ -156,7 +159,14 @@
 											<span>{item.label}</span>
 										{/if}
 									</div>
-								</a>
+								{/snippet}
+								{#if item.disabled}
+									<div aria-label={item.label}>{@render content()}</div>
+								{:else}
+									<a href={item.href} aria-label={item.label}>
+										{@render content()}
+									</a>
+								{/if}
 							</li>
 						{/each}
 					</ul>

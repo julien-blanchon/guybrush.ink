@@ -18,7 +18,9 @@
 
 <section aria-labelledby="blog-title" class="blog-list">
 	<h1 id="blog-title" class="mb-2 text-3xl font-bold">Blog</h1>
-	<p class="mb-6 text-gray-600">Read the latest articles and updates from our team.</p>
+	<p class="mb-6 text-gray-600 dark:text-gray-400">
+		Here you can find all my articles and thoughts
+	</p>
 
 	{#if data.posts.length === 0}
 		<p class="text-gray-500">No posts found.</p>

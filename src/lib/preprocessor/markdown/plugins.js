@@ -37,8 +37,7 @@ export function rehypeCopyCode() {
 
 export function rehypeMarkdownComponents() {
 	return (tree) => {
-		visit(tree, 'element', (node) => {
-			// Only override standard HTML tags you have components for
+		visit(tree, (node, index, parent) => {
 			const tags = [
 				'h1',
 				'h2',
@@ -63,10 +62,9 @@ export function rehypeMarkdownComponents() {
 				'copybutton',
 				'figure'
 			];
-
-			if (tags.includes(node.tagName)) {
-				node.tagName = `Markdown.${node.tagName}`;
-			}
+			return tags.includes(node.tagName);
+		}, (node) => {
+			node.tagName = `Markdown.${node.tagName}`;
 		});
 	};
 }

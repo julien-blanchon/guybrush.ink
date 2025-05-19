@@ -1,0 +1,15 @@
+html.dark [data-smiz-modal-overlay='hidden'] {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+html.dark [data-smiz-modal-overlay='visible'] {
+	background-color: rgba(0, 0, 0, 1) !important;
+}
+
+[data-smiz-modal-overlay='hidden'] {
+	background-color: rgba(255, 255, 255, 0) !important;
+}
+
+[data-smiz-modal-overlay='visible'] {
+	background-color: rgba(255, 255, 255, 1) !important;
+}
