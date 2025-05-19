@@ -1,0 +1,39 @@
+mjx-container {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+	padding: 0.5em 0; /* optional breathing room */
+	font-size: 1.2em !important;
+}
+
+mjx-container[jax='CHTML'] {
+	font-family: 'Amaranth', cursive, sans-serif !important;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+	mjx-container {
+		font-size: 0.9em !important;
+		padding: 1em 0; /* optional breathing room */
+	}
+}
+
+/* Large phones / small tablets */
+@media (max-width: 768px) {
+	mjx-container {
+		font-size: 0.9em !important;
+	}
+}
+
+/* Portrait phones */
+@media (max-width: 480px) {
+	mjx-container {
+		font-size: 0.85em !important;
+	}
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+	mjx-container {
+		font-size: 0.85em !important;
+	}
+}

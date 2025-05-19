@@ -1,0 +1,728 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@config "../tailwind.config.js";
+/* @plugin "@iconify/tailwind4"; */
+@plugin "@iconify/tailwind4";
+@plugin "tailwindcss-animate";
+@plugin 'tailwind-scrollbar';
+
+@import 'rehype-callouts/theme/github';
+
+@source '../node_modules/layerchart/**/*.{svelte,js}';
+@theme {
+	--color-primary: hsl(257.4075 100% 50%);
+	--color-surface-100: hsl(180 100% 100%);
+	--color-surface-200: hsl(0 0% 94.902%);
+	--color-surface-300: hsl(180 1.9608% 90%);
+	--color-surface-content: hsl(215 27.907% 16.8627%);
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Font settings */
+@layer base {
+	html {
+		text-rendering: optimizeLegibility;
+		/* Font Ligatures & Kerning */
+		@supports (font-variation-settings: normal) {
+			font-feature-settings:
+				'kern' 1,
+				'liga' 1,
+				'calt' 1;
+		}
+		@supports (interpolate-size: allow-keywords) {
+			interpolate-size: allow-keywords;
+		}
+	}
+}
+
+@theme {
+	/* Coffee Theme Colors */
+	--color-coffee-50: oklch(0.985 0.01 85);
+	--color-coffee-100: oklch(0.97 0.02 83);
+	--color-coffee-200: oklch(0.94 0.035 80);
+	--color-coffee-300: oklch(0.9 0.05 78);
+	--color-coffee-400: oklch(0.85 0.065 75);
+	--color-coffee-500: oklch(0.78 0.08 72);
+	--color-coffee-600: oklch(0.7 0.095 68);
+	--color-coffee-700: oklch(0.6 0.11 65);
+	--color-coffee-800: oklch(0.5 0.125 60);
+	--color-coffee-900: oklch(0.4 0.14 55);
+	--color-coffee-950: oklch(0.3 0.15 50);
+
+	--font-sans:
+		'Amaranth', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
+
+	--font-serif:
+		'Gloock', 'DM Serif Display', 'Cal Sans', Georgia, Cambria, 'Times New Roman', Times, serif;
+
+	--font-mono:
+		'Fira Code', 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		'Liberation Mono', 'Courier New', monospace;
+
+	--font-pixel: 'VT323', monospace;
+
+	/* Animation Variables */
+	--animate-accordion-down: accordion-down var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-accordion-up: accordion-up var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-caret-blink: caret-blink var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) infinite;
+	--animate-scale-in: scale-in var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-scale-out: scale-out var(--default-animation-duration, 0.15s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-fade-in: fade-in var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-fade-out: fade-out var(--default-animation-duration, 0.15s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-enter-from-left: enter-from-left var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-enter-from-right: enter-from-right var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-exit-to-left: exit-to-left var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-exit-to-right: exit-to-right var(--default-animation-duration, 0.2s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-slide-up: slide-up var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-slide-down: slide-down var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-slide-left: slide-left var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-slide-right: slide-right var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-zoom-in: zoom-in var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-zoom-out: zoom-out var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-in) var(--default-animation-delay, 0s) both;
+	--animate-bounce-in: bounce-in var(--default-animation-duration, 0.4s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-bounce-out: bounce-out var(--default-animation-duration, 0.4s)
+		var(--default-animation-timing-function, ease-in) var(--default-animation-delay, 0s) both;
+	--animate-spin-in: spin-in var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-spin-out: spin-out var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-in) var(--default-animation-delay, 0s) both;
+	--animate-pulse: pulse var(--default-animation-duration, 1.5s)
+		var(--default-animation-timing-function, ease-in-out) var(--default-animation-delay, 0s)
+		infinite;
+	--animate-swing: swing var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-tada: tada var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-rubber-band: rubber-band var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-hover-pop: hover-pop var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-hover-shrink: hover-shrink var(--default-animation-duration, 0.3s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-hover-glow: hover-glow var(--default-animation-duration, 0.5s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-jello: jello var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-wobble: wobble var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease) var(--default-animation-delay, 0s) both;
+	--animate-flicker: flicker var(--default-animation-duration, 2s)
+		var(--default-animation-timing-function, ease-in-out) var(--default-animation-delay, 0s)
+		infinite;
+	--animate-blur-in: blur-in var(--default-animation-duration, 0.5s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-blur-out: blur-out var(--default-animation-duration, 0.5s)
+		var(--default-animation-timing-function, ease-in) var(--default-animation-delay, 0s) both;
+	--animate-noise-fade-in: noise-fade-in var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-noise-fade-out: noise-fade-out var(--default-animation-duration, 1s)
+		var(--default-animation-timing-function, ease-in) var(--default-animation-delay, 0s) both;
+	--animate-frosted-glass-in: frosted-glass-in var(--default-animation-duration, 0.8s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-frosted-glass-out: frosted-glass-out var(--default-animation-duration, 0.8s)
+		var(--default-animation-timing-function, ease-in) var(--default-animation-delay, 0s) both;
+	--animate-fade-blur-in: fade-blur-in var(--default-animation-duration, 0.6s)
+		var(--default-animation-timing-function, ease-out) var(--default-animation-delay, 0s) both;
+	--animate-fade-blur-out: fade-blur-out var(--default-animation-duration, 0.6s)
+		var(--default-animation-timing-function, ease-in) var(--default-animation-delay, 0s) both;
+
+	@keyframes accordion-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--bits-accordion-content-height, 100%);
+		}
+	}
+
+	@keyframes accordion-up {
+		from {
+			height: var(--bits-accordion-content-height, 100%);
+		}
+		to {
+			height: 0;
+		}
+	}
+
+	@keyframes caret-blink {
+		0%,
+		70%,
+		100% {
+			opacity: 1;
+		}
+		20%,
+		50% {
+			opacity: 0;
+		}
+	}
+
+	@keyframes enter-from-right {
+		from {
+			opacity: 0;
+			transform: translateX(200px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes enter-from-left {
+		from {
+			opacity: 0;
+			transform: translateX(-200px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes exit-to-right {
+		from {
+			opacity: 1;
+			transform: translateX(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateX(200px);
+		}
+	}
+
+	@keyframes exit-to-left {
+		from {
+			opacity: 1;
+			transform: translateX(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateX(-200px);
+		}
+	}
+
+	@keyframes scale-in {
+		from {
+			opacity: 0;
+			transform: rotateX(-10deg) scale(0.9);
+		}
+		to {
+			opacity: 1;
+			transform: rotateX(0deg) scale(1);
+		}
+	}
+
+	@keyframes scale-down-in {
+		from {
+			transform: scale(1.05);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes scale-out {
+		from {
+			opacity: 1;
+			transform: rotateX(0deg) scale(1);
+		}
+		to {
+			opacity: 0;
+			transform: rotateX(-10deg) scale(0.95);
+		}
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes fade-out {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+
+	@keyframes slide-up {
+		from {
+			transform: translateY(100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes slide-down {
+		from {
+			transform: translateY(-100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes slide-left {
+		from {
+			transform: translateX(100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateX(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes slide-right {
+		from {
+			transform: translateX(-100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateX(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes zoom-in {
+		from {
+			transform: scale(0.5);
+			opacity: 0;
+		}
+		to {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes zoom-out {
+		from {
+			transform: scale(1);
+			opacity: 1;
+		}
+		to {
+			transform: scale(0.5);
+			opacity: 0;
+		}
+	}
+
+	@keyframes bounce-in {
+		from {
+			transform: scale(0.8);
+			opacity: 0;
+		}
+		50% {
+			transform: scale(1.1);
+			opacity: 1;
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes bounce-out {
+		from {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.1);
+		}
+		to {
+			transform: scale(0.8);
+			opacity: 0;
+		}
+	}
+
+	@keyframes spin-in {
+		from {
+			transform: rotate(-360deg) scale(0.8);
+			opacity: 0;
+		}
+		to {
+			transform: rotate(0deg) scale(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes spin-out {
+		from {
+			transform: rotate(0deg) scale(1);
+			opacity: 1;
+		}
+		to {
+			transform: rotate(360deg) scale(0.8);
+			opacity: 0;
+		}
+	}
+
+	@keyframes pulse {
+		0% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		50% {
+			transform: scale(1.05);
+			opacity: 0.8;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes swing {
+		20% {
+			transform: rotate(15deg);
+		}
+		40% {
+			transform: rotate(-10deg);
+		}
+		60% {
+			transform: rotate(5deg);
+		}
+		80% {
+			transform: rotate(-5deg);
+		}
+		100% {
+			transform: rotate(0deg);
+		}
+	}
+
+	@keyframes tada {
+		0% {
+			transform: scale(1);
+		}
+		10%,
+		20% {
+			transform: scale(0.9) rotate(-3deg);
+		}
+		30%,
+		50%,
+		70%,
+		90% {
+			transform: scale(1.1) rotate(3deg);
+		}
+		40%,
+		60%,
+		80% {
+			transform: scale(1.1) rotate(-3deg);
+		}
+		100% {
+			transform: scale(1) rotate(0deg);
+		}
+	}
+
+	@keyframes rubber-band {
+		0% {
+			transform: scale(1);
+		}
+		30% {
+			transform: scaleX(1.25) scaleY(0.75);
+		}
+		40% {
+			transform: scaleX(0.75) scaleY(1.25);
+		}
+		50% {
+			transform: scaleX(1.15) scaleY(0.85);
+		}
+		65% {
+			transform: scaleX(0.95) scaleY(1.05);
+		}
+		75% {
+			transform: scaleX(1.05) scaleY(0.95);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes hover-pop {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.1);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes hover-shrink {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(0.9);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes hover-glow {
+		0% {
+			box-shadow: 0 0 0 rgba(255, 255, 255, 0.2);
+		}
+		50% {
+			box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+		}
+		100% {
+			box-shadow: 0 0 0 rgba(255, 255, 255, 0.2);
+		}
+	}
+
+	@keyframes jello {
+		0%,
+		100% {
+			transform: skewX(0deg);
+		}
+		25% {
+			transform: skewX(15deg);
+		}
+		50% {
+			transform: skewX(-15deg);
+		}
+		75% {
+			transform: skewX(5deg);
+		}
+	}
+
+	@keyframes wobble {
+		0% {
+			transform: translateX(0%);
+		}
+		15% {
+			transform: translateX(-25%) rotate(-5deg);
+		}
+		30% {
+			transform: translateX(20%) rotate(3deg);
+		}
+		45% {
+			transform: translateX(-15%) rotate(-3deg);
+		}
+		60% {
+			transform: translateX(10%) rotate(2deg);
+		}
+		75% {
+			transform: translateX(-5%) rotate(-1deg);
+		}
+		100% {
+			transform: translateX(0%) rotate(0deg);
+		}
+	}
+
+	@keyframes flicker {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		10%,
+		30%,
+		50%,
+		70%,
+		90% {
+			opacity: 0.8;
+		}
+		20%,
+		40%,
+		60%,
+		80% {
+			opacity: 0.4;
+		}
+	}
+
+	@keyframes blur-in {
+		from {
+			filter: blur(20px);
+			opacity: 0;
+		}
+		to {
+			filter: blur(0px);
+			opacity: 1;
+		}
+	}
+
+	@keyframes blur-out {
+		from {
+			filter: blur(0px);
+			opacity: 1;
+		}
+		to {
+			filter: blur(20px);
+			opacity: 0;
+		}
+	}
+
+	@keyframes noise-fade-in {
+		0% {
+			opacity: 0;
+			background: rgba(0, 0, 0, 0.2);
+		}
+		50% {
+			opacity: 0.3;
+			background: rgba(0, 0, 0, 0.1);
+		}
+		100% {
+			opacity: 1;
+			background: rgba(0, 0, 0, 0);
+		}
+	}
+
+	@keyframes noise-fade-out {
+		0% {
+			opacity: 1;
+			background: rgba(0, 0, 0, 0);
+		}
+		50% {
+			opacity: 0.3;
+			background: rgba(0, 0, 0, 0.1);
+		}
+		100% {
+			opacity: 0;
+			background: rgba(0, 0, 0, 0.2);
+		}
+	}
+
+	@keyframes frosted-glass-in {
+		from {
+			backdrop-filter: blur(20px) brightness(0.8);
+			opacity: 0;
+		}
+		to {
+			backdrop-filter: blur(10px) brightness(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes frosted-glass-out {
+		from {
+			backdrop-filter: blur(10px) brightness(1);
+			opacity: 1;
+		}
+		to {
+			backdrop-filter: blur(20px) brightness(0.8);
+			opacity: 0;
+		}
+	}
+
+	@keyframes fade-blur-in {
+		from {
+			filter: blur(15px);
+			opacity: 0;
+		}
+		50% {
+			filter: blur(5px);
+			opacity: 0.5;
+		}
+		to {
+			filter: blur(0px);
+			opacity: 1;
+		}
+	}
+
+	@keyframes fade-blur-out {
+		from {
+			filter: blur(0px);
+			opacity: 1;
+		}
+		50% {
+			filter: blur(5px);
+			opacity: 0.5;
+		}
+		to {
+			filter: blur(15px);
+			opacity: 0;
+		}
+	}
+}
+
+@utility noise_filter {
+	background-image: url('/noise.svg');
+	/* Make the background with a low opacity
+	/* background-size: cover;
+	background-repeat: repeat;
+	background-size: 500px 500px;
+	mix-blend-mode: multiply; */
+}
+
+html,
+body {
+	overscroll-behavior: none;
+	overflow: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	/* Enable crossfade for elements with a `--view-transition-name` custom property. */
+	[style*='--view-transition-name'] {
+		view-transition-name: var(--view-transition-name);
+	}
+	/* Temporary class to enable view-transition-name on the root element. */
+	.view-transition-enabled:root {
+		view-transition-name: root;
+	}
+
+	/* Disable crossfade for the root element. */
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+		mix-blend-mode: normal;
+		will-change: clip-path, opacity, transform;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	/* Disable crossfade for elements with a `--view-transition-name` custom property if the user has reduced motion */
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+
+	/* Disable animations for all elements if the user has reduced motion */
+	* {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		animation-delay: 0.01ms !important;
+	}
+}

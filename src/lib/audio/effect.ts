@@ -1,0 +1,60 @@
+import { soundEffect } from '$lib/runes/soundSwitch.svelte';
+
+const SOUND_COOLDOWN = 100; // ms
+
+type SoundName = keyof typeof audioPaths;
+const audioPaths = {
+	blip: '/audio/blip.mp3',
+	click: '/audio/click.mp3',
+	enable: '/audio/enable.mp3',
+	pop: '/audio/pop.mp3',
+	toggle: '/audio/toggle.mp3'
+};
+
+const audioPools: Record<SoundName, HTMLAudioElement[]> = {} as any;
+const lastPlayed: Record<SoundName, number> = {} as any;
+
+for (const name in audioPaths) {
+	audioPools[name as SoundName] = Array.from({ length: 5 }, () => {
+		const a = new Audio(audioPaths[name as SoundName]);
+		a.volume = 0.8;
+		a.preload = 'auto';
+		return a;
+	});
+	lastPlayed[name as SoundName] = 0;
+}
+
+function playSound(name: SoundName) {
+	const now = Date.now();
+	if (now - lastPlayed[name] < SOUND_COOLDOWN) return;
+
+	const pool = audioPools[name];
+	const audio = pool.find((a) => a.paused || a.ended);
+	if (audio) {
+		audio.currentTime = 0;
+		audio.play().catch(() => console.error('Audio play failed'));
+		lastPlayed[name] = now;
+	}
+}
+
+export const sfx = {
+	blip: () => {
+		if (!soundEffect.enabled) return;
+		playSound('blip');
+	},
+	click: () => {
+		if (!soundEffect.enabled) return;
+		playSound('click');
+	},
+	enable: () => {
+		if (!soundEffect.enabled) return;
+		playSound('enable');
+	},
+	pop: () => {
+		playSound('pop');
+	},
+	toggle: () => {
+		if (!soundEffect.enabled) return;
+		playSound('toggle');
+	}
+};

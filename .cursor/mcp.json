@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "mcp_excalidraw": {
+            "command": "bunx",
+            "args": [
+                "-y",
+                "excalidraw-mcp"
+            ]
+        }
+    }
+}
