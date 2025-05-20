@@ -13,7 +13,7 @@
 	// Function to copy citation to clipboard
 	function copyToClipboard() {
 		const citation = `@misc{Guybrush.ink2025,
-    title = {Guybrush.ink: Specialized Computer Vision and Diffusion Model Solutions},
+    title = {Guybrush.ink},
     url = {https://guybrush.ink},
     author = {Guybrush.ink Team},
     year = {2025},
@@ -296,7 +296,7 @@
 								</div>
 								<pre
 									class="m-0 overflow-auto bg-white p-4 font-mono text-sm text-gray-800 dark:bg-gray-900 dark:text-gray-300">@misc&#123;Guybrush.ink2025,
-    title = &#123;Guybrush.ink: Specialized Computer Vision and Diffusion Model Solutions&#125;,
+    title = &#123;Guybrush.ink&#125;,
     url = &#123;https://guybrush.ink&#125;,
     author = &#123;Guybrush.ink Team&#125;,
     year = &#123;2025&#125;,

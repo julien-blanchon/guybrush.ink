@@ -61,7 +61,7 @@
 					easing: 'ease-out'
 				},
 				{
-					duration: 500,
+					duration: 300,
 					easing: 'ease-in',
 					pseudoElement: isDark ? '::view-transition-old(root)' : '::view-transition-new(root)'
 				}
@@ -74,7 +74,7 @@
 		// Remove the class after a delay to avoid flickering
 		setTimeout(() => {
 			document.documentElement.classList.remove('view-transition-enabled');
-		}, 500);
+		}, 400);
 	}
 
 	let audioSwitch: boolean = $state(false);

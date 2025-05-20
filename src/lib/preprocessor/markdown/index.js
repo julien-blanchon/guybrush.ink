@@ -30,9 +30,65 @@ import {
 	transformerNotationHighlight,
 	transformerNotationMap,
 	transformerNotationWordHighlight,
-	transformerRenderWhitespace
+	// transformerRenderWhitespace,
+
 } from '@shikijs/transformers';
 import { transformerColorizedBrackets } from '@shikijs/colorized-brackets';
+/**
+ * Parses a meta string to extract the wrap setting.
+ * Example: 'nowrap'
+ *
+ * @param {string | undefined | null} meta - The meta string from the code block.
+ * @returns {boolean | null} - True if wrap is enabled, false if disabled, or null if not present.
+ */
+function parseMetaWrapString(meta) {
+	if (!meta) return null;
+	const match = meta.match(/nowrap/);
+	if (!match) return null;
+	return true;
+}
+
+const wrapSymbol = Symbol("nowrap");
+
+/**
+ * Shiki transformer that adds a class to the <pre> element depending on nowrap in the meta string.
+ * 
+ * @param {{
+*   wrapClass?: string,
+*   noWrapClass?: string
+* }} [options={}] - Optional class names for wrap/nowrap.
+* @returns {{
+*   name: string,
+*   pre(node: import('hast').Element): import('hast').Element | void
+* }} Transformer object compatible with Shiki.
+*/
+// @ts-ignore
+function transformerMetaWrap({ noWrapClass = "nowrap" } = {}) {
+  return {
+    name: "@shikijs/transformers:meta-wrap",
+	/**
+     * @this {import('@shikijs/core').ShikiTransformerContext}
+     * @param {import('hast').Element} node - The <pre> node.
+     * @returns {import('hast').Element | void}
+     */
+    pre(node) {
+      if (!this.options.meta?.__raw) return;
+
+      const meta = this.meta;
+      // @ts-ignore
+      meta[wrapSymbol] ??= parseMetaWrapString(this.options.meta.__raw);
+      // @ts-ignore
+      const wrapDisabled = meta[wrapSymbol];
+
+      if (wrapDisabled) {
+        this.addClassToHast(node, noWrapClass);
+      }
+
+      return node;
+    }
+  };
+}
+
 
 /** @type {import('rehype-pretty-code').Options} */
 const rehypePrettyCodeOptions = {
@@ -44,19 +100,22 @@ const rehypePrettyCodeOptions = {
 		block: 'plaintext',
 		inline: 'python'
 	},
+	// Disable inline code blocks
+	bypassInlineCode: true,
 	transformers: [
 		transformerNotationDiff(),
 		transformerNotationFocus(),
 		transformerMetaHighlight(),
 		transformerMetaWordHighlight(),
 		transformerColorizedBrackets(),
-		transformerRenderWhitespace(),
+		// transformerRenderWhitespace(),
 		transformerCopyButton(),
 		transformerCompactLineOptions(),
 		transformerNotationHighlight(),
 		transformerNotationWordHighlight(),
 		transformerNotationErrorLevel(),
-		transformerNotationMap()
+		transformerNotationMap(),
+		transformerMetaWrap()
 	],
 	onVisitTitle(node) {
 		const lang = node?.properties?.['data-language'] || 'plaintext';
@@ -136,7 +195,7 @@ const markdownProcessor = unified()
 	])
 	.use(remarkDirective)
 	.use(remarkImageDirective)
-	.use(remarkRehype, { allowDangerousHtml: true, math: true, clobberPrefix: 'footnote-' })
+	.use(remarkRehype, { allowDangerousHtml: true, math: true, clobberPrefix: 'footnote-', footnoteBackContent: "↩\u{FE0E}" })
 	.use(rehypePrettyCode, rehypePrettyCodeOptions)
 	.use([
 		[rehypeCallouts, { theme: 'github' }],
@@ -148,7 +207,7 @@ const markdownProcessor = unified()
 				behavior: 'append',
 				properties: {
 					class:
-						'icon-[lucide--hash] size-4 pl-6 hidden group-hover/title:inline-block align-text-bottom'
+						'icon-[lucide--hash] size-4 pl-6 hidden group-hover/title:inline-block '
 				}
 			}
 		],

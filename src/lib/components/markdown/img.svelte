@@ -36,19 +36,18 @@
 				{...props}
 			/>
 		</Zoom>
-		<figcaption
-			class="flex flex-col gap-2 text-center text-sm text-gray-600 italic dark:text-gray-400"
-		>
-			{alt}
+		<figcaption class="flex flex-col items-center justify-center gap-2">
+			<span class="text-sm text-gray-600 italic dark:text-gray-400">
+				{alt}
+			</span>
 			{#if isExcalidrawSvg}
 				<a
-					class="group text-xs text-gray-600 italic dark:text-gray-400"
-					href={`https://excalidraw.com/#url=${resolvedSrc}`}
+					class="inline-flex items-center gap-1 text-xs text-gray-600 italic underline dark:text-gray-400"
 					target="_blank"
+					href={`https://excalidraw.com/#url=${resolvedSrc}`}
 				>
-					Edit on <span class="font-bold">Excalidraw</span>
-					<span class="icon-[tabler--external-link] align-middle opacity-0 group-hover:opacity-100"
-					></span>
+					<span>Edit on</span>
+					<span class="icon-[vscode-icons--file-type-excalidraw] align-middle"></span>
 				</a>
 			{/if}
 		</figcaption>

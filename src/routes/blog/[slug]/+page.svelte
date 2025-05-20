@@ -264,7 +264,7 @@
 		</header>
 		<article>
 			<div
-				class="prose prose-base prose-headings:font-serif dark:prose-invert [&>section:nth-child(even)] [&>section:nth-child(odd)] prose-table:overflow-x-scroll prose-table:w-full prose-th:font-sans prose-hr:my-1 max-w-none pb-32"
+				class="prose prose-base prose-headings:font-serif dark:prose-invert [&>section:nth-child(even)] [&>section:nth-child(odd)] prose-table:overflow-x-scroll prose-table:w-full prose-th:font-sans prose-hr:my-1 prose-figure:mt-0 prose-figure:mb-2 prose-p:my-1 max-w-none pb-32"
 			>
 				{@render data.component()}
 			</div>

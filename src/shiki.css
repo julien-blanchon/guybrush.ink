@@ -1,97 +1,103 @@
 @import 'tailwindcss';
 
 /* Base styles for pretty-code figures */
-figure[data-rehype-pretty-code-figure] {
-	@apply my-4 overflow-x-auto;
+[data-rehype-pretty-code-figure] {
+	@apply overflow-x-auto;
 }
 
 /* Pre block inside figure */
-figure[data-rehype-pretty-code-figure] pre {
+[data-rehype-pretty-code-figure] pre {
 	@apply relative overflow-hidden rounded-lg rounded-t-lg border-2 border-gray-200 p-0 dark:border-gray-700;
 }
 
-figure[data-rehype-pretty-code-figure] pre:focus-visible {
+[data-rehype-pretty-code-figure] pre:focus-visible {
 	@apply ring-0 ring-offset-0 outline-none;
 }
 
 /* Code inside pre */
-figure[data-rehype-pretty-code-figure] code {
+[data-rehype-pretty-code-figure] code {
 	@apply overflow-x-auto p-0 text-xs antialiased md:text-sm;
 }
 
+span[data-rehype-pretty-code-figure] code {
+	@apply rounded-sm;
+}
+
 /* Reset line counter for code blocks */
-figure[data-rehype-pretty-code-figure] pre > code,
-figure[data-rehype-pretty-code-figure] code[data-line-numbers] {
+[data-rehype-pretty-code-figure] pre > code,
+[data-rehype-pretty-code-figure] code[data-line-numbers] {
 	counter-reset: line !important;
 	@apply py-4;
 }
 
 /* Line numbers before each line */
-figure[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
 	counter-increment: line;
 	content: counter(line);
 	@apply mr-2 inline-block w-4 border-r border-gray-400 pr-4 text-right font-mono text-gray-500 dark:border-gray-600 dark:text-gray-400;
 }
 
 /* Line styling */
-figure[data-rehype-pretty-code-figure] pre [data-line] {
+[data-rehype-pretty-code-figure] pre [data-line] {
 	@apply border-l-2 border-l-transparent px-4;
 }
 
 /* Highlighted line */
-figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
+[data-rehype-pretty-code-figure] [data-highlighted-line],
+span.highlighted {
 	/* background: rgba(200, 200, 255, 0.1); */
 	@apply bg-blue-400/10;
 }
-figure[data-rehype-pretty-code-figure] [data-highlighted-line]::before {
+[data-rehype-pretty-code-figure] [data-highlighted-line]::before,
+span.highlighted::before {
 	content: '';
 	@apply absolute top-0 -left-0.5 h-full w-0.5 bg-blue-400;
 }
 
 /* Highlighted characters */
-figure[data-rehype-pretty-code-figure] [data-highlighted-chars] {
+[data-rehype-pretty-code-figure] [data-highlighted-chars] {
 	@apply mx-1 rounded-sm bg-zinc-600/50 shadow-none;
 	box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
 }
 
-figure[data-rehype-pretty-code-figure] [data-highlighted-chars] span {
+[data-rehype-pretty-code-figure] [data-highlighted-chars] span {
 	background-color: unset !important;
 	z-index: 1;
 }
 
 /* Chars with IDs */
-figure[data-rehype-pretty-code-figure] [data-chars-id] {
+[data-rehype-pretty-code-figure] [data-chars-id] {
 	@apply border-b-2 p-1 shadow-none;
 }
 
-figure[data-rehype-pretty-code-figure] [data-chars-id] span {
+[data-rehype-pretty-code-figure] [data-chars-id] span {
 	@apply !text-inherit;
 	background-color: unset !important;
 }
 
 /* Special colored characters based on ID */
-figure[data-rehype-pretty-code-figure] [data-chars-id='v'] {
+[data-rehype-pretty-code-figure] [data-chars-id='v'] {
 	@apply border-b-pink-600 bg-rose-800/50 font-bold !text-pink-300;
 }
 
-figure[data-rehype-pretty-code-figure] [data-chars-id='s'] {
+[data-rehype-pretty-code-figure] [data-chars-id='s'] {
 	@apply border-b-yellow-600 bg-yellow-800/50 font-bold !text-yellow-300;
 }
 
-figure[data-rehype-pretty-code-figure] [data-chars-id='i'] {
+[data-rehype-pretty-code-figure] [data-chars-id='i'] {
 	@apply border-b-purple-600 bg-purple-800/50 font-bold !text-purple-200;
 }
 
 /* Remove rounded top if there's a title */
-figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title]) pre {
+[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title]) pre {
 	@apply !rounded-t-none;
 }
 
-figcaption[data-rehype-pretty-code-title] {
+[data-rehype-pretty-code-title] {
 	@apply flex items-center justify-start rounded-t-lg border-2 border-b-0 border-gray-200 px-4 py-2 text-sm font-medium dark:border-gray-700;
 }
 
-html figcaption[data-rehype-pretty-code-title] {
+html [data-rehype-pretty-code-title] {
 	color: #000;
 	background-color: #fff;
 	/* Flex with a gap */
@@ -99,7 +105,7 @@ html figcaption[data-rehype-pretty-code-title] {
 	gap: 0.5rem;
 }
 
-html.dark figcaption[data-rehype-pretty-code-title] {
+html.dark [data-rehype-pretty-code-title] {
 	background-color: #222222;
 	color: #fff;
 	display: flex;
@@ -107,12 +113,12 @@ html.dark figcaption[data-rehype-pretty-code-title] {
 }
 
 /* Shiki themes */
-html figure[data-rehype-pretty-code-figure] code[data-theme*=' '] span {
+html [data-rehype-pretty-code-figure] code[data-theme*=' '] span {
 	color: var(--shiki-light);
 	/* background-color: var(--shiki-light-bg); */
 }
 
-html.dark figure[data-rehype-pretty-code-figure] code[data-theme*=' '] span {
+html.dark [data-rehype-pretty-code-figure] code[data-theme*=' '] span {
 	color: var(--shiki-dark) !important;
 	/* background-color: var(--shiki-dark-bg) !important; */
 	font-style: var(--shiki-dark-font-style) !important;
@@ -120,16 +126,16 @@ html.dark figure[data-rehype-pretty-code-figure] code[data-theme*=' '] span {
 	text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
-html figure[data-rehype-pretty-code-figure] code[data-theme*=' '] {
+html [data-rehype-pretty-code-figure] code[data-theme*=' '] {
 	background-color: var(--shiki-light-bg);
 }
 
-html.dark figure[data-rehype-pretty-code-figure] code[data-theme*=' '] {
+html.dark [data-rehype-pretty-code-figure] code[data-theme*=' '] {
 	background-color: var(--shiki-dark-bg) !important;
 }
 
 /* Link styling inside code blocks */
-figure[data-rehype-pretty-code-figure] a {
+[data-rehype-pretty-code-figure] a {
 	text-decoration: none;
 	border-bottom: 1px solid theme('colors.pink.300');
 	color: theme('colors.pink.200');
@@ -142,7 +148,7 @@ figure[data-rehype-pretty-code-figure] a {
 	box-shadow: 0 0 0 0.2rem transparent;
 }
 
-figure[data-rehype-pretty-code-figure] a:hover {
+[data-rehype-pretty-code-figure] a:hover {
 	/* color: theme('colors.zinc.900'); */
 	/* border-bottom-color: theme('colors.pink.200'); */
 	/* background: theme('colors.pink.200'); */
@@ -151,11 +157,11 @@ figure[data-rehype-pretty-code-figure] a:hover {
 }
 
 /* Headings with links inside code blocks */
-figure[data-rehype-pretty-code-figure] h2 a,
-figure[data-rehype-pretty-code-figure] h3 a,
-figure[data-rehype-pretty-code-figure] h4 a,
-figure[data-rehype-pretty-code-figure] h5 a,
-figure[data-rehype-pretty-code-figure] h6 a {
+[data-rehype-pretty-code-figure] h2 a,
+[data-rehype-pretty-code-figure] h3 a,
+[data-rehype-pretty-code-figure] h4 a,
+[data-rehype-pretty-code-figure] h5 a,
+[data-rehype-pretty-code-figure] h6 a {
 	/* color: theme('colors.gray.100'); */
 	/* border-bottom-color: transparent; */
 	/* border-radius: 0.1875rem; */
@@ -164,26 +170,26 @@ figure[data-rehype-pretty-code-figure] h6 a {
 }
 
 /* Special styling for h3 links with code */
-figure[data-rehype-pretty-code-figure] h3 a:has(code) {
+[data-rehype-pretty-code-figure] h3 a:has(code) {
 	box-shadow: 0 0 0 0.3rem transparent;
 }
 
-figure[data-rehype-pretty-code-figure] h3 a:has(code):hover {
+[data-rehype-pretty-code-figure] h3 a:has(code):hover {
 	/* background: theme('colors.teal.900'); */
 	@apply bg-teal-900;
 	box-shadow: 0 0 0 0.3rem theme('colors.teal.900');
 }
 
 /* Blockquotes */
-figure[data-rehype-pretty-code-figure] blockquote {
+[data-rehype-pretty-code-figure] blockquote {
 	/* font-size: 90%;
 	color: theme('colors.zinc.500');
 	border-left-color: theme('colors.zinc.700'); */
 	@apply border-l-zinc-700 text-sm text-zinc-500;
 }
 
-figure[data-rehype-pretty-code-figure] blockquote p::before,
-figure[data-rehype-pretty-code-figure] blockquote p::after {
+[data-rehype-pretty-code-figure] blockquote p::before,
+[data-rehype-pretty-code-figure] blockquote p::after {
 	/* display: none; */
 	@apply hidden;
 }
@@ -208,7 +214,7 @@ code[data-line-numbers-max-digits='4'] > [data-line]::before {
 }
 
 /* Line styling hover effect */
-figure[data-rehype-pretty-code-figure] pre [data-line]:hover {
+[data-rehype-pretty-code-figure] pre [data-line]:hover {
 	@apply bg-zinc-800/10;
 }
 
@@ -216,14 +222,14 @@ figure[data-rehype-pretty-code-figure] pre [data-line]:hover {
 
 /* Shiki Transformers */
 
-figure[data-rehype-pretty-code-figure] .diff.add {
+[data-rehype-pretty-code-figure] .diff.add {
 	@apply relative bg-green-500/20;
 	&::before {
 		@apply absolute top-0 left-0 text-green-500 content-['+'];
 	}
 }
 
-figure[data-rehype-pretty-code-figure] .diff.remove {
+[data-rehype-pretty-code-figure] .diff.remove {
 	@apply relative bg-red-500/20;
 	&::before {
 		@apply absolute top-0 left-0 text-red-500 content-['-'];
@@ -231,24 +237,24 @@ figure[data-rehype-pretty-code-figure] .diff.remove {
 }
 
 /* Container must be relative */
-figure[data-rehype-pretty-code-figure] pre code > span {
+[data-rehype-pretty-code-figure] pre code > span {
 	@apply relative pl-2;
 }
 
 /* Warning highlight */
-figure[data-rehype-pretty-code-figure] .highlighted.warning {
+[data-rehype-pretty-code-figure] .highlighted.warning {
 	@apply bg-yellow-100/50 dark:bg-yellow-900/50;
 }
-figure[data-rehype-pretty-code-figure] .highlighted.warning::before {
+[data-rehype-pretty-code-figure] .highlighted.warning::before {
 	content: '';
 	@apply absolute top-0 -left-0.5 h-full w-0.5 bg-yellow-400;
 }
 
 /* Error highlight */
-figure[data-rehype-pretty-code-figure] .highlighted.error {
+[data-rehype-pretty-code-figure] .highlighted.error {
 	@apply bg-red-100/50 dark:bg-red-900/50;
 }
-figure[data-rehype-pretty-code-figure] .highlighted.error::before {
+[data-rehype-pretty-code-figure] .highlighted.error::before {
 	content: '';
 	@apply absolute top-0 -left-0.5 h-full w-0.5 bg-red-400;
 }
@@ -393,23 +399,14 @@ pre.shiki_pre.has-focused {
 	}
 }
 
-/* Special Characters in Code Blocks */
-.shiki_pre {
-	.tab,
-	.space {
-		position: relative;
+/* Apply to all pre > code blocks that do NOT have the 'nowrap' class */
+pre:not(.nowrap) code {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    min-width: 20ch;
+}
 
-		&:before {
-			position: absolute;
-			opacity: 0.3;
-		}
-	}
-
-	.tab:before {
-		content: '⇥';
-	}
-
-	.space:before {
-		content: '·';
-	}
+/* Ensure indentation spans inside those blocks don't wrap */
+pre:not(.nowrap) code span.indent {
+    white-space: pre;
 }

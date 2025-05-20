@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "eliostruyf.vscode-front-matter",
+        "wallabyjs.console-ninja",
+        "pomdtr.excalidraw-editor",
+        "yzhang.markdown-all-in-one",
+        "bradlc.vscode-tailwindcss",
+        "svelte.svelte-vscode"
+    ]
+}
