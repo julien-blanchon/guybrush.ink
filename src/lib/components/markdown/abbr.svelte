@@ -11,9 +11,9 @@
 	let { children, title, ...props }: Props = $props();
 </script>
 
-<Hover aspectRatio={8 / 1} height={50} delta={15} delay={100} duration={200}>
+<Hover maxWidth={800} delta={25} delay={100} duration={200} width={400}>
 	{#snippet hover()}
-		<div class="h-full rounded-md bg-white p-3 shadow-md dark:bg-gray-800">
+		<div class="h-full w-full rounded-md bg-white p-3 shadow-md dark:bg-gray-800">
 			{title}
 		</div>
 	{/snippet}

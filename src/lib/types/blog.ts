@@ -5,6 +5,7 @@ export const postSchema = z.object({
 	description: z.string().optional(),
 	slug: z.string(),
 	date: z.string(),
+	lastmod: z.string().optional(),
 	categories: z.array(z.string()),
 	published: z.boolean().default(true),
 });

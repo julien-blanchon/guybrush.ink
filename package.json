@@ -17,6 +17,7 @@
 	"devDependencies": {
 		"@eslint/compat": "^1.2.9",
 		"@eslint/js": "^9.26.0",
+		"@frontmatter/extensibility": "^0.0.18",
 		"@iconify/json": "^2.2.336",
 		"@iconify/tailwind4": "^1.0.6",
 		"@melt-ui/pp": "^0.3.2",

@@ -9,7 +9,8 @@
         {
           "title": "Title",
           "name": "title",
-          "type": "string"
+          "type": "string",
+          "single": true
         },
         {
           "title": "Description",
@@ -27,11 +28,6 @@
           "title": "Slug",
           "name": "slug",
           "type": "string"
-        },
-        {
-          "title": "Date",
-          "name": "date",
-          "type": "datetime"
         },
         {
           "title": "Is it published",
@@ -71,6 +67,7 @@
     "type": "boolean",
     "invert": true
   },
+  "frontMatter.content.wysiwyg": false,
   "frontMatter.templates.enabled": true,
   "frontMatter.templates.folder": ".frontmatter/templates",
   "frontMatter.content.fmHighlight": true,
@@ -95,6 +92,14 @@
     {
       "title": "Year",
       "name": "date|yyyy"
+    }
+  ],
+  "frontMatter.custom.scripts": [
+    {
+      "title": "Optimize media",
+      "script": "./.frontmatter/scripts/media-all.mjs",
+      "command": "bun",
+      "type": "mediaFile"
     }
   ]
 }

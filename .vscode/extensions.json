@@ -5,6 +5,7 @@
         "pomdtr.excalidraw-editor",
         "yzhang.markdown-all-in-one",
         "bradlc.vscode-tailwindcss",
-        "svelte.svelte-vscode"
+        "svelte.svelte-vscode",
+        "antfu.browse-lite"
     ]
 }

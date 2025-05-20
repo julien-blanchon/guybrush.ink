@@ -15,7 +15,9 @@
 	} = createTableOfContents({
 		selector: '#article-content',
 		exclude: [],
-		activeType: 'highest'
+		activeType: 'highest',
+		scrollBehaviour: 'smooth',
+		scrollOffset: 50
 	});
 
 	let isSidebarOpen = $state(false);
@@ -222,12 +224,15 @@
 					{data.frontmatter.subtitle}
 				</p>
 			{/if}
-			<p
-				class="mb-1 flex items-center gap-2 text-sm font-light text-gray-400"
-				aria-label="Published date"
-			>
-				Published on {formatDate(data.frontmatter.date)}
-				<span class="mx-1 align-middle text-base leading-none">&middot;</span>
+			<p class="mb-1 text-sm font-light text-gray-400" aria-label="Published date">
+				Published on <time datetime={data.frontmatter.date}
+					>{formatDate(data.frontmatter.date)}</time
+				>
+				{#if data.frontmatter.lastmod}
+					<span>&middot; Last updated: </span>
+					<time datetime={data.frontmatter.lastmod}>{formatDate(data.frontmatter.lastmod)}</time>
+				{/if}
+				<span>&middot; </span>
 				<a
 					href={`https://github.com/julien-blanchon/guybrush.ink/edit/main/src/posts/${data.frontmatter.slug}/README.md`}
 					target="_blank"
@@ -236,6 +241,7 @@
 				>
 					Edit on Github
 				</a>
+				<span>&middot; </span>
 				<a
 					href={`/blog/${data.frontmatter.slug}/llms.txt`}
 					target="_blank"
@@ -243,8 +249,6 @@
 					class="text-sm text-blue-500 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 dark:text-blue-300 dark:focus-visible:ring-blue-600"
 				>
 					llms.txt
-					<span class="icon-[heroicons--arrow-top-right-on-square-solid] size-4" aria-hidden="true"
-					></span>
 				</a>
 			</p>
 			<div class="mb-2 flex flex-wrap gap-1" aria-label="Categories">
@@ -269,21 +273,26 @@
 				{@render data.component()}
 			</div>
 		</article>
-		<Giscus
-			id="comments"
-			repo="julien-blanchon/guybrush.ink"
-			repoId="R_kgDOOoymBQ"
-			category="General"
-			categoryId="DIC_kwDOOoymBc4CqGTK"
-			mapping="title"
-			strict="0"
-			term="Welcome to @giscus/svelte component!"
-			reactionsEnabled="1"
-			emitMetadata="0"
-			inputPosition="top"
-			theme={mode.current === 'dark' ? 'gruvbox_dark' : 'gruvbox_light'}
-			lang="en"
-			loading="lazy"
-		/>
+		<section>
+			<h2 class="sr-only text-2xl font-bold" aria-label="Comments" id="comments-title">Comments</h2>
+			<span>
+				<Giscus
+					id="comments"
+					repo="julien-blanchon/guybrush.ink"
+					repoId="R_kgDOOoymBQ"
+					category="General"
+					categoryId="DIC_kwDOOoymBc4CqGTK"
+					mapping="title"
+					strict="0"
+					term="Welcome to @giscus/svelte component!"
+					reactionsEnabled="1"
+					emitMetadata="0"
+					inputPosition="top"
+					theme={mode.current === 'dark' ? 'gruvbox_dark' : 'gruvbox_light'}
+					lang="en"
+					loading="lazy"
+				/>
+			</span>
+		</section>
 	</div>
 </div>

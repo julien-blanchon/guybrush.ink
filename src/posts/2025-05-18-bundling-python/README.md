@@ -2,7 +2,8 @@
 title: Bundling a Python application in a single binary with box and PyApp
 description: A guide to bundling a Python application in a single binary with box and PyApp.
 slug: 2025-05-18-bundling-python
-date: 2025-05-18
+date: '2025-05-18'
+lastmod: '2025-05-20'
 published: true
 categories:
   - python
@@ -32,7 +33,7 @@ Shipping a single binary has several advantages:
 Unlike traditional bundlers like PyInstaller or shiv, [PyApp](https://github.com/ofek/pyapp) doesn’t package Python and your dependencies all together at build time. Instead, it:
 
 1. **Compiles a minimal binary** with:
-   - a stripped-down Python runtime (via [Cython](https://cython.org/))
+   - a minimal Python runtime (via [Cython](https://cython.org/))
    - a package manager (`uv`)
    - a list of your project dependencies
 2. On **first launch**, the binary unpacks the runtime and installs your dependencies locally (just once)
@@ -150,7 +151,7 @@ Let’s say you’re building a desktop app (for example, with Tauri) and you wa
 
 In [Montelimar](https://github.com/MostlikelyAI/montelimar), I use `box` to bundle Python inference logic for [Nougat](https://github.com/facebookresearch/nougat) as a **sidecar**. In Tauri, a sidecar is an external binary shipped alongside your main Rust/JS app, often used for tasks like ML inference or system integration.
 
-![Figure 2: Tauri Sidecar Architecture](./images/figure2.excalidraw.svg){width=300px}
+![Figure 2: Tauri Sidecar Architecture](./images/figure2.excalidraw.svg)
 
 **How it works:**
 - The Python FastAPI server is bundled as a single binary with `box`
@@ -232,7 +233,7 @@ This produces fully-typed TypeScript definitions and fetch clients, ensuring you
    bunx @hey-api/openapi-ts -i openapi.json -o src/lib/python/client -c @hey-api/client-fetch
    ```
 2. Import and use the generated functions in your frontend:
-   ```ts
+   ```ts "/* your request data fully typed! */" "res.data"
    import { someApiEndpoint } from '@/python/client/sdk.gen';
 
    // Example usage
@@ -241,7 +242,7 @@ This produces fully-typed TypeScript definitions and fetch clients, ensuring you
      baseUrl: 'http://localhost:7771',
      // fetch: customFetch // e.g., window.fetch, tauriFetch, etc.
    }).then((res) => {
-     // res.data is also fully typed!
+     // results data is also fully typed!
      console.log(res.data);
    });
    ```
