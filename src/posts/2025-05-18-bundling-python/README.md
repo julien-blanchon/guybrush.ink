@@ -2,7 +2,7 @@
 title: Bundling a Python application in a single binary with box and PyApp
 description: A guide to bundling a Python application in a single binary with box and PyApp.
 slug: 2025-05-18-bundling-python
-date: '2025-05-18'
+date: 2025-05-18
 published: true
 categories:
   - python

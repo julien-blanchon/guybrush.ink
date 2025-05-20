@@ -4,7 +4,7 @@
     {
       "name": "default",
       "pageBundle": true,
-      "previewPath": "http://localhost:5173/blog/",
+      "previewPath": "/blog/",
       "fields": [
         {
           "title": "Title",
@@ -59,9 +59,11 @@
     "path": "src/assets",
     "relative": true
   },
-  "frontMatter.content.supportedFileTypes": ["md"],
+  "frontMatter.content.supportedFileTypes": [
+    "md"
+  ],
   "frontMatter.preview.host": "http://localhost:5173",
   "frontMatter.preview.pathName": "blog",
   "frontMatter.site.baseURL": "https://guybrush.ink",
-  
+  "frontMatter.website.host": "https://guybrush.ink"
 }
