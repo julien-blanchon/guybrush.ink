@@ -65,5 +65,36 @@
   "frontMatter.preview.host": "http://localhost:5173",
   "frontMatter.preview.pathName": "blog",
   "frontMatter.site.baseURL": "https://guybrush.ink",
-  "frontMatter.website.host": "https://guybrush.ink"
+  "frontMatter.website.host": "https://guybrush.ink",
+  "frontMatter.content.draftField": {
+    "name": "published",
+    "type": "boolean",
+    "invert": true
+  },
+  "frontMatter.templates.enabled": true,
+  "frontMatter.templates.folder": ".frontmatter/templates",
+  "frontMatter.content.fmHighlight": true,
+  "frontMatter.content.placeholders": [
+    {
+      "id": "author",
+      "value": "Julien Blanchon"
+    }
+  ],
+  "frontMatter.taxonomy.seoDescriptionLength": 160,
+  "frontMatter.taxonomy.seoTitleLength": 75,
+  "frontMatter.taxonomy.seoSlugLength": 75,
+  "frontMatter.content.grouping": [
+    {
+      "title": "Date",
+      "name": "date"
+    },
+    {
+      "title": "Category",
+      "name": "categories"
+    },
+    {
+      "title": "Year",
+      "name": "date|yyyy"
+    }
+  ]
 }
