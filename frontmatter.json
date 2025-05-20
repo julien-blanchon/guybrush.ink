@@ -3,8 +3,8 @@
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "default",
-      "pageBundle": false,
-      "previewPath": null,
+      "pageBundle": true,
+      "previewPath": "http://localhost:5173/blog/",
       "fields": [
         {
           "title": "Title",
@@ -24,19 +24,19 @@
           "isPublishDate": true
         },
         {
-          "title": "Content preview",
-          "name": "preview",
-          "type": "image"
+          "title": "Slug",
+          "name": "slug",
+          "type": "string"
         },
         {
-          "title": "Is in draft",
-          "name": "draft",
-          "type": "draft"
+          "title": "Date",
+          "name": "date",
+          "type": "datetime"
         },
         {
-          "title": "Tags",
-          "name": "tags",
-          "type": "tags"
+          "title": "Is it published",
+          "name": "published",
+          "type": "boolean"
         },
         {
           "title": "Categories",
@@ -47,16 +47,21 @@
     }
   ],
   "frontMatter.framework.id": "other",
-  "frontMatter.content.publicFolder": "",
+  "frontMatter.framework.startCommand": "bun run dev",
+  "frontMatter.git.enabled": true,
   "frontMatter.content.pageFolders": [
     {
-      "title": "2025-05-20-showcase-syntax",
-      "path": "[[workspace]]/src/posts/2025-05-20-showcase-syntax"
-    },
-    {
-      "title": "2025-05-18-bundling-python",
-      "path": "[[workspace]]/src/posts/2025-05-18-bundling-python"
+      "title": "Blog",
+      "path": "[[workspace]]/src/posts/"
     }
   ],
-  "frontMatter.git.enabled": true
+  "frontMatter.content.publicFolder": {
+    "path": "src/assets",
+    "relative": true
+  },
+  "frontMatter.content.supportedFileTypes": ["md"],
+  "frontMatter.preview.host": "http://localhost:5173",
+  "frontMatter.preview.pathName": "blog",
+  "frontMatter.site.baseURL": "https://guybrush.ink",
+  
 }
