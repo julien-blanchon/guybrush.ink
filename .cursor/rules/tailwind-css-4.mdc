@@ -1,0 +1,165 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Tailwind CSS 4 Rules
+globs: ["*.html", "*.css", "*.svelte", "tailwind.config.*"]
+alwaysApply: false
+---
+
+# Tailwind CSS 4 Guidelines
+
+## CSS-First Configuration
+
+```css
+/* WRONG */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* RIGHT */
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Satoshi", sans-serif;
+  --color-avocado-500: oklch(0.84 0.18 117.33);
+}
+````
+
+To use old config files:
+
+```css
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+```
+
+## Package Changes
+
+```sh
+# WRONG
+npm install tailwindcss
+
+# RIGHT
+npm install @tailwindcss/cli @tailwindcss/vite @tailwindcss/postcss
+```
+
+PostCSS plugins like `postcss-import` and `autoprefixer` are no longer needed.
+
+## Theme Configuration
+
+* Use `var(--color-blue-500)` instead of `theme()` function.
+* Class tokens are exposed as CSS variables (e.g. `--color-*`, `--font-*`, `--spacing-*`, etc).
+* Default spacing scale is dynamic from `--spacing`.
+
+```css
+/* Override full theme or category */
+--*: initial;
+--font-*: initial;
+```
+
+## Utility Changes
+
+```html
+<!-- WRONG -->
+<div class="bg-opacity-50 text-opacity-70 shadow-sm">
+
+<!-- RIGHT -->
+<div class="bg-black/50 text-black/70 shadow-xs">
+```
+
+Renamed classes:
+
+* `shadow-sm` → `shadow-xs`
+* `drop-shadow-sm` → `drop-shadow-xs`
+* `blur-sm` → `blur-xs`
+* `rounded-sm` → `rounded-xs`
+* `outline-none` → `outline-hidden`
+
+## Native Features
+
+* Native `@layer`, no Tailwind-specific layering
+* Native `@container`, `@sm:`, `@max-md:` syntax for container queries
+
+## 3D Transforms
+
+```html
+<div class="transform-3d rotate-x-12 scale-z-110 perspective-near backface-hidden">
+```
+
+## Gradient Improvements
+
+```html
+<!-- Linear angle -->
+<div class="bg-linear-45">
+
+<!-- Interpolation models -->
+<div class="bg-linear-to-r/oklch">
+```
+
+## Custom Utilities & Variants
+
+```css
+@utility tab-4 {
+  tab-size: 4;
+}
+
+@variant pointer-coarse (@media (pointer: coarse));
+```
+
+## Composable and New Variants
+
+```html
+<!-- Chainable -->
+<div class="group-has-data-ready:opacity-100">
+
+<!-- New -->
+<div class="nth-3:bg-blue-500 inert:opacity-30 open:popover:bg-green-300">
+```
+
+## Breaking Changes
+
+* Stacked variants apply left-to-right now
+* Arbitrary values: use `bg-(--my-color)` not `bg-[--my-color]`
+* `hover:` only applies if device supports it (`@media (hover: hover)`)
+
+## Prefixing (Optional)
+
+```css
+@import "tailwindcss" prefix(tw);
+/* use: <div class="tw:flex tw:text-xl"> */
+```
+
+## Source Detection
+
+```css
+@source "../node_modules/@my-lib/ui";
+@import "tailwindcss" source(none);
+```
+
+## Dark Mode Variant
+
+```css
+@variant dark (&:where(.dark, .dark *));
+```
+
+## Container Utility Example
+
+```css
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+```
+
+## Using `@apply` in Svelte
+
+```css
+@import "tailwindcss";
+@import "../../theme.css" theme(reference);
+
+h1 {
+  @apply font-bold text-2xl text-blue-500;
+}
+```

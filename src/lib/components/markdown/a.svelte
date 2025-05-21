@@ -42,34 +42,13 @@
 	}
 </script>
 
-{#if props['aria-label'] !== undefined}
-	<Hover aspectRatio={1 / 1} height={400} delta={50}>
-		{#snippet hover()}
-			<div class="flex aspect-video items-center justify-center">
-				<video
-					class="object-cover"
-					autoplay
-					muted
-					loop
-					playsinline
-					aria-label="Virtual staging demo video"
-				>
-					<source src="/projects/virtualstaging/demo.mp4" type="video/mp4" />
-					<source src="/projects/virtualstaging/demo.webm" type="video/webm" />
-				</video>
-			</div>
-		{/snippet}
-		{#snippet button()}
-			<a {...props}>{@render children()}</a>
-		{/snippet}
-	</Hover>
-{:else if ariaHidden}
+{#if ariaHidden}
 	<a {...props} class={className}>{@render children()}</a>
 {:else if props['href']?.includes('http')}
 	<a
 		{...props}
 		class={[
-			'underline decoration-solid underline-offset-1',
+			'break-keep underline decoration-solid underline-offset-1',
 			'after:ml-1 after:inline-block after:rotate-0 after:align-baseline after:transition-transform after:duration-100 after:content-["↗"] hover:after:rotate-45',
 			getColor(props['href'] ?? ''),
 			className

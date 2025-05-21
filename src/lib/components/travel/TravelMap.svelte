@@ -89,7 +89,7 @@
 	});
 </script>
 
-<div class="flex h-[500px] flex-col gap-4 py-10">
+<div class="flex h-[500px] flex-col gap-4 pt-10">
 	<Chart
 		geo={{ projection: geoOrthographic, fitGeojson: countries, applyTransform: ['rotate'] }}
 		let:tooltip
@@ -206,7 +206,7 @@
 	</Chart>
 
 	<!-- Legend -->
-	<div class="mb-4 flex w-full items-center justify-center gap-6">
+	<div class="mb-4 flex w-full flex-wrap items-center justify-center gap-4">
 		<div class="flex items-center gap-2">
 			<span class="inline-block aspect-square size-4 rounded border-2 border-green-700 bg-green-500"
 			></span>

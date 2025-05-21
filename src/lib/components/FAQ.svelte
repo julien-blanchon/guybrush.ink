@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Accordion } from 'bits-ui';
+
 	type Item = {
 		title: string;
 		content: string;

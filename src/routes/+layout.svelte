@@ -169,6 +169,7 @@
 	});
 
 	import { onNavigate } from '$app/navigation';
+	import MetaTags from '$lib/components/MetaTags.svelte';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -183,6 +184,7 @@
 </script>
 
 <!-- Preload header background images -->
+<MetaTags />
 <svelte:head>
 	{#if selectedPair}
 		<link

@@ -40,7 +40,7 @@
 	<SoundSwitch />
 	<Command {selectedPair} />
 </header>
-<section class="animate-in fade-in zoom-in-0 h-64 pb-6 duration-700">
+<section class="animate-in fade-in zoom-in-0 h-full pb-6 duration-700">
 	{#if !commandState.open}
 		<div
 			class="group/header border-coffee-500 bg-coffee-200 relative z-50 origin-bottom overflow-hidden rounded-lg border p-4 text-pretty shadow-sm duration-300 ease-in-out hover:scale-[1.01] hover:shadow-lg hover:shadow-stone-400 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-gray-900"

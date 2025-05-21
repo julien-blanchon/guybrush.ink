@@ -182,7 +182,10 @@
 					</h2>
 					<button
 						onclick={toggleSidebar}
-						class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100/80 text-gray-500 duration-200 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 active:bg-gray-100 dark:bg-gray-800/80 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-600 dark:active:bg-gray-900"
+						class={[
+							'flex h-8 w-8 items-center justify-center rounded-full bg-gray-100/80 text-gray-500 duration-200 hover:bg-gray-200',
+							'border focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 active:bg-gray-100 dark:bg-gray-800/80 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-600 dark:active:bg-gray-900'
+						]}
 						aria-label="Hide table of contents"
 					>
 						<span class="icon-[heroicons--chevron-double-right-solid] size-5" aria-hidden="true"

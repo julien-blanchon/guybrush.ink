@@ -743,9 +743,3 @@ body {
 	}
 }
 
-/* Inline code styling: only apply to code not inside pre or rehype-pretty-code figures */
-:not(pre):not([data-rehype-pretty-code-figure]) > code {
-	font-style: italic;
-	font-size: 0.95em;
-	white-space: pre-wrap;
-}

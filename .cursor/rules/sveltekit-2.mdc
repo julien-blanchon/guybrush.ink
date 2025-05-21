@@ -1,0 +1,163 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: SvelteKit 2 Rules
+globs: ["*.svelte", "*.svelte.js", "*.svelte.ts", "+*.*", "svelte.config.*"]
+alwaysApply: false
+---
+
+# SvelteKit 2 Guidelines
+
+## Redirect and Error Handling
+
+```ts
+// WRONG
+throw error(500, 'Something went wrong');
+
+// RIGHT
+error(500, 'Something went wrong');
+````
+
+Avoid using inside `try` blocks.
+
+## Cookie `path` Required
+
+```ts
+// WRONG
+cookies.set('name', 'value');
+
+// RIGHT
+cookies.set('name', 'value', { path: '/' });
+```
+
+## Top-Level Promises Must Be Awaited
+
+```ts
+// WRONG
+export function load() {
+  const data = fetch('/api');
+  return { data };
+}
+
+// RIGHT
+export async function load() {
+  const data = await fetch('/api');
+  return { data };
+}
+```
+
+For multiple:
+
+```ts
+// RIGHT
+const [a, b] = await Promise.all([ fetch(url1), fetch(url2) ]);
+```
+
+## `goto()` for Internal URLs Only
+
+Use `window.location.href = url` for external navigation.
+
+## Relative Paths by Default
+
+No changes needed if you used `paths.relative = true` before.
+
+## Server Fetches Are Not Tracked
+
+Tracking of server fetches is removed. No action required unless you depended on `dangerZone.trackServerFetches`.
+
+## `preloadCode` Must Use `base`
+
+```ts
+// WRONG
+preloadCode('/path');
+
+// RIGHT
+preloadCode(base + '/path');
+```
+
+## `resolvePath` Replaced with `resolveRoute`
+
+```ts
+// WRONG
+import { resolvePath } from '@sveltejs/kit';
+const path = base + resolvePath('/blog/[slug]', { slug });
+
+// RIGHT
+import { resolveRoute } from '$app/paths';
+const path = resolveRoute('/blog/[slug]', { slug });
+```
+
+## Better Error Hook
+
+`handleError` now gets `status` and `message`. Use `message` for safe display.
+
+## No Dynamic Env in Prerender
+
+Use `$env/static/public` instead of `$env/dynamic/public` during prerendering.
+
+## `use:enhance` Callback Cleanup
+
+```ts
+// WRONG
+enhance(() => ({ form, data }));
+
+// RIGHT
+enhance(() => ({ formElement, formData }));
+```
+
+## File Inputs Require Multipart
+
+```html
+<!-- WRONG -->
+<form><input type="file"></form>
+
+<!-- RIGHT -->
+<form enctype="multipart/form-data"><input type="file"></form>
+```
+
+## Stricter `tsconfig.json`
+
+Don't use `paths` or `baseUrl`. Use `alias` in `svelte.config.js` instead.
+
+## `getRequest` Throws Later
+
+Errors from `getRequest` are deferred to body reading time.
+
+## `vitePreprocess` Must Be Imported Directly
+
+```ts
+// WRONG
+import { vitePreprocess } from '@sveltejs/kit/vite';
+
+// RIGHT
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+```
+
+## Dependency Requirements
+
+* `node >= 18.13`
+* `svelte@4`
+* `vite@5`
+* `typescript@5`
+* `@sveltejs/vite-plugin-svelte@3`
+
+Use `moduleResolution: 'bundler'` and `verbatimModuleSyntax` in tsconfig.
+
+## `$app/stores` Deprecated
+
+```svelte
+<!-- WRONG -->
+<script>
+  import { page } from '$app/stores';
+</script>
+{$page.data}
+
+<!-- RIGHT -->
+<script>
+  import { page } from '$app/state';
+</script>
+{page.data}
+```

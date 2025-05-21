@@ -30,6 +30,15 @@
 					<span class="icon-[lucide--twitter] h-5 w-5"></span>
 				</a>
 				<a
+					href="https://bsky.app/profile/julienblanchon.bsky.social"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-coffee-600 hover:text-coffee-900 transition-colors dark:text-gray-400 dark:hover:text-white"
+					aria-label="Bluesky"
+				>
+					<span class="icon-[hugeicons--bluesky] h-5 w-5"></span>
+				</a>
+				<a
 					href="https://www.linkedin.com/in/julien-blanchon"
 					target="_blank"
 					rel="noopener noreferrer"

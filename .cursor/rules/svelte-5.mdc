@@ -1,0 +1,214 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Svelte 5 Runes Rules
+globs: ["*.svelte", "*.svelte.js", "*.svelte.ts"]
+alwaysApply: false
+---
+
+# Svelte 5 Guidelines
+
+## File Types
+
+Runes can only be used in:
+- `.svelte`
+- `.svelte.js`
+- `.svelte.ts`
+
+Regular `.js` or `.ts` files will not work.
+
+## Do Not Import Runes
+
+```ts
+// WRONG
+import { $state } from 'svelte';
+let count = $state(0);
+
+// RIGHT
+let count = $state(0);
+````
+
+## \$state
+
+```ts
+let count = $state(0);
+let user = $state<User | null>(null);
+let items = $state<string[]>([]);
+```
+
+## \$props
+
+```ts
+// WRONG
+export let name: string;
+
+// RIGHT
+let { name } = $props();
+
+// With types
+interface $$Props { user: User }
+let { user } = $props<$$Props>();
+```
+
+## \$derived
+
+```ts
+// WRONG
+$: doubled = count * 2;
+
+// RIGHT
+let doubled = $derived(count * 2);
+```
+
+## \$effect
+
+```ts
+// WRONG
+onMount(() => {
+  console.log(count);
+});
+
+// RIGHT
+$effect(() => {
+  console.log(count);
+});
+```
+
+With cleanup:
+
+```ts
+$effect(() => {
+  const id = setInterval(() => tick(), 1000);
+  return () => clearInterval(id);
+});
+```
+
+## \$effect.root
+
+```ts
+$effect.root(() => {
+  $effect(() => { /* ... */ });
+  $effect(() => { /* ... */ });
+});
+```
+
+## Prohibited Patterns
+
+```ts
+// WRONG
+onMount(() => {});
+onDestroy(() => {});
+$: something = compute();
+beforeUpdate(() => {});
+afterUpdate(() => {});
+import { writable } from 'svelte/store';
+const count = writable(0);
+
+// RIGHT
+$effect(() => {});
+let something = $derived(...);
+let count = $state(0);
+```
+
+## Events
+
+```svelte
+<!-- WRONG -->
+<button on:click={handle}>Click</button>
+
+<!-- RIGHT -->
+<button onclick={handle}>Click</button>
+```
+
+Custom events:
+
+```ts
+// WRONG
+import { createEventDispatcher } from 'svelte';
+const dispatch = createEventDispatcher();
+dispatch('message', { detail: 42 });
+
+// RIGHT
+node.dispatchEvent(new CustomEvent('message', { detail: 42 }));
+```
+
+## Component Pattern
+
+```ts
+<script lang="ts">
+  interface $$Props {
+    item: Item;
+    onUpdate?: (item: Item) => void;
+  }
+  let { item, onUpdate } = $props<$$Props>();
+  let count = $state(0);
+  let isValid = $derived(item.name.length > 0);
+
+  $effect(() => {
+    console.log('Effect runs');
+  });
+
+  function handleClick() {
+    count++;
+    onUpdate?.(item);
+  }
+</script>
+
+<template>
+  <button onclick={handleClick}>{item.name} – {count}</button>
+</template>
+```
+
+## Store Example
+
+```ts
+// stores/user.svelte.ts
+let user = $state<User | null>(null);
+let isLoggedIn = $derived(user !== null);
+
+export const userStore = {
+  get user() { return user; },
+  get isLoggedIn() { return isLoggedIn; },
+  login: async () => { /* ... */ }
+};
+```
+
+## Avoid These Mistakes
+
+```ts
+// WRONG
+let { count } = $props();
+count++; // mutating props
+
+// RIGHT
+let { count, onIncrement } = $props();
+onIncrement?.(count + 1);
+```
+
+```ts
+// WRONG
+let count = 0;
+$effect(() => console.log(count));
+
+// RIGHT
+let count = $state(0);
+$effect(() => console.log(count));
+```
+
+## Migration Summary
+
+| Svelte 3/4         | Svelte 5                  |
+| ------------------ | ------------------------- |
+| `onMount()`        | `$effect()`               |
+| `$: derived = ...` | `$derived(...)`           |
+| `export let prop`  | `$props()`                |
+| `writable(0)`      | `$state(0)`               |
+| `tick()`           | `await Promise.resolve()` |
+
+```
+
+Let me know if you want this split into multiple rule files or with additional formatting for VSCode plugins.
+```

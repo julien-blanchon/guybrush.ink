@@ -6,6 +6,7 @@
 	import { slide } from 'svelte/transition';
 	import TravelMap from '$lib/components/travel/TravelMap.svelte';
 	import { LocationSchema, type Location } from '$lib/types/location';
+	import P from '$lib/components/markdown/p.svelte';
 
 	// State for copy notification
 	let isCopied = $state(false);
@@ -30,11 +31,15 @@
 		}, 2000);
 	}
 
-	let currentDate = new Date().toLocaleDateString('en-GB', {
-		weekday: 'long',
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric'
+	let currentDate = $state<string | undefined>(undefined);
+
+	onMount(() => {
+		currentDate = new Date().toLocaleDateString('en-GB', {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
 	});
 
 	let location: Location | undefined = $state(undefined);
@@ -62,7 +67,6 @@
 
 			// Clean surrounding quotes if present (some providers wrap it)
 			const base64 = record.replace(/^"|"$/g, '').replace(/\\"/g, '"').trim();
-			console.log(base64);
 
 			// Decode Base64 and parse JSON
 			let decoded;
@@ -73,7 +77,6 @@
 				return;
 			}
 
-			console.log(decoded);
 			let json;
 			// Try Base64 → JSON
 			try {
@@ -134,26 +137,24 @@
 				items={[
 					{
 						title: 'Diffusion Models',
-						content: ''
+						content: '...'
 					},
 					{
 						title: 'Efficient ControlNet',
-						content: ''
+						content: '...'
 					},
 					{
 						title: 'Audio2Audio Models',
-						content: ''
+						content: '...'
 					},
 					{
 						title: 'Deep Learning Photonics applied to Spectrometry',
 						// https://gitlab.com/wiechapeter/torchgdm
-						content:
-							"I'm exploring how physical deep learning can be applied to spectrometry. Especially to make affortable small spectrometers."
+						content: '...'
 					},
 					{
 						title: 'Predictive Markets',
-						content:
-							'Predictive markets have always intrigued me - I see considerable potential for their application in insurance and the wider financial industry.'
+						content: '...'
 					}
 				]}
 			/>
@@ -172,14 +173,15 @@
 			>
 				<ol class="list-disc space-y-3 pl-6 text-base leading-relaxed">
 					<li>
-						<strong>Running & Swimming</strong> - I like swimming in the winter and running in the summer.
+						<strong>Running & Swimming</strong> - I like indoor swimming in the winter and outdoor running
+						in the summer.
 					</li>
 					<li>
 						<strong>YouTube Documentaries</strong> - I'm a huge fan of YouTube documentaries.
 					</li>
 					<li>
-						<strong>Hackathons</strong> - I'm a huge fan of hackathons. If you see one coming, and want
-						to team up, hit me up.
+						<strong>Hackathons</strong> - I love hackathons. If you see one coming, and want to team
+						up, hit me up !
 					</li>
 				</ol>
 			</div>
@@ -195,42 +197,48 @@
 			<div
 				class="mb-6 rounded-md border border-gray-200 bg-white/95 p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800/95"
 			>
-				<ul class="list-disc space-y-2 pl-6 text-base leading-relaxed">
-					<li>
-						Feel free to reach out
-						<a
-							href="https://x.com/JulienBlanchon"
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="Twitter"
-							><span class="icon-[lucide--twitter] size-5 align-middle"></span></a
-						>. It's the place I'm most active.
-					</li>
-					<li>
-						... or come grab
-						<Hover aspectRatio={16 / 9} height={200}>
-							{#snippet hover()}
-								<enhanced:img
-									src="$lib/assets/station_f.webp"
-									alt="Station F"
-									class="h-full w-full rounded-md object-cover"
-									sizes="(min-width: 640px) 384px, 100vw"
-									loading="lazy"
-									aria-hidden="true"
-								/>
-							{/snippet}
-							{#snippet button()}
-								<a
-									href="https://maps.app.goo.gl/15XmnrqDAdAvCET29"
-									target="_blank"
-									rel="noopener noreferrer"
-									class="text-blue-700 underline underline-offset-2">a coffee</a
-								>
-							{/snippet}
-						</Hover>
-						in real life.
-					</li>
-				</ul>
+				<p>
+					I <span aria-label="love">❤&#xFE0E</span> collaborating and connecting with other ! Do get
+					in touch if you are working in any of the areas above, or if you have ideas that you think
+					I might be interested in.
+				</p>
+				<p>
+					Feel free to reach out
+					<a
+						href="https://x.com/JulienBlanchon"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Twitter"><span class="icon-[lucide--twitter] size-4 align-middle"></span></a
+					>, it's the place I'm most active. ... or come grab
+					<Hover
+						aspectRatio={16 / 9}
+						maxWidth={800}
+						delta={25}
+						delay={100}
+						duration={200}
+						width={400}
+					>
+						{#snippet hover()}
+							<enhanced:img
+								src="$lib/assets/station_f.webp"
+								alt="Station F"
+								class="h-full w-full rounded-md object-cover"
+								sizes="(min-width: 640px) 384px, 100vw"
+								loading="lazy"
+								aria-hidden="true"
+							/>
+						{/snippet}
+						{#snippet button()}
+							<a
+								href="https://maps.app.goo.gl/15XmnrqDAdAvCET29"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-blue-700 underline underline-offset-2">a coffee</a
+							>
+						{/snippet}
+					</Hover>
+					in real life.
+				</p>
 			</div>
 		</section>
 
@@ -260,7 +268,8 @@
 				aria-label="Show easter egg"
 			>
 				<span
-					class="icon-[mdi--chevron-down] size-10 duration-300 group-data-[state=open]:rotate-180"
+					class="icon-[mdi--chevron-down] size-10 duration-300 [transform-style:preserve-3d] group-data-[state=open]:[transform:rotateX(180deg)]
+					"
 					aria-hidden="true"
 				></span>
 			</Collapsible.Trigger>

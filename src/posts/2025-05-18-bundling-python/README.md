@@ -13,7 +13,7 @@ categories:
 
 In this post, I’ll show how to use `box` to bundle Python inference logic (e.g., for [Nougat](https://github.com/facebookresearch/nougat)) as a sidecar in a [Tauri](https://tauri.app/) desktop app—and how to get type safety between Python and TypeScript using OpenAPI.
 
----
+***
 
 ## Why bundle Python?
 
@@ -25,8 +25,6 @@ Shipping a single binary has several advantages:
 - 🧩 **Reproducibility** — you ship exactly the Python version and dependencies you want
 
 `box` is a thin wrapper around `PyApp`, designed to make this whole process smooth and developer-friendly.
-
----
 
 ## How does PyApp work?
 
@@ -42,10 +40,7 @@ Unlike traditional bundlers like PyInstaller or shiv, [PyApp](https://github.com
 > [!TIP]
 > Need to update dependencies later? No need to rebuild the binary—just run `self update`.
 
-![Figure 1: How PyApp Works](./images/figure1.excalidraw.svg)
-
-
----
+![Figure 1: How PyApp `Works`](./images/figure1.excalidraw.svg)
 
 ## Step-by-step: Bundling your Python project
 
@@ -57,7 +52,7 @@ You’ll need:
 - [Rust and Cargo](https://www.rust-lang.org/tools/install) (PyApp uses them under the hood)
 - [uv](https://github.com/astral-sh/uv) as your Python package manager (optional, but recommended)
 
-### 2. Configure box in your `pyproject.toml`
+### 2. Configure box in your pyproject.toml
 
 Add `box` as a development dependency:
 
@@ -140,8 +135,6 @@ PyApp exposes commands to manage the virtual environment:
 > [!TIP]+
 > Use `self python` to debug or inspect your environment interactively.
 
----
-
 ## Use case: a Python sidecar in Tauri
 
 > [!NOTE]-
@@ -169,6 +162,7 @@ In [Montelimar](https://github.com/MostlikelyAI/montelimar), I use `box` to bund
   "scripts": {
     // ...
     "python:package:build": "uvx --directory src-python --from box-packager box package && mkdir -p src-tauri/binaries && for file in src-python/target/release/*; do ext=${file##*.}; [ \"$file\" = \"$ext\" ] && ext=\"\" || ext=.$ext; dest=\"src-tauri/binaries/$(basename ${file%.*})-$(rustc -Vv | grep host | cut -f2 -d' ')$ext\"; cp -f \"$file\" \"$dest\"; chmod +x \"$dest\"; done", // [!code highlight]
+
   }
 }
 ```
@@ -179,7 +173,6 @@ This script builds the Python binary and copies it to the Tauri binaries folder,
 > The platform triple in the filename helps Tauri select the correct binary for each OS/architecture.
 
 *[platform triple]: A *platform triple* (`x86_64-apple-darwin`, etc.) identifies OS + architecture. It ensures the right binary runs on the right system.
----
 
 ## Type-safe integration: OpenAPI and TypeScript clients
 
@@ -254,8 +247,6 @@ This produces fully-typed TypeScript definitions and fetch clients, ensuring you
 
 > [!TIP]
 > Use your editor's autocompletion and type checking to catch API mismatches early!
-
----
 
 ## Conclusion
 

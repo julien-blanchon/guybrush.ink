@@ -9,7 +9,7 @@ import remarkDirective from 'remark-directive';
 import rehypeSlug from 'rehype-slug';
 import remarkAbbr from '@richardtowers/remark-abbr';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { rehypeCopyCode, rehypeMarkdownComponents, transformerCopyButton } from './plugins.js';
+import { rehypeMarkdownComponents } from './plugins.js';
 import remarkMath from 'remark-math';
 // import rehypeKatex from 'rehype-katex'
 import rehypeMathjax from 'rehype-mathjax/chtml';
@@ -30,10 +30,11 @@ import {
 	transformerNotationHighlight,
 	transformerNotationMap,
 	transformerNotationWordHighlight,
-	// transformerRenderWhitespace,
+	transformerRenderWhitespace,
 
 } from '@shikijs/transformers';
 import { transformerColorizedBrackets } from '@shikijs/colorized-brackets';
+import { visit } from 'unist-util-visit';
 /**
  * Parses a meta string to extract the wrap setting.
  * Example: 'nowrap'
@@ -100,6 +101,7 @@ const rehypePrettyCodeOptions = {
 		block: 'plaintext',
 		inline: 'python'
 	},
+	keepBackground: false,
 	// Disable inline code blocks
 	bypassInlineCode: true,
 	transformers: [
@@ -108,77 +110,59 @@ const rehypePrettyCodeOptions = {
 		transformerMetaHighlight(),
 		transformerMetaWordHighlight(),
 		transformerColorizedBrackets(),
-		// transformerRenderWhitespace(),
-		transformerCopyButton(),
+		transformerRenderWhitespace(),
+		// transformerCopyButton(),
 		transformerCompactLineOptions(),
 		transformerNotationHighlight(),
 		transformerNotationWordHighlight(),
 		transformerNotationErrorLevel(),
 		transformerNotationMap(),
 		transformerMetaWrap()
-	],
-	onVisitTitle(node) {
-		const lang = node?.properties?.['data-language'] || 'plaintext';
-		if (!node.properties) return;
-
-		/** @type {string | undefined} */
-		let icon_class;
-		switch (lang) {
-			case 'python':
-			case 'py':
-				icon_class = 'icon-[vscode-icons--file-type-python]';
-				break;
-			case 'javascript':
-			case 'js':
-				icon_class = 'icon-[vscode-icons--file-type-js]';
-				break;
-			case 'typescript':
-			case 'ts':
-				icon_class = 'icon-[vscode-icons--file-type-typescript]';
-				break;
-			case 'rust':
-			case 'rs':
-				icon_class = 'icon-[vscode-icons--file-type-rust]';
-				break;
-			case 'bash':
-			case 'sh':
-			case 'shell':
-				icon_class = 'icon-[vscode-icons--file-type-shell]';
-				break;
-			case 'markdown':
-			case 'md':
-				icon_class = 'icon-[vscode-icons--file-type-markdown]';
-				break;
-			case 'html':
-				icon_class = 'icon-[vscode-icons--file-type-html]';
-				break;
-			case 'css':
-				icon_class = 'icon-[vscode-icons--file-type-css]';
-				break;
-			case 'json':
-				icon_class = 'icon-[vscode-icons--file-type-json]';
-				break;
-			case 'yaml':
-			case 'yml':
-				icon_class = 'icon-[vscode-icons--file-type-yaml]';
-				break;
-			case 'toml':
-				icon_class = 'icon-[vscode-icons--file-type-toml]';
-				break;
-			default:
-				return;
-		}
-
-		node.children.unshift({
-			type: 'element',
-			tagName: 'div',
-			properties: {
-				className: ['size-5', 'pr-2', icon_class]
-			},
-			children: []
-		});
-	}
+	]
 };
+
+function rehypeHandleMetadata() {
+	// Add typing as JSDoc
+	/**
+	 * @param {import('unist').Node} tree
+	 */
+	return async (tree) => {
+		visit(tree, (node) => {
+			// @ts-ignore
+			if (node?.type === 'element' && node?.tagName === 'figure') {
+				// @ts-ignore
+				if (!('data-rehype-pretty-code-figure' in node.properties)) {
+					return;
+				}
+				// @ts-ignore
+				const titleElement = node.children[0];
+				// @ts-ignore
+				const preElement = node.children.at(-1);
+
+				if (
+					preElement.tagName !== 'pre' ||
+					!('data-rehype-pretty-code-title' in titleElement.properties)
+				) {
+					return;
+				}
+
+				// const codeElement = preElement.children.find((child) => child.tagName === 'code');
+
+				// if (codeElement) {
+				// 	processCustomCodeBlockHighlights(codeElement.children);
+				// }
+
+				if (titleElement.children.length > 0 && 'value' in titleElement.children[0]) {
+					preElement.properties['title'] = titleElement.children[0].value;
+					// @ts-ignore
+					preElement.properties['language'] = node.children[0].properties['data-language'];
+					// @ts-ignore
+					node.children.shift();
+				}
+			}
+		});
+	};
+}
 
 /**
  * Unified Markdown processor with all plugins.
@@ -196,7 +180,7 @@ const markdownProcessor = unified()
 	.use(remarkDirective)
 	.use(remarkImageDirective)
 	.use(remarkRehype, { allowDangerousHtml: true, math: true, clobberPrefix: 'footnote-', footnoteBackContent: "↩\u{FE0E}" })
-	.use(rehypePrettyCode, rehypePrettyCodeOptions)
+	.use([[rehypePrettyCode, rehypePrettyCodeOptions], rehypeHandleMetadata])
 	.use([
 		[rehypeCallouts, { theme: 'github' }],
 		rehypeVideo,
@@ -213,7 +197,6 @@ const markdownProcessor = unified()
 		],
 		rehypeAccessibleEmojis
 	])
-	.use(rehypeCopyCode)
 	// .use(rehypeKatex)
 	.use(rehypeMathjax, {
 		tex: {
@@ -280,7 +263,6 @@ function frontmatter(content) {
 <script context="module">
 	export const metadata = ${JSON.stringify(data)}
 	import * as Markdown from "$lib/components/markdown"
-	import CopyButton from "$lib/components/markdown/copybutton.svelte"
 </script>
 `;
 	return { markdown, meta };

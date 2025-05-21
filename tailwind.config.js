@@ -1,6 +1,6 @@
 const disabledCss = {
-	pre: { backgroundColor: 'transparent', padding: '0' },
-	code: { backgroundColor: 'transparent', padding: '0', color: 'inherit' },
+	pre: false,
+	code: false,
 	'pre code': { backgroundColor: 'transparent', padding: '0' },
 	'code::before': { content: 'none' },
 	'code::after': { content: 'none' },

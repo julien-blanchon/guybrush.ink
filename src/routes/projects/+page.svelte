@@ -27,7 +27,7 @@
 				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
 				></span>
 				Arxflix
 			</h3>
@@ -78,7 +78,7 @@
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
 								<span class="icon-[devicon--react] mr-1.5 h-3.5 w-3.5"></span>
-								React
+								React (Remotion)
 							</span>
 						</div>
 
@@ -130,15 +130,27 @@
 
 					<div class="w-full sm:w-2/5">
 						<figure class="relative flex w-full flex-col items-center">
-							<enhanced:img
-								src="$lib/assets/projects/arxflix/cover.png"
-								alt="Arxflix video interface"
-								class="aspect-video w-full rounded border border-gray-200 object-cover dark:border-gray-700"
-								sizes="(min-width: 1280px) 384px, (min-width: 768px) 320px, (min-width: 640px) 384px, 100vw"
-								loading="lazy"
-								width="768"
-								height="432"
-							/>
+							<video
+								class={[
+									'aspect-video w-full rounded border border-gray-200 object-contain dark:border-gray-700',
+									'mx-auto block max-w-full rounded-lg drop-shadow-md transition-[filter,scale] duration-300 ease-in-out will-change-transform hover:scale-105 hover:drop-shadow-xl'
+								]}
+								data-zoom
+								loop
+								muted
+								controls={false}
+								autoplay={false}
+								onmouseenter={(e) => {
+									e.currentTarget.play();
+									e.currentTarget.controls = true;
+								}}
+								onmouseleave={(e) => {
+									e.currentTarget.pause();
+									e.currentTarget.controls = false;
+								}}
+							>
+								<source src="/projects/arxflix/demo.mp4" type="video/mp4" />
+							</video>
 							<figcaption
 								class="mt-2 text-center text-sm tracking-normal text-gray-600 dark:text-gray-400"
 							>
@@ -157,7 +169,7 @@
 				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
 				></span>
 				Montelimar
 			</h3>
@@ -174,8 +186,8 @@
 						<article>
 							<p class="mt-2 text-base leading-relaxed tracking-normal">
 								Montelimar is an open-source, on-device OCR engine and desktop application that lets
-								you snip a portion of your screen and copy the recognized text straight to your
-								clipboard. It’s designed as a general-purpose, non-opinionated toolkit with a
+								you snip a portion of your screen and instantly copy the recognized text to your
+								clipboard. It’s designed as a general-purpose, unopinionated toolkit with a
 								flexible, modular architecture—ideal for anyone building custom OCR workflows. My
 								goal is for Montelimar to become the go-to framework for next-generation OCR apps,
 								especially those targeting non-Latin scripts and LaTeX-formatted content.
@@ -245,7 +257,7 @@
 									aria-label="Check the Github Repository"
 								>
 									<span class="icon-[logos--github-icon] mr-1 size-6"></span>
-									<span class="mx-1">Try the demo</span>
+									<span class="mx-1">Check the Github Repository</span>
 									<span
 										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
@@ -256,18 +268,9 @@
 
 					<div class="w-full sm:w-2/5">
 						<figure class="relative flex w-full flex-col items-center">
-							<!-- svelte-ignore a11y_media_has_caption -->
-							<!-- <Zoom> -->
-							<!-- {#snippet zoom_content({ img, button_unzoom, modal_state, handle_unzoom })}
-									{@render button_unzoom()}
-									<div>
-										Hello
-										{@render img()}
-									</div>
-								{/snippet} -->
 							<video
 								class={[
-									'aspect-video w-full rounded border border-gray-200 object-cover dark:border-gray-700',
+									'aspect-video w-full rounded border border-gray-200 object-contain dark:border-gray-700',
 									'mx-auto block max-w-full rounded-lg drop-shadow-md transition-[filter,scale] duration-300 ease-in-out will-change-transform hover:scale-105 hover:drop-shadow-xl'
 								]}
 								data-zoom
@@ -286,7 +289,6 @@
 							>
 								<source src="/projects/montelimar/demo.mp4" type="video/mp4" />
 							</video>
-							<!-- </Zoom> -->
 							<figcaption
 								class="mt-2 text-center text-sm tracking-normal text-gray-600 dark:text-gray-400"
 							>
@@ -305,12 +307,12 @@
 				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
 				></span>
 				PixDiet
 			</h3>
 			<p class="mb-4 text-base leading-relaxed tracking-normal">
-				A finetune of Pixtral 12B on dietetic data to generate a personalized meal plan based on
+				A finetune of Pixtral 12B VLM on dietetic data to generate a personalized meal plan based on
 				your food preferences and health goals.
 			</p>
 
@@ -444,7 +446,7 @@
 				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700"
 				></span>
 				Local Realtime Voice2Voice Agent
 			</h3>
@@ -549,7 +551,7 @@
 				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700"
 				></span>
 				Audio Controlled Video Generation
 			</h3>
@@ -608,7 +610,7 @@
 				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
 				></span>
 				Furniture Inpainting
 			</h3>
@@ -657,46 +659,27 @@
 						</div>
 
 						<div class="mt-4 flex w-full flex-col gap-2">
-							<Hover aspectRatio={1 / 1} height={400} delta={50}>
-								{#snippet hover()}
-									<div class="flex aspect-video items-center justify-center">
-										<video
-											class="object-cover"
-											autoplay
-											muted
-											loop
-											playsinline
-											aria-label="Furniture inpainting demo video"
-										>
-											<source src="/projects/anyfurnish/demo.mp4" type="video/mp4" />
-											<source src="/projects/anyfurnish/demo.webm" type="video/webm" />
-										</video>
-									</div>
-								{/snippet}
-								{#snippet button()}
-									<Button
-										variant="outline"
-										class={[
-											'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
-											'border-gray-300 bg-gray-300/50 text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-400/50 dark:border-gray-700 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-600/30 '
-										]}
-									>
-										<a
-											href="https://huggingface.co/spaces/MostLikelyAI/FurnitureDemo"
-											target="_blank"
-											rel="noopener noreferrer"
-											class="flex w-full items-center justify-center"
-											aria-label="Try the furniture inpainting demo on Hugging Face"
-										>
-											<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
-											<span class="mx-1">Try the demo</span>
-											<span
-												class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
-											></span>
-										</a>
-									</Button>
-								{/snippet}
-							</Hover>
+							<Button
+								variant="outline"
+								class={[
+									'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
+									'border-gray-300 bg-gray-300/50 text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-400/50 dark:border-gray-700 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-600/30 '
+								]}
+							>
+								<a
+									href="https://huggingface.co/spaces/MostLikelyAI/FurnitureDemo"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex w-full items-center justify-center"
+									aria-label="Try the furniture inpainting demo on Hugging Face"
+								>
+									<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
+									<span class="mx-1">Try the demo</span>
+									<span
+										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+									></span>
+								</a>
+							</Button>
 						</div>
 					</div>
 
@@ -729,7 +712,7 @@
 				class="mb-2 flex items-center text-xl font-semibold text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
 				></span>
 				Virtual Staging
 			</h3>
@@ -744,10 +727,11 @@
 					<div class="flex-1 space-y-4">
 						<article>
 							<p class="mt-2 text-base">
-								A mask-free solution that transforms empty rooms into fully furnished spaces,
-								revolutionizing how real estate professionals showcase properties. The adapter take
-								care to preserve the original scene as much as possible. By fusing the virtual
-								staging pipeline in one single adapter, we can process an image in under 10 seconds.
+								A mask-free solution that transforms empty rooms into fully furnished
+								spaces—revolutionizing how real estate professionals showcase properties. The
+								adapter is designed to preserve the original scene as much as possible. By fusing
+								the entire virtual staging pipeline into a single adapter, we can process an image
+								in under 10 seconds.
 							</p>
 						</article>
 
@@ -779,46 +763,27 @@
 						</div>
 
 						<div class="mt-4 flex w-full flex-col gap-2">
-							<Hover aspectRatio={1 / 1} height={400} delta={50}>
-								{#snippet hover()}
-									<div class="flex aspect-video items-center justify-center">
-										<video
-											class="object-cover"
-											autoplay
-											muted
-											loop
-											playsinline
-											aria-label="Virtual staging demo video"
-										>
-											<source src="/projects/virtualstaging/demo.mp4" type="video/mp4" />
-											<source src="/projects/virtualstaging/demo.webm" type="video/webm" />
-										</video>
-									</div>
-								{/snippet}
-								{#snippet button()}
-									<Button
-										variant="outline"
-										class={[
-											'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
-											'border-gray-300 bg-gray-300/50 text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-400/50 dark:border-gray-700 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-600/30 '
-										]}
-									>
-										<a
-											href="https://huggingface.co/spaces/MostLikelyAI/StagingDemo"
-											target="_blank"
-											rel="noopener noreferrer"
-											class="flex w-full items-center justify-center"
-											aria-label="Try the virtual staging demo on Hugging Face"
-										>
-											<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
-											<span class="mx-1">Try the demo</span>
-											<span
-												class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
-											></span>
-										</a>
-									</Button>
-								{/snippet}
-							</Hover>
+							<Button
+								variant="outline"
+								class={[
+									'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
+									'border-gray-300 bg-gray-300/50 text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-400/50 dark:border-gray-700 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-600/30 '
+								]}
+							>
+								<a
+									href="https://huggingface.co/spaces/MostLikelyAI/StagingDemo"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex w-full items-center justify-center"
+									aria-label="Try the virtual staging demo on Hugging Face"
+								>
+									<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
+									<span class="mx-1">Try the demo</span>
+									<span
+										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+									></span>
+								</a>
+							</Button>
 						</div>
 					</div>
 
@@ -849,7 +814,7 @@
 				class="mb-2 flex items-center text-xl font-semibold text-gray-800 dark:text-gray-200"
 			>
 				<span
-					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
 				></span>
 				Image Decluttering
 			</h3>
@@ -894,46 +859,27 @@
 						</div>
 
 						<div class="mt-4 flex w-full flex-col gap-2">
-							<Hover aspectRatio={1 / 1} height={400} delta={50}>
-								{#snippet hover()}
-									<div class="flex aspect-video items-center justify-center">
-										<video
-											class="object-cover"
-											autoplay
-											muted
-											loop
-											playsinline
-											aria-label="Image decluttering demo video"
-										>
-											<source src="/projects/virtualunstaging/demo.mp4" type="video/mp4" />
-											<source src="/projects/virtualunstaging/demo.webm" type="video/webm" />
-										</video>
-									</div>
-								{/snippet}
-								{#snippet button()}
-									<Button
-										variant="outline"
-										class={[
-											'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
-											'border-gray-300 bg-gray-300/50 text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-400/50 dark:border-gray-700 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-600/30 '
-										]}
-									>
-										<a
-											href="https://huggingface.co/spaces/MostLikelyAI/UnstagingDemo"
-											target="_blank"
-											rel="noopener noreferrer"
-											class="flex w-full items-center justify-center"
-											aria-label="Try the image decluttering demo on Hugging Face"
-										>
-											<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
-											<span class="mx-1">Try the demo</span>
-											<span
-												class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
-											></span>
-										</a>
-									</Button>
-								{/snippet}
-							</Hover>
+							<Button
+								variant="outline"
+								class={[
+									'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
+									'border-gray-300 bg-gray-300/50 text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-400/50 dark:border-gray-700 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-600/30 '
+								]}
+							>
+								<a
+									href="https://huggingface.co/spaces/MostLikelyAI/UnstagingDemo"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex w-full items-center justify-center"
+									aria-label="Try the image decluttering demo on Hugging Face"
+								>
+									<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
+									<span class="mx-1">Try the demo</span>
+									<span
+										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+									></span>
+								</a>
+							</Button>
 						</div>
 					</div>
 

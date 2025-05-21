@@ -1,39 +1,39 @@
 // @ts-nocheck
 import { visit } from 'unist-util-visit';
 
-export function rehypeCopyCode() {
-	function codeTitle(node) {
-		if (node.tagName === 'div') {
-			// return node.properties.className[0] === 'rehype-code-title'
-			if (node.properties?.className?.[0] === 'rehype-code-title') {
-				return true;
-			}
-			return false;
-		}
-	}
+// export function rehypeCopyCode() {
+// 	function codeTitle(node) {
+// 		if (node.tagName === 'div') {
+// 			// return node.properties.className[0] === 'rehype-code-title'
+// 			if (node.properties?.className?.[0] === 'rehype-code-title') {
+// 				return true;
+// 			}
+// 			return false;
+// 		}
+// 	}
 
-	return (tree) => {
-		visit(tree, codeTitle, (node) => {
-			if (node.type !== 'element') return;
+// 	return (tree) => {
+// 		visit(tree, codeTitle, (node) => {
+// 			if (node.type !== 'element') return;
 
-			const value = node.children[0].type === 'text' ? node.children[0].value : '';
+// 			const value = node.children[0].type === 'text' ? node.children[0].value : '';
 
-			node.children = [
-				{
-					type: 'element',
-					tagName: 'span',
-					children: [{ type: 'text', value }]
-				},
-				{
-					type: 'element',
-					tagName: 'button',
-					properties: { className: ['copy'] },
-					children: [{ type: 'text', value: `Copy` }]
-				}
-			];
-		});
-	};
-}
+// 			node.children = [
+// 				{
+// 					type: 'element',
+// 					tagName: 'span',
+// 					children: [{ type: 'text', value }]
+// 				},
+// 				{
+// 					type: 'element',
+// 					tagName: 'button',
+// 					properties: { className: ['copy'] },
+// 					children: [{ type: 'text', value: `Copy` }]
+// 				}
+// 			];
+// 		});
+// 	};
+// }
 
 export function rehypeMarkdownComponents() {
 	return (tree) => {
@@ -60,7 +60,8 @@ export function rehypeMarkdownComponents() {
 				'abbr',
 				'a',
 				'copybutton',
-				'figure'
+				'figure',
+				'pre'
 			];
 			return tags.includes(node.tagName);
 		}, (node) => {
@@ -69,29 +70,29 @@ export function rehypeMarkdownComponents() {
 	};
 }
 
-export const transformerCopyButton = () => ({
-	name: 'copy-button',
-	pre(node) {
-		// If node.properties.class is an array, add the relative class to the last element
-		if (Array.isArray(node.properties.class)) {
-			node.properties.class.push('relative');
-			node.properties.class.push('shiki_pre');
-			node.properties.class.push('group');
-		} else if (typeof node.properties.class === 'string') {
-			node.properties.class += ' relative shiki_pre group';
-		} else {
-			node.properties.class = ['relative', 'shiki_pre', 'group'];
-		}
-		// Add the absolute class to node
-		node.children.push({
-			type: 'element',
-			tagName: 'copybutton',
-			properties: {
-				type: 'button',
-				title: 'Copy to clipboard',
-				text: this.source,
-				language: this?.options?.lang
-			}
-		});
-	}
-});
+// export const transformerCopyButton = () => ({
+// 	name: 'copy-button',
+// 	pre(node) {
+// 		// If node.properties.class is an array, add the relative class to the last element
+// 		if (Array.isArray(node.properties.class)) {
+// 			node.properties.class.push('relative');
+// 			node.properties.class.push('shiki_pre');
+// 			node.properties.class.push('group');
+// 		} else if (typeof node.properties.class === 'string') {
+// 			node.properties.class += ' relative shiki_pre group';
+// 		} else {
+// 			node.properties.class = ['relative', 'shiki_pre', 'group'];
+// 		}
+// 		// Add the absolute class to node
+// 		node.children.push({
+// 			type: 'element',
+// 			tagName: 'copybutton',
+// 			properties: {
+// 				type: 'button',
+// 				title: 'Copy to clipboard',
+// 				text: this.source,
+// 				language: this?.options?.lang
+// 			}
+// 		});
+// 	}
+// });
