@@ -1,7 +1,6 @@
 import type { MetaTagsProps } from 'svelte-meta-tags';
 
 export const prerender = true;
-export const ssr = false;
 
 export const load = ({ url }) => {
     const baseMetaTags = Object.freeze({
@@ -54,6 +53,7 @@ export const load = ({ url }) => {
         keywords: ['Guybrush.ink', 'Julien Blanchon', 'Blog', 'Posts', 'AI', 'Research', 'Computer Vision', 'Diffusion Models', '3D Reconstruction'],
     }) satisfies MetaTagsProps;
     return {
-        baseMetaTags
+        baseMetaTags,
+        pathname: url.pathname
     };
 };

@@ -17,7 +17,7 @@
 	import type { Picture } from 'vite-imagetools';
 	import type { SvelteComponent } from 'svelte';
 	import { onMount } from 'svelte';
-	import { sfx } from '$lib/audio';
+	// import { sfx } from '$lib/audio';
 
 	let { data, children } = $props();
 
@@ -156,13 +156,13 @@
 		};
 	}
 
-	import { music } from '$lib/audio';
+	// import { music } from '$lib/audio';
 	import { soundEffect } from '$lib/runes/soundSwitch.svelte';
 
 	onMount(() => {
 		const handler = () => {
 			if (soundEffect.enabled) {
-				music.play();
+				// music.play();
 			}
 			window.removeEventListener('pointerdown', handler);
 		};
@@ -205,7 +205,7 @@
 	{/if}
 </svelte:head>
 
-<svelte:window on:click={() => sfx.click()} />
+<!-- <svelte:window on:click={() => sfx.click()} /> -->
 
 <MetaTags {...metaTags} />
 <ModeWatcher disableTransitions={true} track={false} defaultMode="light" />

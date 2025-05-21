@@ -1,17 +1,5 @@
-import { error, text } from '@sveltejs/kit';
 import type { EntryGenerator } from './$types';
 import { getPosts } from '$lib/server/posts';
-
-export const prerender = true;
-
-export async function GET({ params: { slug } }) {
-	try {
-		const raw = await import(`../../../../../src/posts/${slug}/README.md?raw`);
-		return text(raw.default)
-	} catch (e) {
-		error(404, `Post does not exist`);
-	}
-}
 
 export const entries: EntryGenerator = async () => {
 	const posts = await getPosts();

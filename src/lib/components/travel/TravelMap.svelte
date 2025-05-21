@@ -83,9 +83,9 @@
 
 	onMount(() => {
 		tick();
-	});
-	onDestroy(() => {
-		cancelAnimationFrame(orbitFrame);
+		return () => {
+			cancelAnimationFrame(orbitFrame);
+		};
 	});
 </script>
 
