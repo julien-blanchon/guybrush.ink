@@ -692,38 +692,40 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-	/* Enable crossfade for elements with a `--view-transition-name` custom property. */
-	[style*='--view-transition-name'] {
-		view-transition-name: var(--view-transition-name);
-	}
-	/* Temporary class to enable view-transition-name on the root element. */
-	.view-transition-enabled:root {
-		view-transition-name: root;
-	}
+    /* Enable crossfade for elements with a `--view-transition-name` custom property. */
+    [style*='--view-transition-name'] {
+        view-transition-name: var(--view-transition-name);
+    }
+    /* Temporary class to enable view-transition-name on the root element. */
+    .view-transition-enabled:root {
+        view-transition-name: root;
+    }
 
-	/* Disable crossfade for the root element. */
-	::view-transition-old(root),
-	::view-transition-new(root) {
-		animation: none;
-		mix-blend-mode: normal;
-		will-change: clip-path, opacity, transform;
-	}
+    /* Disable crossfade for the root element. */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
+        mix-blend-mode: normal;
+        will-change: clip-path, opacity, transform;
+    }
 
-	::view-transition-old(root) {
-		z-index: 1;
-	}
+    /* For light mode */
+    .view-transition-enabled::view-transition-old(root) {
+        z-index: 1;
+    }
 
-	::view-transition-new(root) {
-		z-index: 9999;
-	}
+    .view-transition-enabled::view-transition-new(root) {
+        z-index: 9999;
+    }
 
-	.dark::view-transition-old(root) {
-		z-index: 9999;
-	}
+    /* For dark mode */
+    .dark.view-transition-enabled::view-transition-old(root) {
+        z-index: 9999;
+    }
 
-	.dark::view-transition-new(root) {
-		z-index: 1;
-	}
+    .dark.view-transition-enabled::view-transition-new(root) {
+        z-index: 1;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -193,7 +193,6 @@
 			as="image"
 			href={selectedPair.light.default.img.src}
 			type="image/webp"
-			media="(prefers-color-scheme: light)"
 			fetchpriority="high"
 		/>
 		<link
@@ -201,7 +200,6 @@
 			as="image"
 			href={selectedPair.dark.default.img.src}
 			type="image/webp"
-			media="(prefers-color-scheme: dark)"
 			fetchpriority="high"
 		/>
 	{/if}
