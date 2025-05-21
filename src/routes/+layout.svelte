@@ -100,26 +100,28 @@
 	});
 
 	function transition(path: string, out: boolean) {
-		const cleanPath = path.replace(/\/$/, '');
-		const cleanPrevPath = prevPage.replace(/\/$/, '');
+		const cleanPath = path.replace(/\/$/, '') || '/';
+		const cleanPrevPath = prevPage.replace(/\/$/, '') || '/';
 
-		let currDepth = cleanPath.split('/').length;
-		let prevDepth = cleanPrevPath.split('/').length;
+		const currParts = cleanPath.split('/');
+		const prevParts = cleanPrevPath.split('/');
 
-		const currParent = '/' + cleanPath.split('/')[1];
-		const prevParent = '/' + cleanPrevPath.split('/')[1];
+		const currDepth = currParts.length;
+		const prevDepth = prevParts.length;
 
-		let currParentIdx = navBarItems.findIndex((page) => page.href === currParent);
-		let prevParentIdx = navBarItems.findIndex((page) => page.href === prevParent);
+		const currParent = '/' + (currParts[1] || '');
+		const prevParent = '/' + (prevParts[1] || '');
 
-		if (path === '/') {
-			currParentIdx = prevParentIdx;
-			currDepth = 1;
-		}
-		if (prevPage === '/') {
-			prevParentIdx = currParentIdx;
-			prevDepth = 1;
-		}
+		let currParentIdx = navBarItems.findIndex(
+			(page) => page.href === currParent || page.href === cleanPath
+		);
+		let prevParentIdx = navBarItems.findIndex(
+			(page) => page.href === prevParent || page.href === cleanPrevPath
+		);
+
+		// Fallback to 0 if not found
+		if (currParentIdx === -1) currParentIdx = 0;
+		if (prevParentIdx === -1) prevParentIdx = 0;
 
 		let xDiff = currParentIdx - prevParentIdx;
 		let yDiff = currDepth - prevDepth;
@@ -129,15 +131,11 @@
 			yDiff *= -1;
 		}
 		if (prefersReducedMotion.current) {
-			xDiff *= 0;
-			yDiff *= 0;
+			xDiff = 0;
+			yDiff = 0;
 		}
 
 		if (yDiff !== 0) {
-			// duration is 300 if yDiff is 0 else 0 to disable the transition
-			// return {
-			// 	duration: 0
-			// };
 			return {
 				duration: 300,
 				opacity: 0.0,
