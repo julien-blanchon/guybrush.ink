@@ -210,7 +210,7 @@
 <svelte:window on:click={() => sfx.click()} />
 
 <MetaTags {...metaTags} />
-<ModeWatcher />
+<ModeWatcher disableTransitions={true} track={false} defaultMode="light" />
 
 <div class="bg-coffee-100 noise relative min-h-screen dark:bg-gray-900">
 	<!-- Main Content - Always centered, independent of sidebar -->

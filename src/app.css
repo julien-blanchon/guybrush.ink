@@ -26,7 +26,7 @@
 	--color-surface-content: hsl(215 27.907% 16.8627%);
 }
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+/* @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *)); */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Font settings */
