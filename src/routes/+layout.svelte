@@ -19,7 +19,9 @@
 	import { onMount } from 'svelte';
 	import { sfx } from '$lib/audio';
 
-	let { children } = $props();
+	let { data, children } = $props();
+
+	let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
 
 	// Image handling logic
 	const imageModules = import.meta.glob<SvelteComponent<Picture>>(
@@ -169,7 +171,7 @@
 	});
 
 	import { onNavigate } from '$app/navigation';
-	import MetaTags from '$lib/components/MetaTags.svelte';
+	import { deepMerge, MetaTags } from 'svelte-meta-tags';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -184,7 +186,6 @@
 </script>
 
 <!-- Preload header background images -->
-<MetaTags />
 <svelte:head>
 	{#if selectedPair}
 		<link
@@ -208,6 +209,7 @@
 
 <svelte:window on:click={() => sfx.click()} />
 
+<MetaTags {...metaTags} />
 <ModeWatcher />
 
 <div class="bg-coffee-100 noise relative min-h-screen dark:bg-gray-900">
