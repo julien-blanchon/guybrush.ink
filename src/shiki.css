@@ -496,3 +496,32 @@ pre:not(.nowrap) code {
 pre:not(.nowrap) code span.indent {
 	white-space: pre;
 }
+
+
+[data-chars-id='ul'] {
+	@apply border !border-green-500 p-1 !bg-green-500/50 !font-bold !text-green-500;
+}
+
+[data-chars-id='hi'] {
+	@apply border !border-teal-700 p-1 !bg-teal-700/60 !font-bold !text-teal-700;
+}
+
+[data-chars-id='rb'] {
+	@apply border !border-red-600 p-1 !bg-red-600/50 !font-bold !text-red-600;
+}
+
+[data-chars-id='yb'] {
+	@apply border !border-yellow-600 p-1 !bg-yellow-600/50 !font-bold !text-yellow-600;
+}
+
+[data-chars-id='v'] {
+	@apply border !border-pink-600 p-1 !bg-rose-800/50 !font-bold !text-pink-300;
+}
+
+[data-chars-id='s'] {
+	@apply border !border-yellow-600 p-1 !bg-yellow-800/50 !font-bold !text-yellow-300;
+}
+
+[data-chars-id='i'] {
+	@apply border !border-purple-600 p-1 !bg-purple-800/50 !font-bold !text-purple-300;
+}

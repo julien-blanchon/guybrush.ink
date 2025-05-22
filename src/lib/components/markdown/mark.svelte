@@ -11,9 +11,9 @@
 
 <mark
 	class={[
-		'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100',
+		// 'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100',
 		'rounded px-1 py-0.5',
-		'border-b border-gray-300 dark:border-gray-700',
+		// 'border-b border-gray-300 dark:border-gray-700',
 		className
 	]}
 	{...props}

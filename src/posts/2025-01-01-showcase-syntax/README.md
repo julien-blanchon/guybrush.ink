@@ -381,19 +381,7 @@ Use \* to escape formatting.
 
 ---
 
-## 13. Mermaid Diagrams (Non-standard, needs plugin)
-
-```mermaid
-graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
-```
-
----
-
-## 14. Collapsible Sections (GitHub only)
+## 13. Collapsible Sections (GitHub only)
 
 <details>
   <summary>Details</summary>
