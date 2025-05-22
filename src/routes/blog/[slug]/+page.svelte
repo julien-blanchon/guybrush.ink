@@ -152,7 +152,7 @@
 				aria-label="Show table of contents"
 			>
 				<span
-					class="icon-[heroicons--chevron-double-left-solid] size-6 text-gray-700 dark:text-gray-200"
+					class="icon-[pixelarticons--chevron-left] size-6 text-gray-700 dark:text-gray-200"
 					aria-hidden="true"
 				></span>
 			</button>
@@ -188,7 +188,7 @@
 						]}
 						aria-label="Hide table of contents"
 					>
-						<span class="icon-[heroicons--chevron-double-right-solid] size-5" aria-hidden="true"
+						<span class="icon-[pixelarticons--chevron-right] size-5" aria-hidden="true"
 						></span>
 					</button>
 				</div>
@@ -217,7 +217,7 @@
 		<!-- Modern minimalist, left-aligned article header with refined spacing -->
 		<header class="mb-6 flex flex-col gap-2 pl-2" aria-label="Article header">
 			<h1
-				class="mb-1 font-serif text-4xl leading-tight font-extrabold tracking-tight text-pretty text-gray-900 capitalize sm:text-5xl dark:text-white"
+				class="mb-1 font-serif text-4xl leading-tight font-extrabold  text-pretty text-gray-900 capitalize sm:text-5xl dark:text-white"
 			>
 				<!-- style={`--view-transition-name: title-${data.frontmatter.title.toLowerCase().replace(/ /g, '-')}`} -->
 				{data.frontmatter.title}

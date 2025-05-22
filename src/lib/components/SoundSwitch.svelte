@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
 	import { Button } from 'bits-ui';
 	import { soundEffect } from '$lib/runes/soundSwitch.svelte';
 	import { sfx, music } from '$lib/audio';
@@ -32,7 +32,7 @@
 				easing: cubicOut
 			}}
 		>
-			<span class="icon-[lucide--volume-2] size-6" aria-label="Volume"></span>
+			<span class="icon-[pixelarticons--volume-2] size-6" aria-label="Volume"></span>
 		</div>
 	{:else}
 		<div
@@ -44,7 +44,7 @@
 				easing: cubicOut
 			}}
 		>
-			<span class="icon-[lucide--volume-x] size-6" aria-label="Mute"></span>
+			<span class="icon-[pixelarticons--volume-x] size-6" aria-label="Mute"></span>
 		</div>
 	{/if}
-</Button.Root> -->
+</Button.Root>

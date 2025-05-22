@@ -100,7 +100,7 @@
 			<span class="size-4 rounded-full bg-gray-200 dark:bg-gray-700"></span>
 			<span class="size-4 rounded-full bg-gray-200 dark:bg-gray-700"></span>
 		</span>
-		<p class="m-0 flex flex-row-reverse items-center justify-between gap-2.5 text-sm font-medium">
+		<p class="m-0 font-mono flex flex-row-reverse items-center justify-between gap-2.5 text-sm font-bold">
 			{#if title}
 				<span>{title}</span>
 				{@const extension = title.split('.').pop()}
@@ -116,17 +116,17 @@
 		<button
 			type="button"
 			tabindex="0"
-			class="inline-flex h-7 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-3 text-sm font-medium text-gray-900 transition-colors duration-150 hover:bg-gray-200 hover:text-black focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+			class="inline-flex font-mono h-7 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-3 text-sm font-medium text-gray-900 transition-colors duration-150 hover:bg-gray-200 hover:text-black focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
 			onclick={handleCopy}
 		>
 			{#if copyState}
 				<span in:fly={{ y: -4, delay: 50 }} class="inline-flex items-center justify-between gap-2">
 					Copied
-					<span class="icon-[lucide--check] size-3.5 text-black dark:text-white"></span>
+					<span class="icon-[pixelarticons--check] size-3.5 text-black dark:text-white"></span>
 				</span>
 			{:else}
 				<span in:fly={{ y: 4, delay: 50 }} class="inline-flex items-center justify-between gap-2"
-					>Copy <span class="icon-[lucide--copy] size-3.5 text-black dark:text-white"></span></span
+					>Copy <span class="icon-[pixelarticons--copy] size-3.5 text-black dark:text-white"></span></span
 				>
 			{/if}
 		</button>

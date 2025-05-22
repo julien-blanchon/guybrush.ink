@@ -43,7 +43,7 @@
 <section class="animate-in fade-in zoom-in-0 h-full pb-6 duration-700">
 	{#if !commandState.open}
 		<div
-			class="group/header border-coffee-500 bg-coffee-200 relative z-50 origin-bottom overflow-hidden rounded-lg border p-4 text-pretty shadow-sm duration-300 ease-in-out hover:scale-[1.01] hover:shadow-lg hover:shadow-stone-400 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-gray-900"
+			class="group/header font-pixel  border-coffee-500 bg-coffee-200 relative z-50 origin-bottom overflow-hidden rounded-lg border p-4 text-pretty shadow-sm duration-300 ease-in-out hover:scale-[1.01] hover:shadow-lg hover:shadow-stone-400 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-gray-900"
 			role="navigation"
 			in:receiveHeader={{ key: 'header' }}
 			out:sendHeader={{ key: 'header' }}
@@ -96,7 +96,7 @@
 				<!-- Header Content -->
 				<hgroup class="w-full pb-4 text-stone-900 md:w-3/5 dark:text-gray-100">
 					<h1
-						class="mb-2 font-serif text-4xl font-black tracking-tight text-stone-950 dark:text-white"
+						class="mb-2 text-5xl font-black  text-stone-950 dark:text-white"
 					>
 						Guybrush.ink
 					</h1>

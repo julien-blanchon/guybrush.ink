@@ -49,9 +49,9 @@
 
 	const iconDatabase = {
 		1: {
-			unread: 'icon-[heroicons--document-text]',
-			read: 'icon-[heroicons--document-check]',
-			active: 'icon-[heroicons--document-check]'
+			unread: 'icon-[pixelarticons--file-plus]',
+			read: 'icon-[pixelarticons--file]',
+			active: 'icon-[pixelarticons--file-alt]'
 		},
 		2: {
 			unread: {
@@ -143,7 +143,7 @@
 					<span
 						class={[
 							'size-3.5 transform transition-transform duration-300 ease-in-out',
-							'icon-[heroicons--chevron-down-solid]',
+							'icon-[pixelarticons--chevron-down]',
 							'group-data-[expanded=true]:rotate-0',
 							getColor(heading),
 							expanded ? 'rotate-0' : '-rotate-90'

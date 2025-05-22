@@ -12,7 +12,7 @@
 	<section class="projects mb-8" aria-labelledby="projects-heading">
 		<h2
 			id="projects-heading"
-			class="mb-4 font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+			class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
 		>
 			My Projects
 		</h2>
@@ -24,7 +24,7 @@
 		<section class="mb-10" aria-labelledby="project-arxflix-heading">
 			<h3
 				id="project-arxflix-heading"
-				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold  text-gray-800 dark:text-gray-200"
 			>
 				<span
 					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
@@ -53,13 +53,13 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2024
 							</span>
 							<span
 								class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-500/20"
 							>
-								<span class="icon-[lucide--map] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--map] mr-1.5 h-3.5 w-3.5"></span>
 								Hackathon
 							</span>
 							<span
@@ -71,7 +71,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--speaker] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--speaker] mr-1.5 h-3.5 w-3.5"></span>
 								Text-to-Speech
 							</span>
 							<span
@@ -100,7 +100,7 @@
 									<span class="icon-[logos--youtube-icon] mr-1 size-6"></span>
 									<span class="mx-1">Check the Youtube Channel</span>
 									<span
-										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+										class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
 								</a>
 							</Button>
@@ -121,7 +121,7 @@
 									<span class="icon-[logos--github-icon] mr-1 size-6"></span>
 									<span class="mx-1">Check the Github Repository</span>
 									<span
-										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+										class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
 								</a>
 							</Button>
@@ -166,7 +166,7 @@
 		<section class="mb-10" aria-labelledby="project-montelimar-heading">
 			<h3
 				id="project-montelimar-heading"
-				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold  text-gray-800 dark:text-gray-200"
 			>
 				<span
 					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
@@ -198,7 +198,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2024
 							</span>
 							<span
@@ -210,7 +210,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--camera] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--camera] mr-1.5 h-3.5 w-3.5"></span>
 								OCR
 							</span>
 							<span
@@ -259,7 +259,7 @@
 									<span class="icon-[logos--github-icon] mr-1 size-6"></span>
 									<span class="mx-1">Check the Github Repository</span>
 									<span
-										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+										class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
 								</a>
 							</Button>
@@ -304,7 +304,7 @@
 		<section class="mb-10" aria-labelledby="project-pixdiet-heading">
 			<h3
 				id="project-pixdiet-heading"
-				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold  text-gray-800 dark:text-gray-200"
 			>
 				<span
 					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
@@ -333,13 +333,13 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2024
 							</span>
 							<span
 								class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-500/20"
 							>
-								<span class="icon-[lucide--map] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--map] mr-1.5 h-3.5 w-3.5"></span>
 								Hackathon
 							</span>
 							<span
@@ -369,7 +369,7 @@
 										<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
 										<span class="mx-1">Try the demo</span>
 										<span
-											class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+											class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 										></span>
 									</a>
 								</Button>
@@ -390,7 +390,7 @@
 										<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
 										<span class="mx-1">Pixdiet Model</span>
 										<span
-											class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+											class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 										></span>
 									</a>
 								</Button>
@@ -409,7 +409,7 @@
 										<span class="icon-[logos--github-icon] mr-1 size-6"></span>
 										<span class="mx-1">Github Repository</span>
 										<span
-											class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+											class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 										></span>
 									</div>
 								</Button>
@@ -443,7 +443,7 @@
 		<!-- <section class="mb-10" aria-labelledby="project-local-realtime-voice-agent-heading">
 			<h3
 				id="project-local-realtime-voice-agent-heading"
-				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold  text-gray-800 dark:text-gray-200"
 			>
 				<span
 					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700"
@@ -477,13 +477,13 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2024
 							</span>
 							<span
 								class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-500/20"
 							>
-								<span class="icon-[lucide--map] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--map] mr-1.5 h-3.5 w-3.5"></span>
 								Hackathon
 							</span>
 							<span
@@ -534,7 +534,7 @@
 									<span class="icon-[logos--github-icon] mr-1 size-6"></span>
 									<span class="mx-1">Check the Github Repository</span>
 									<span
-										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+										class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
 								</span>
 							</Button>
@@ -548,7 +548,7 @@
 		<!-- <section class="mb-10" aria-labelledby="project-audio-controlled-video-generation-heading">
 			<h3
 				id="project-audio-controlled-video-generation-heading"
-				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold  text-gray-800 dark:text-gray-200"
 			>
 				<span
 					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700"
@@ -572,7 +572,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2025
 							</span>
 							<span
@@ -590,7 +590,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--video] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--video] mr-1.5 h-3.5 w-3.5"></span>
 								Video Generation
 							</span>
 						</div>
@@ -607,7 +607,7 @@
 		<section class="mb-10" aria-labelledby="project-furniture-inpainting-heading">
 			<h3
 				id="project-furniture-inpainting-heading"
-				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold  text-gray-800 dark:text-gray-200"
 			>
 				<span
 					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
@@ -635,7 +635,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2025
 							</span>
 							<span
@@ -676,7 +676,7 @@
 									<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
 									<span class="mx-1">Try the demo</span>
 									<span
-										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+										class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
 								</a>
 							</Button>
@@ -739,7 +739,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2025
 							</span>
 							<span
@@ -780,7 +780,7 @@
 									<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
 									<span class="mx-1">Try the demo</span>
 									<span
-										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+										class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
 								</a>
 							</Button>
@@ -835,7 +835,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2025
 							</span>
 							<span
@@ -876,7 +876,7 @@
 									<span class="icon-[logos--hugging-face-icon] mr-1 size-6"></span>
 									<span class="mx-1">Try the demo</span>
 									<span
-										class="icon-[lucide--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
+										class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"
 									></span>
 								</a>
 							</Button>
@@ -907,7 +907,7 @@
 		<!-- <section class="mb-10" aria-labelledby="project-intrinsic-extraction-heading">
 			<h3
 				id="project-intrinsic-extraction-heading"
-				class="mt-6 mb-2 flex items-center text-xl font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold  text-gray-800 dark:text-gray-200"
 			>
 				<span
 					class="mproject-badge r-2 inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
@@ -930,7 +930,7 @@
 							<span
 								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
 							>
-								<span class="icon-[lucide--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
 								2025
 							</span>
 							<span

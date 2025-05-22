@@ -191,7 +191,7 @@ const markdownProcessor = unified()
 				behavior: 'append',
 				properties: {
 					class:
-						'icon-[lucide--hash] size-4 pl-6 hidden group-hover/title:inline-block '
+						'icon-[pixelarticons--link] size-4 pl-6 hidden group-hover/title:inline-block '
 				}
 			}
 		],

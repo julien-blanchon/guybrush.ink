@@ -46,10 +46,10 @@
 		{...props}
 	>
 		{#if copied}
-			<span class="icon-[lucide--check] size-4 text-emerald-500 dark:text-emerald-400" in:fade
+			<span class="icon-[pixelarticons--check] size-4 text-emerald-500 dark:text-emerald-400" in:fade
 			></span>
 		{:else}
-			<span class="icon-[lucide--clipboard] size-4 text-stone-600 dark:text-gray-400" in:fade
+			<span class="icon-[pixelarticons--clipboard] size-4 text-stone-600 dark:text-gray-400" in:fade
 			></span>
 		{/if}
 	</button>

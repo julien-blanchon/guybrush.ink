@@ -1,8 +1,6 @@
+import { browser } from '$app/environment';
 import { soundEffect } from '$lib/runes/soundSwitch.svelte';
 
-const SOUND_COOLDOWN = 100; // ms
-
-type SoundName = keyof typeof audioPaths;
 const audioPaths = {
 	blip: '/audio/blip.mp3',
 	click: '/audio/click.mp3',
@@ -11,20 +9,28 @@ const audioPaths = {
 	toggle: '/audio/toggle.mp3'
 };
 
+const SOUND_COOLDOWN = 100; // ms
+
+type SoundName = keyof typeof audioPaths;
+
 const audioPools: Record<SoundName, HTMLAudioElement[]> = {} as any;
 const lastPlayed: Record<SoundName, number> = {} as any;
 
-for (const name in audioPaths) {
-	audioPools[name as SoundName] = Array.from({ length: 5 }, () => {
-		const a = new Audio(audioPaths[name as SoundName]);
-		a.volume = 0.8;
-		a.preload = 'auto';
-		return a;
-	});
-	lastPlayed[name as SoundName] = 0;
+if (browser) {
+	for (const name in audioPaths) {
+		audioPools[name as SoundName] = Array.from({ length: 5 }, () => {
+			const a = new Audio(audioPaths[name as SoundName]);
+			a.volume = 0.8;
+			a.preload = 'auto';
+			return a;
+		});
+		lastPlayed[name as SoundName] = 0;
+	}
 }
 
 function playSound(name: SoundName) {
+	if (!browser) return;
+
 	const now = Date.now();
 	if (now - lastPlayed[name] < SOUND_COOLDOWN) return;
 
@@ -39,22 +45,23 @@ function playSound(name: SoundName) {
 
 export const sfx = {
 	blip: () => {
-		if (!soundEffect.enabled) return;
+		if (!browser || !soundEffect.enabled) return;
 		playSound('blip');
 	},
 	click: () => {
-		if (!soundEffect.enabled) return;
+		if (!browser || !soundEffect.enabled) return;
 		playSound('click');
 	},
 	enable: () => {
-		if (!soundEffect.enabled) return;
+		if (!browser || !soundEffect.enabled) return;
 		playSound('enable');
 	},
 	pop: () => {
+		if (!browser) return;
 		playSound('pop');
 	},
 	toggle: () => {
-		if (!soundEffect.enabled) return;
+		if (!browser || !soundEffect.enabled) return;
 		playSound('toggle');
 	}
 };

@@ -99,7 +99,7 @@
 				easing: cubicOut
 			}}
 		>
-			<span class="icon-[lucide--moon] size-6" aria-label="Moon"></span>
+			<span class="icon-[pixelarticons--moon] size-6" aria-label="Moon"></span>
 		</div>
 	{:else}
 		<div
@@ -111,7 +111,7 @@
 				easing: cubicOut
 			}}
 		>
-			<span class="icon-[lucide--sun] size-6" aria-label="Sun"></span>
+			<span class="icon-[pixelarticons--sun-alt] size-6" aria-label="Sun"></span>
 		</div>
 	{/if}
 </Button.Root>

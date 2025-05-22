@@ -33,7 +33,7 @@
 				>
 					<div class="mb-2 flex flex-col gap-2">
 						<h2
-							class="font-serif text-lg font-semibold tracking-tight text-gray-800 dark:text-gray-200"
+							class="font-serif text-lg font-semibold text-gray-800 dark:text-gray-200"
 						>
 							<!-- style={`--view-transition-name: title-${post.slug?.toLowerCase().replace(/ /g, '-')}`} -->
 							<span class="capitalize hover:underline focus:underline">{post.title}</span>

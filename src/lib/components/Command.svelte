@@ -102,7 +102,7 @@
 			>
 				<div class="absolute inline-flex h-full w-full items-center justify-center">
 					<span
-						class="icon-[lucide--command] size-6 transition-transform duration-200 ease-in-out group-data-[state=open]:rotate-90"
+						class="icon-[pixelarticons--menu] size-6 transition-transform duration-200 ease-in-out group-data-[state=open]:rotate-90"
 						aria-label="Command"
 					></span>
 				</div>
@@ -135,7 +135,7 @@
 								<Dialog.Close
 									class="absolute top-5 right-5 z-30 flex h-9 w-9 cursor-pointer items-center justify-center rounded-md bg-gray-100/70 text-gray-700 shadow-inner backdrop-blur-sm transition hover:bg-gray-200/70 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 dark:bg-gray-700/30 dark:text-gray-200 dark:shadow-inner dark:hover:bg-gray-600/40"
 								>
-									<span class="icon-[lucide--x] size-5" aria-hidden="true"></span>
+									<span class="icon-[pixelarticons--close] size-5" aria-hidden="true"></span>
 									<span class="sr-only">Close</span>
 								</Dialog.Close>
 
@@ -170,7 +170,7 @@
 								<!-- Command UI -->
 								<div class="w-full pb-6 text-stone-900 dark:text-gray-100">
 									<h1
-										class="mb-1 font-serif text-4xl font-black tracking-tight text-stone-950 dark:text-white"
+										class="mb-1 font-serif text-4xl font-black  text-stone-950 dark:text-white"
 									>
 										Search
 									</h1>
@@ -248,7 +248,7 @@
 															onclick={closeCommandPalette}
 														>
 															<span
-																class="icon-[lucide--book] size-5 text-stone-600 dark:text-gray-400"
+																class="icon-[pixelarticons--home] size-5 text-stone-600 dark:text-gray-400"
 															></span>
 															<div class="flex flex-col">
 																<span class="font-medium tracking-wide">Home</span>
@@ -266,7 +266,7 @@
 															onclick={closeCommandPalette}
 														>
 															<span
-																class="icon-[lucide--camera] size-5 text-stone-600 dark:text-gray-400"
+																class="icon-[pixelarticons--camera] size-5 text-stone-600 dark:text-gray-400"
 															></span>
 															<div class="flex flex-col">
 																<span class="font-medium tracking-wide">Photos</span>
@@ -283,7 +283,7 @@
 															onclick={closeCommandPalette}
 														>
 															<span
-																class="icon-[lucide--microscope] size-5 text-stone-600 dark:text-gray-400"
+																class="icon-[pixelarticons--book] size-5 text-stone-600 dark:text-gray-400"
 															></span>
 															<div class="flex flex-col">
 																<span class="font-medium tracking-wide">Projects</span>
@@ -298,7 +298,7 @@
 															keywords={['home']}
 														>
 															<span
-																class="icon-[lucide--book-open] size-5 text-stone-600 dark:text-gray-400"
+																class="icon-[pixelarticons--book-open] size-5 text-stone-600 dark:text-gray-400"
 															></span>
 															<div class="flex flex-col">
 																<span class="font-medium tracking-wide">Blog</span>
@@ -350,7 +350,7 @@
 																		class="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium tracking-wide text-stone-800 outline-hidden select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-disabled:opacity-50 data-selected:bg-stone-300/30 dark:text-gray-300 dark:data-selected:bg-gray-700/30"
 																	>
 																		<span
-																			class="icon-[lucide--book-open] size-5 text-stone-600 dark:text-gray-400"
+																			class="icon-[pixelarticons--book-open] size-5 text-stone-600 dark:text-gray-400"
 																		></span>
 																		<div class="flex flex-col">
 																			<span class="font-medium tracking-wide">{post.title}</span>

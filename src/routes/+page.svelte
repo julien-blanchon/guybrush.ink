@@ -113,9 +113,9 @@
 	<section class="mb-8" aria-labelledby="about-blog-heading">
 		<h2
 			id="about-blog-heading"
-			class="mb-4 font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+			class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
 		>
-			About This Blog
+			About me
 		</h2>
 		<p class="mb-4 text-base leading-relaxed tracking-normal">
 			Hi, I'm <strong>Julien Blanchon</strong> — a researcher, builder, and occasional open-source advocate.
@@ -128,7 +128,7 @@
 		<section class="mb-8" aria-labelledby="interests-heading">
 			<h2
 				id="interests-heading"
-				class="mb-4 font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
 			>
 				Interests
 			</h2>
@@ -160,37 +160,11 @@
 			/>
 		</section>
 
-		<!-- Side-quests Section -->
-		<section class="mb-8" aria-labelledby="side-quests-heading">
+		<!-- Let's chat Section -->
+		<section class="mb-8" aria-labelledby="lets-chat-heading">
 			<h2
-				id="side-quests-heading"
-				class="mb-4 font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
-			>
-				Side-Quests & Things I Like
-			</h2>
-			<div
-				class="rounded-md border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800"
-			>
-				<ol class="list-disc space-y-3 pl-6 text-base leading-relaxed">
-					<li>
-						<strong>Running & Swimming</strong> - I like indoor swimming in the winter and outdoor running
-						in the summer.
-					</li>
-					<li>
-						<strong>YouTube Documentaries</strong> - I'm a huge fan of YouTube documentaries.
-					</li>
-					<li>
-						<strong>Hackathons</strong> - I love hackathons. If you see one coming, and want to team
-						up, hit me up !
-					</li>
-				</ol>
-			</div>
-		</section>
-
-		<section class="mb-8" aria-labelledby="contact-heading">
-			<h2
-				id="contact-heading"
-				class="mb-4 font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+				id="lets-chat-heading"
+				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
 			>
 				Let's chat
 			</h2>
@@ -242,11 +216,38 @@
 			</div>
 		</section>
 
+		<!-- Side-quests Section -->
+		<section class="mb-8" aria-labelledby="side-quests-heading">
+			<h2
+				id="side-quests-heading"
+				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
+			>
+				Side-Quests & Things I Like
+			</h2>
+			<div
+				class="rounded-md border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+			>
+				<ol class="list-disc space-y-3 pl-6 text-base leading-relaxed">
+					<li>
+						<strong>Running & Swimming</strong> - I like indoor swimming in the winter and outdoor running
+						in the summer.
+					</li>
+					<li>
+						<strong>YouTube Documentaries</strong> - I'm a huge fan of YouTube documentaries.
+					</li>
+					<li>
+						<strong>Hackathons</strong> - I love hackathons. If you see one coming, and want to team
+						up, hit me up !
+					</li>
+				</ol>
+			</div>
+		</section>
+
 		<!-- Travel Section -->
 		<section class="mb-8" aria-labelledby="travel-heading">
 			<h2
 				id="travel-heading"
-				class="mb-4 font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
 			>
 				Travel
 			</h2>
@@ -268,7 +269,7 @@
 				aria-label="Show easter egg"
 			>
 				<span
-					class="icon-[mdi--chevron-down] size-10 duration-300 [transform-style:preserve-3d] group-data-[state=open]:[transform:rotateX(180deg)]
+					class="icon-[pixelarticons--chevron-down] size-10 duration-300 [transform-style:preserve-3d] group-data-[state=open]:[transform:rotateX(180deg)]
 					"
 					aria-hidden="true"
 				></span>
@@ -279,7 +280,7 @@
 						<div {...props} transition:slide>
 							<h2
 								id="citation-heading"
-								class="mb-4 font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+								class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
 							>
 								Citation
 							</h2>
@@ -299,7 +300,7 @@
 										class="cursor-pointer text-blue-600 transition-colors group-data-[is-copied=true]:text-green-600! hover:text-blue-800 dark:text-blue-400 dark:group-data-[is-copied=true]:text-green-400! dark:hover:text-blue-300"
 									>
 										<span
-											class="icon-[tabler--copy] group-data-[is-copied=true]:icon-[tabler--check] h-4! w-4!"
+											class="icon-[pixelarticons--copy] group-data-[is-copied=true]:icon-[pixelarticons--check] h-4! w-4!"
 										></span>
 									</button>
 								</div>
