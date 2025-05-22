@@ -65,29 +65,29 @@ const wrapSymbol = Symbol("nowrap");
 */
 // @ts-ignore
 function transformerMetaWrap({ noWrapClass = "nowrap" } = {}) {
-  return {
-    name: "@shikijs/transformers:meta-wrap",
-	/**
-     * @this {import('@shikijs/core').ShikiTransformerContext}
-     * @param {import('hast').Element} node - The <pre> node.
-     * @returns {import('hast').Element | void}
-     */
-    pre(node) {
-      if (!this.options.meta?.__raw) return;
+	return {
+		name: "@shikijs/transformers:meta-wrap",
+		/**
+		 * @this {import('@shikijs/core').ShikiTransformerContext}
+		 * @param {import('hast').Element} node - The <pre> node.
+		 * @returns {import('hast').Element | void}
+		 */
+		pre(node) {
+			if (!this.options.meta?.__raw) return;
 
-      const meta = this.meta;
-      // @ts-ignore
-      meta[wrapSymbol] ??= parseMetaWrapString(this.options.meta.__raw);
-      // @ts-ignore
-      const wrapDisabled = meta[wrapSymbol];
+			const meta = this.meta;
+			// @ts-ignore
+			meta[wrapSymbol] ??= parseMetaWrapString(this.options.meta.__raw);
+			// @ts-ignore
+			const wrapDisabled = meta[wrapSymbol];
 
-      if (wrapDisabled) {
-        this.addClassToHast(node, noWrapClass);
-      }
+			if (wrapDisabled) {
+				this.addClassToHast(node, noWrapClass);
+			}
 
-      return node;
-    }
-  };
+			return node;
+		}
+	};
 }
 
 
@@ -182,7 +182,17 @@ const markdownProcessor = unified()
 	.use(remarkRehype, { allowDangerousHtml: true, math: true, clobberPrefix: 'footnote-', footnoteBackContent: "↩\u{FE0E}" })
 	.use([[rehypePrettyCode, rehypePrettyCodeOptions], rehypeHandleMetadata])
 	.use([
-		[rehypeCallouts, { theme: 'github' }],
+		[rehypeCallouts,
+			/** @type {import('rehype-callouts').UserOptions} */
+			{
+				theme: 'github',
+				tags: {
+					nonCollapsibleContainerTagName: "blockquote",
+					nonCollapsibleTitleTagName: "summary",
+				},
+
+			}
+		],
 		rehypeVideo,
 		rehypeSlug,
 		[

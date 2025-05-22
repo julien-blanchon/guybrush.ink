@@ -61,7 +61,12 @@ export function rehypeMarkdownComponents() {
 				'a',
 				'copybutton',
 				'figure',
-				'pre'
+				'pre',
+				'code',
+				'tbody',
+				'thead',
+				'figcaption',
+				'p',
 			];
 			return tags.includes(node.tagName);
 		}, (node) => {

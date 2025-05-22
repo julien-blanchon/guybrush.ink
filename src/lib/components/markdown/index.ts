@@ -22,3 +22,7 @@ export { default as mark } from './mark.svelte';
 export { default as abbr } from './abbr.svelte';
 export { default as copybutton } from './copybutton.svelte';
 export { default as figure } from './figure.svelte';
+export { default as code } from './code.svelte';
+export { default as tbody } from './tbody.svelte';
+export { default as thead } from './thead.svelte';
+export { default as figcaption } from './figcaption.svelte';

@@ -6,7 +6,18 @@
 		children: Snippet;
 	};
 
-	let { children, ...props }: Props = $props();
+	let { children, class: className, ...props }: Props = $props();
 </script>
 
-<details {...props}>{@render children()}</details>
+<details
+	class={[
+		'my-6 rounded-lg border border-gray-200 dark:border-gray-700',
+		'bg-gray-50 dark:bg-gray-800/50',
+		'shadow-sm',
+		'group/details',
+		className
+	]}
+	{...props}
+>
+	{@render children()}
+</details>

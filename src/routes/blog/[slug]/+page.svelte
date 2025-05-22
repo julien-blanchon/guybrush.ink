@@ -188,8 +188,7 @@
 						]}
 						aria-label="Hide table of contents"
 					>
-						<span class="icon-[pixelarticons--chevron-right] size-5" aria-hidden="true"
-						></span>
+						<span class="icon-[pixelarticons--chevron-right] size-5" aria-hidden="true"></span>
 					</button>
 				</div>
 				<div class="relative">
@@ -217,7 +216,7 @@
 		<!-- Modern minimalist, left-aligned article header with refined spacing -->
 		<header class="mb-6 flex flex-col gap-2 pl-2" aria-label="Article header">
 			<h1
-				class="mb-1 font-serif text-4xl leading-tight font-extrabold  text-pretty text-gray-900 capitalize sm:text-5xl dark:text-white"
+				class="mb-1 font-serif text-4xl leading-tight font-extrabold text-pretty text-gray-900 capitalize sm:text-5xl dark:text-white"
 			>
 				<!-- style={`--view-transition-name: title-${data.frontmatter.title.toLowerCase().replace(/ /g, '-')}`} -->
 				{data.frontmatter.title}
@@ -270,9 +269,8 @@
 			</div>
 		</header>
 		<article>
-			<div
-				class="prose prose-base prose-headings:font-serif dark:prose-invert [&>section:nth-child(even)] [&>section:nth-child(odd)] prose-table:overflow-x-scroll prose-table:w-full prose-th:font-sans prose-hr:my-1 prose-figure:mt-0 prose-figure:mb-2 prose-p:my-1 max-w-none pb-32"
-			>
+			<!-- class="prose prose-base prose-headings:font-serif dark:prose-invert [&>section:nth-child(even)] [&>section:nth-child(odd)] prose-table:overflow-x-scroll prose-table:w-full prose-th:font-sans prose-hr:my-1 prose-figure:mt-0 prose-figure:mb-2 prose-p:my-1 max-w-none pb-32" -->
+			<div>
 				{@render data.component()}
 			</div>
 		</article>

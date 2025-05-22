@@ -111,7 +111,7 @@
 	</Dialog.Trigger>
 	<Dialog.Portal>
 		<Dialog.Content
-			class="fixed top-10 left-[50%] z-50 h-[80svh] w-full max-w-[94%] translate-x-[-50%] outline-hidden md:top-[50%] md:w-full md:translate-y-[-50%] lg:max-w-4xl"
+			class="fixed font-pixel top-10 left-[50%] z-50 h-[80svh] w-full max-w-[94%] translate-x-[-50%] outline-hidden md:top-[50%] md:w-full md:translate-y-[-50%] lg:max-w-4xl"
 			forceMount
 			preventScroll={true}
 			onOpenAutoFocus={(e) => {
@@ -170,7 +170,7 @@
 								<!-- Command UI -->
 								<div class="w-full pb-6 text-stone-900 dark:text-gray-100">
 									<h1
-										class="mb-1 font-serif text-4xl font-black  text-stone-950 dark:text-white"
+										class="mb-1 text-4xl font-black  text-stone-950 dark:text-white"
 									>
 										Search
 									</h1>

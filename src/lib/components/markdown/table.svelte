@@ -6,9 +6,27 @@
 		children: Snippet;
 	};
 
-	let { children, ...props }: Props = $props();
+	let { children, class: className, ...props }: Props = $props();
 </script>
 
-<div class="relative overflow-x-auto sm:rounded-lg">
-	<table class="w-full text-left text-sm rtl:text-right" {...props}>{@render children()}</table>
+<div class="my-8 flex flex-col">
+	<div class="-m-1.5 overflow-x-auto">
+		<div class="inline-block min-w-full p-1.5 align-middle">
+			<div
+				class="overflow-hidden rounded-lg border border-gray-200 shadow-md dark:border-gray-700 dark:shadow-gray-900/20"
+			>
+				<table
+					class={[
+						'min-w-full divide-y divide-gray-200 dark:divide-gray-700',
+						'bg-white dark:bg-gray-800/90',
+						'font-sans',
+						className
+					]}
+					{...props}
+				>
+					{@render children()}
+				</table>
+			</div>
+		</div>
+	</div>
 </div>

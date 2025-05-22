@@ -16,7 +16,7 @@
 </script>
 
 {#if alt}
-	<figure>
+	<figure class="my-8">
 		<Zoom>
 			{#snippet zoom_content({ img, button_unzoom, modal_state, handle_unzoom })}
 				{@render button_unzoom()}
@@ -29,20 +29,20 @@
 				{alt}
 				src={resolvedSrc}
 				class={[
-					'mx-auto block max-w-full rounded-lg drop-shadow-md transition-[filter,scale] duration-300 ease-in-out will-change-transform hover:scale-105 hover:drop-shadow-xl',
+					'mx-auto block max-w-full transition-all duration-300 ease-in-out will-change-transform hover:scale-102',
 					isExcalidrawSvg ? 'invert-0 dark:invert' : '',
 					className
 				]}
 				{...props}
 			/>
 		</Zoom>
-		<figcaption class="flex flex-col items-center justify-center gap-2">
+		<figcaption class="mt-3 flex flex-col items-center justify-center gap-2 text-center">
 			<span class="text-sm text-gray-600 italic dark:text-gray-400">
 				{alt}
 			</span>
 			{#if isExcalidrawSvg}
 				<a
-					class="inline-flex items-center gap-1 text-xs text-gray-600 italic underline dark:text-gray-400"
+					class="inline-flex items-center gap-1 text-xs text-gray-600 italic underline transition-colors duration-200 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
 					target="_blank"
 					href={`https://excalidraw.com/#url=${resolvedSrc}`}
 				>
@@ -57,7 +57,7 @@
 		{loading}
 		src={resolvedSrc}
 		class={[
-			'mx-auto block max-w-full transition-transform duration-300 ease-in-out hover:scale-105',
+			'mx-auto my-4 block max-w-full rounded-lg border border-gray-200 shadow-sm transition-all duration-300 ease-in-out hover:shadow-md dark:border-gray-700',
 			className
 		]}
 		{...props}

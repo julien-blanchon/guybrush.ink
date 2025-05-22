@@ -43,7 +43,7 @@
 <section class="animate-in fade-in zoom-in-0 h-full pb-6 duration-700">
 	{#if !commandState.open}
 		<div
-			class="group/header font-pixel  border-coffee-500 bg-coffee-200 relative z-50 origin-bottom overflow-hidden rounded-lg border p-4 text-pretty shadow-sm duration-300 ease-in-out hover:scale-[1.01] hover:shadow-lg hover:shadow-stone-400 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-gray-900"
+			class="group/header font-pixel border-coffee-500 bg-coffee-200 relative z-50 origin-bottom overflow-hidden rounded-lg border p-4 text-pretty shadow-sm duration-300 ease-in-out hover:scale-[1.01] hover:shadow-lg hover:shadow-stone-400 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-gray-900"
 			role="navigation"
 			in:receiveHeader={{ key: 'header' }}
 			out:sendHeader={{ key: 'header' }}
@@ -95,11 +95,7 @@
 				<!-- Combined Header and Navigation -->
 				<!-- Header Content -->
 				<hgroup class="w-full pb-4 text-stone-900 md:w-3/5 dark:text-gray-100">
-					<h1
-						class="mb-2 text-5xl font-black  text-stone-950 dark:text-white"
-					>
-						Guybrush.ink
-					</h1>
+					<h1 class="mb-2 text-5xl font-black text-stone-950 dark:text-white">Guybrush.ink</h1>
 					<p class="mb-2 text-xl font-medium tracking-wide text-stone-800 dark:text-gray-200">
 						AI Research for Real-World Applications
 					</p>
@@ -122,7 +118,7 @@
 					data-navigation-menu
 				>
 					<ul
-						class=" flex list-none items-center justify-evenly text-sm font-medium tracking-wide text-stone-800 dark:text-gray-300"
+						class="flex list-none items-center justify-evenly text-sm font-medium tracking-wide text-stone-800 dark:text-gray-300"
 						data-orientation="horizontal"
 					>
 						{#each navBarItems as item (item)}

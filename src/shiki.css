@@ -183,14 +183,6 @@ html.dark [data-rehype-pretty-code-figure] code {
 } */
 
 
-/* Inline code styling: only apply to code not inside pre or rehype-pretty-code figures */
-code:not(code[data-language]) {
-	@apply py-0.5 rounded-md italic whitespace-pre-wrap mx-1 border border-gray-300 bg-zinc-100 px-1 font-mono break-keep;
-}
-
-html.dark code:not(code[data-language]) {
-	@apply bg-zinc-900! border-gray-500!;
-}
 
 .space {
 	@apply inline-block select-none;

@@ -6,7 +6,9 @@
 		children: Snippet;
 	};
 
-	let { children, ...props }: Props = $props();
+	let { children, class: className, ...props }: Props = $props();
 </script>
 
-<figure {...props}>{@render children()}</figure>
+<figure class={['my-8', 'max-w-full', className]} {...props}>
+	{@render children()}
+</figure>

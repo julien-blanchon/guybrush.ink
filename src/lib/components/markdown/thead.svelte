@@ -2,21 +2,18 @@
 	import type { Snippet } from 'svelte';
 	import type { SvelteHTMLElements } from 'svelte/elements';
 
-	type Props = SvelteHTMLElements['p'] & {
-		children: Snippet;
+	type Props = SvelteHTMLElements['thead'] & {
+		children?: Snippet;
 	};
 
 	let { children, class: className, ...props }: Props = $props();
 </script>
 
-<p
+<thead
 	{...props}
 	class={[
-		'mb-5 text-base leading-relaxed text-gray-700 last:mb-0 dark:text-gray-300',
-		'tracking-normal',
-		'text-pretty hyphens-auto',
+		'bg-gray-50 dark:bg-gray-800',
+		'border-b border-gray-200 dark:border-gray-700',
 		className
-	]}
+	]}>{@render children?.()}</thead
 >
-	{@render children()}
-</p>

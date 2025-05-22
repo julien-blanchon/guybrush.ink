@@ -201,10 +201,10 @@ function longLine() {
 > This is a simple blockquote.
 > Check the [microtask queue](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask).
 
-> \[!NOTE]
+> [!NOTE]
 > This is a note.
 
-> \[!WARNING]- Collapsible warning
+> [!WARNING]- Collapsible warning
 > Be cautious with async side effects!
 
 ---
@@ -228,3 +228,177 @@ function longLine() {
 * [x] Containers
 * [x] `<abbr>`, `<details>`, and `<video>`
 
+
+
+# 🧠 Ultimate Markdown Feature Showcase
+
+## 1. Headings
+
+# H1  
+## H2  
+### H3  
+#### H4  
+##### H5  
+###### H6
+
+---
+
+## 2. Text Formatting
+
+**Bold**  
+*Italic*  
+***Bold Italic***  
+~~Strikethrough~~  
+<ins>Underline</ins> (HTML)  
+
+> “Markdown is for everyone.” — *Someone Smart*
+
+---
+
+## 3. Lists
+
+### Unordered
+
+- Item A
+  - Subitem A.1
+    - Subitem A.1.a
+
+### Ordered
+
+1. Step One
+2. Step Two
+   1. Substep
+   2. Substep
+
+### Task List
+
+- [x] Write Markdown  
+- [ ] Test in GitHub  
+- [ ] Profit 💰
+
+---
+
+## 4. Links and Images
+
+### Links
+
+[Inline](https://example.com)  
+[Reference][example]
+
+[example]: https://example.com
+
+---
+
+## 5. Code
+
+### Inline
+
+Use `printf()` in C.
+
+### Block
+
+```js
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+```
+
+### Code with Title (non-standard)
+
+```python title="example.py"
+def hello():
+    print("Hello World")
+```
+
+---
+
+## 6. Tables
+
+| Feature     | Supported | Notes                     |
+|-------------|-----------|---------------------------|
+| Headings    | ✅        | All levels                |
+| Tables      | ✅        | Pipe syntax               |
+| Task Lists  | ✅        | GitHub / Markdown-it      |
+| Footnotes   | ✅        | With proper extensions    |
+
+---
+
+## 7. Blockquotes and Callouts
+
+> [!NOTE]
+> This is a note.
+
+> [!WARNING]
+> This is a warning.
+
+
+
+---
+
+## 8. Footnotes
+
+Markdown supports footnotes[^1].
+
+[^1]: Here’s the footnote content.
+
+---
+
+## 9. Math (KaTeX or MathJax)
+
+Inline: $E = mc^2$  
+Block:
+
+$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+
+---
+
+## 10. Emoji and Abbreviations
+
+I ❤️ Markdown.  
+:rocket: :sparkles: :tada:
+
+**Abbr:** The HTML standard uses <abbr title="HyperText Markup Language">HTML</abbr>.
+
+---
+
+## 11. HTML Support
+
+<details>
+  <summary>Click to expand</summary>
+  <p>This is hidden content!</p>
+</details>
+
+---
+
+## 12. Escaping Characters
+
+Use \* to escape formatting.
+
+\*This will not be italic\*
+
+---
+
+## 13. Mermaid Diagrams (Non-standard, needs plugin)
+
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+```
+
+---
+
+## 14. Collapsible Sections (GitHub only)
+
+<details>
+  <summary>Details</summary>
+
+  Hidden content with **Markdown** inside!
+
+</details>
+
+---

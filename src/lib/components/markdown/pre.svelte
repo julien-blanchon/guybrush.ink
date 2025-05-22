@@ -91,53 +91,69 @@
 	};
 </script>
 
-<div
-	class="not-prose mt-5 flex flex-wrap items-center justify-between gap-2 rounded-t-lg border border-gray-200 bg-gray-50 py-1.5 pr-2 pl-4 dark:border-gray-700 dark:bg-gray-900"
->
-	<div class="flex items-center gap-4">
-		<span class="inline-flex items-center gap-1.5">
-			<span class="size-4 rounded-full bg-gray-200 dark:bg-gray-700"></span>
-			<span class="size-4 rounded-full bg-gray-200 dark:bg-gray-700"></span>
-			<span class="size-4 rounded-full bg-gray-200 dark:bg-gray-700"></span>
-		</span>
-		<p class="m-0 font-mono flex flex-row-reverse items-center justify-between gap-2.5 text-sm font-bold">
-			{#if title}
-				<span>{title}</span>
-				{@const extension = title.split('.').pop()}
-				{#if extension && extension in langIcons && typeof extension === 'string'}
-					<span class={langIcons[extension as keyof typeof langIcons].class}></span>
-				{:else if lang && lang in langIcons}
-					<span class={langIcons[lang as keyof typeof langIcons].class}></span>
+<div class="my-8 font-mono">
+	<div
+		class="flex flex-wrap items-center justify-between gap-2 rounded-t-lg border border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+	>
+		<div class="flex items-center gap-4">
+			<span class="inline-flex items-center gap-1.5">
+				<span class="size-3 rounded-full bg-red-400 dark:bg-red-600"></span>
+				<span class="size-3 rounded-full bg-yellow-400 dark:bg-yellow-600"></span>
+				<span class="size-3 rounded-full bg-green-400 dark:bg-green-600"></span>
+			</span>
+			<p
+				class="m-0 flex flex-row-reverse items-center justify-between gap-2.5 font-mono text-sm font-bold"
+			>
+				{#if title}
+					<span>{title}</span>
+					{@const extension = title.split('.').pop()}
+					{#if extension && extension in langIcons && typeof extension === 'string'}
+						<span class={langIcons[extension as keyof typeof langIcons].class}></span>
+					{:else if lang && lang in langIcons}
+						<span class={langIcons[lang as keyof typeof langIcons].class}></span>
+					{/if}
 				{/if}
-			{/if}
-		</p>
+			</p>
+		</div>
+		<div>
+			<button
+				type="button"
+				tabindex="0"
+				class="inline-flex h-7 cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-gray-100 px-3 font-mono text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 hover:text-black focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+				onclick={handleCopy}
+			>
+				{#if copyState}
+					<span
+						in:fly={{ y: -4, delay: 50 }}
+						class="inline-flex items-center justify-between gap-2"
+					>
+						Copied
+						<span class="icon-[pixelarticons--check] size-3.5 text-green-500 dark:text-green-400"
+						></span>
+					</span>
+				{:else}
+					<span in:fly={{ y: 4, delay: 50 }} class="inline-flex items-center justify-between gap-2"
+						>Copy <span class="icon-[pixelarticons--copy] size-3.5 text-gray-700 dark:text-gray-300"
+						></span></span
+					>
+				{/if}
+			</button>
+		</div>
 	</div>
-	<div>
-		<button
-			type="button"
-			tabindex="0"
-			class="inline-flex font-mono h-7 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-3 text-sm font-medium text-gray-900 transition-colors duration-150 hover:bg-gray-200 hover:text-black focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-			onclick={handleCopy}
-		>
-			{#if copyState}
-				<span in:fly={{ y: -4, delay: 50 }} class="inline-flex items-center justify-between gap-2">
-					Copied
-					<span class="icon-[pixelarticons--check] size-3.5 text-black dark:text-white"></span>
-				</span>
-			{:else}
-				<span in:fly={{ y: 4, delay: 50 }} class="inline-flex items-center justify-between gap-2"
-					>Copy <span class="icon-[pixelarticons--copy] size-3.5 text-black dark:text-white"></span></span
-				>
-			{/if}
-		</button>
+	<div
+		class="mb-3 overflow-auto rounded-lg rounded-t-none border border-t-0 border-gray-200 bg-gray-50 shadow-md dark:border-gray-700 dark:bg-gray-900 dark:shadow-gray-900/20"
+	>
+		<pre
+			{...props}
+			class={[
+				'p-4 text-sm outline-none',
+				'scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600',
+				className
+			]}
+			bind:this={codeElement}>
+			{@render children()}
+		</pre>
 	</div>
-</div>
-<div
-	class="not-prose mb-3 overflow-scroll rounded-lg rounded-t-none border border-t-0 border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
->
-	<pre {...props} class={['not-prose outline-none', className]} bind:this={codeElement}>
-		{@render children()}
-	</pre>
 </div>
 
-<!-- TODO: Credit https://prabhukirankonda.vercel.app in the file -->
+<!-- Credit: https://prabhukirankonda.vercel.app -->

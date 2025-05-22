@@ -6,7 +6,15 @@
 		children: Snippet;
 	};
 
-	let { children, ...props }: Props = $props();
+	let { children, class: className, ...props }: Props = $props();
 </script>
 
-<tr {...props}>{@render children()}</tr>
+<tr
+	{...props}
+	class={[
+		'group/tr',
+		'hover:bg-gray-50 dark:hover:bg-gray-700/50',
+		'transition-colors duration-150',
+		className
+	]}>{@render children()}</tr
+>

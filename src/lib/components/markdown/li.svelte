@@ -6,7 +6,9 @@
 		children?: Snippet;
 	};
 
-	let { children, ...props }: Props = $props();
+	let { children, class: className, ...props }: Props = $props();
 </script>
 
-<li {...props}>{@render children?.()}</li>
+<li {...props} class={['py-1 leading-normal', 'pl-1', className]}>
+	{@render children?.()}
+</li>
