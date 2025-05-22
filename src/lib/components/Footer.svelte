@@ -93,8 +93,9 @@
 						>
 					</li>
 					<li>
-						<a href="/blog" class="hover:text-coffee-900 transition-colors dark:hover:text-white"
-							>Blog</a
+						<a
+							href="/writings"
+							class="hover:text-coffee-900 transition-colors dark:hover:text-white">Writings</a
 						>
 					</li>
 				</ul>

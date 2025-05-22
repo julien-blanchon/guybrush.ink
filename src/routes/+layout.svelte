@@ -86,7 +86,7 @@
 		},
 		{ label: 'Photos', href: '/photos', disabled: true },
 		{ label: 'Projects', href: '/projects' },
-		{ label: 'Blog', href: '/blog' }
+		{ label: 'Writings', href: '/writings' }
 	];
 
 	let currPage = $state<string>(page.url.pathname);
@@ -239,7 +239,7 @@
 		</div>
 	</main>
 	<!-- If blog Table of Contents Sidebar on the right -->
-	{#if page.url.pathname.includes('/blog/')}
+	{#if page.url.pathname.includes('/writings/')}
 		<aside
 			id="sidebar"
 			aria-label="Table of contents sidebar"

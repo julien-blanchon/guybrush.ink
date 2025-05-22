@@ -83,11 +83,11 @@ preloadCode(base + '/path');
 ```ts
 // WRONG
 import { resolvePath } from '@sveltejs/kit';
-const path = base + resolvePath('/blog/[slug]', { slug });
+const path = base + resolvePath('/writings/[slug]', { slug });
 
 // RIGHT
 import { resolveRoute } from '$app/paths';
-const path = resolveRoute('/blog/[slug]', { slug });
+const path = resolveRoute('/writings/[slug]', { slug });
 ```
 
 ## Better Error Hook

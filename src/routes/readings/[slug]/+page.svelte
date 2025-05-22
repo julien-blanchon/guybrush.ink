@@ -245,7 +245,7 @@
 				</a>
 				<span>&middot; </span>
 				<a
-					href={`/blog/${data.frontmatter.slug}/llms.txt`}
+					href={`/writings/${data.frontmatter.slug}/llms.txt`}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-sm text-blue-500 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 dark:text-blue-300 dark:focus-visible:ring-blue-600"

@@ -24,7 +24,8 @@ $$
 x^2 + 2x + 1 = (x + 1)^2
 $$
 
-Inline math: \$E = mc^2\$
+Inline math: $E = mc^2$
+
 Abbreviation: HTML
 
 *[HTML]: HyperText Markup Language
@@ -36,7 +37,7 @@ Abbreviation: HTML
 
 ### With title, caption, and line numbers
 
-```ts title="calc.ts" caption="Simple calculation" showLineNumbers
+```ts caption="Simple calculation" showLineNumbers
 function calc() {
 	const a = 1;
 	const b = 2;

@@ -12,9 +12,8 @@
 <h1
 	class={[
 		'group/title',
-		'mt-14 mb-6 scroll-m-20 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white',
+		'mt-14 mb-6 scroll-m-20 text-4xl leading-tight font-extrabold tracking-tight text-gray-900 dark:text-white',
 		'border-b-2 border-gray-200 pb-2 dark:border-gray-700',
-		'leading-tight',
 		'relative before:mr-2 before:text-gray-400 before:content-["#"] dark:before:text-gray-500',
 		className
 	]}

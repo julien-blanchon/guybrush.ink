@@ -7,14 +7,14 @@ export const load = ({ url }) => {
         title: 'Guybrush.ink',
         titleTemplate: '%s | Guybrush.ink',
         robots: 'index, follow',
-        description: 'Guybrush.ink - Julien Blanchon Blog Posts',
+        description: 'Guybrush.ink - Julien Blanchon Writings',
         canonical: new URL(url.pathname, url.origin).href,
         twitter: {
             card: 'summary_large_image',
             site: '@JulienBlanchon',
             creator: '@JulienBlanchon',
             title: 'Guybrush.ink',
-            description: 'Guybrush.ink - Julien Blanchon Blog Posts',
+            description: 'Guybrush.ink - Julien Blanchon Writings',
             images: [
                 {
                     url: 'https://guybrush.ink/og-image.webp',
@@ -31,7 +31,7 @@ export const load = ({ url }) => {
             url: new URL(url.pathname, url.origin).href,
             locale: 'en_IE',
             title: 'Guybrush.ink',
-            description: 'Guybrush.ink - Julien Blanchon Blog Posts',
+            description: 'Guybrush.ink - Julien Blanchon',
             siteName: 'Guybrush.ink',
             profile: {
                 firstName: 'Julien',

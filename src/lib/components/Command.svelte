@@ -111,7 +111,7 @@
 	</Dialog.Trigger>
 	<Dialog.Portal>
 		<Dialog.Content
-			class="fixed font-pixel top-10 left-[50%] z-50 h-[80svh] w-full max-w-[94%] translate-x-[-50%] outline-hidden md:top-[50%] md:w-full md:translate-y-[-50%] lg:max-w-4xl"
+			class="font-pixel fixed top-10 left-[50%] z-50 h-[80svh] w-full max-w-[94%] translate-x-[-50%] outline-hidden md:top-[50%] md:w-full md:translate-y-[-50%] lg:max-w-4xl"
 			forceMount
 			preventScroll={true}
 			onOpenAutoFocus={(e) => {
@@ -169,11 +169,7 @@
 							<div class="relative z-20 flex h-full flex-col">
 								<!-- Command UI -->
 								<div class="w-full pb-6 text-stone-900 dark:text-gray-100">
-									<h1
-										class="mb-1 text-4xl font-black  text-stone-950 dark:text-white"
-									>
-										Search
-									</h1>
+									<h1 class="mb-1 text-4xl font-black text-stone-950 dark:text-white">Search</h1>
 								</div>
 
 								<!-- Command component -->
@@ -301,7 +297,7 @@
 																class="icon-[pixelarticons--book-open] size-5 text-stone-600 dark:text-gray-400"
 															></span>
 															<div class="flex flex-col">
-																<span class="font-medium tracking-wide">Blog</span>
+																<span class="font-medium tracking-wide">Writings</span>
 																<span
 																	class="text-xs tracking-wide text-stone-600 dark:text-gray-400"
 																	>Read my blog posts</span
@@ -310,7 +306,7 @@
 														</Command.LinkItem>
 													</Command.Group>
 
-													<!-- Blog posts section -->
+													<!-- Writings posts section -->
 													<Command.Separator
 														class="h-px w-full bg-stone-900/10 dark:bg-gray-300/10"
 													/>
@@ -318,7 +314,7 @@
 														<Command.GroupHeading
 															class="px-3 py-1 text-xs text-stone-500 dark:text-gray-400"
 														>
-															Blog Posts
+															Writings
 														</Command.GroupHeading>
 
 														{#if loadingPosts}
@@ -343,7 +339,7 @@
 															<Command.GroupItems>
 																{#each posts as post}
 																	<Command.LinkItem
-																		href={`/blog/${post.slug}`}
+																		href={`/writings/${post.slug}`}
 																		keywords={post.categories}
 																		onclick={closeCommandPalette}
 																		value={post.slug}

@@ -228,7 +228,14 @@
 			></span>
 			<span class="text-sm">
 				Place I can still explore with
-				<a href="https://apps.sentinel-hub.com/eo-browser/" class="text-blue-500">open data</a>
+				<a
+					href="https://apps.sentinel-hub.com/eo-browser/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-blue-500"
+				>
+					open data
+				</a>
 			</span>
 		</div>
 	</div>

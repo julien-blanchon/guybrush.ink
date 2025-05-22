@@ -4,7 +4,7 @@
     {
       "name": "default",
       "pageBundle": true,
-      "previewPath": "/blog/",
+      "previewPath": "/writings/",
       "fields": [
         {
           "title": "Title",
@@ -47,7 +47,7 @@
   "frontMatter.git.enabled": true,
   "frontMatter.content.pageFolders": [
     {
-      "title": "Blog",
+      "title": "Writings",
       "path": "[[workspace]]/src/posts/"
     }
   ],

@@ -73,7 +73,6 @@
 			className
 		]}
 		{href}
-		aria-current={href === window?.location?.pathname ? 'page' : undefined}
 	>
 		{@render children()}
 	</a>
@@ -90,6 +89,7 @@
 			getColor(href ?? ''),
 			className
 		]}
+		{href}
 		target="_blank"
 		rel="noopener noreferrer"
 		aria-label={`Visit ${href} (opens in a new tab)`}

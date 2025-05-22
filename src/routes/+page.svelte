@@ -16,7 +16,7 @@
 		const citation = `@misc{Guybrush.ink2025,
     title = {Guybrush.ink},
     url = {https://guybrush.ink},
-    author = {Guybrush.ink Team},
+    author = {Julien Blanchon},
     year = {2025},
     note = {Accessed on Month Day, Year}
 }`;
@@ -104,16 +104,12 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Guybrush.ink - AI Research for Real-World Applications</title>
-</svelte:head>
-
 <div class="text-gray-700 dark:text-gray-300">
-	<!-- About This Blog Section -->
-	<section class="mb-8" aria-labelledby="about-blog-heading">
+	<!-- About This Writings Section -->
+	<section class="mb-8" aria-labelledby="about-writings-heading">
 		<h2
-			id="about-blog-heading"
-			class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
+			id="about-writings-heading"
+			class="mb-4 font-serif text-3xl font-bold text-gray-900 dark:text-white"
 		>
 			About me
 		</h2>
@@ -128,7 +124,7 @@
 		<section class="mb-8" aria-labelledby="interests-heading">
 			<h2
 				id="interests-heading"
-				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
+				class="mb-4 font-serif text-3xl font-bold text-gray-900 dark:text-white"
 			>
 				Interests
 			</h2>
@@ -164,7 +160,7 @@
 		<section class="mb-8" aria-labelledby="lets-chat-heading">
 			<h2
 				id="lets-chat-heading"
-				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
+				class="mb-4 font-serif text-3xl font-bold text-gray-900 dark:text-white"
 			>
 				Let's chat
 			</h2>
@@ -172,9 +168,9 @@
 				class="mb-6 rounded-md border border-gray-200 bg-white/95 p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800/95"
 			>
 				<p>
-					I <span aria-label="love">❤&#xFE0E</span> collaborating and connecting with other ! Do get
-					in touch if you are working in any of the areas above, or if you have ideas that you think
-					I might be interested in.
+					I <span aria-label="love" class="text-rose-600 dark:text-rose-400">❤&#xFE0E</span> collaborating
+					and connecting with other ! Do get in touch if you are working in any of the areas above, or
+					if you have ideas that you think I might be interested in.
 				</p>
 				<p>
 					Feel free to reach out
@@ -220,7 +216,7 @@
 		<section class="mb-8" aria-labelledby="side-quests-heading">
 			<h2
 				id="side-quests-heading"
-				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
+				class="mb-4 font-serif text-3xl font-bold text-gray-900 dark:text-white"
 			>
 				Side-Quests & Things I Like
 			</h2>
@@ -247,7 +243,7 @@
 		<section class="mb-8" aria-labelledby="travel-heading">
 			<h2
 				id="travel-heading"
-				class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
+				class="mb-4 font-serif text-3xl font-bold text-gray-900 dark:text-white"
 			>
 				Travel
 			</h2>
@@ -280,7 +276,7 @@
 						<div {...props} transition:slide>
 							<h2
 								id="citation-heading"
-								class="mb-4 font-serif text-3xl font-bold  text-gray-900 dark:text-white"
+								class="mb-4 font-serif text-3xl font-bold text-gray-900 dark:text-white"
 							>
 								Citation
 							</h2>
@@ -308,7 +304,7 @@
 									class="m-0 overflow-auto bg-white p-4 font-mono text-sm text-gray-800 dark:bg-gray-900 dark:text-gray-300">@misc&#123;Guybrush.ink2025,
     title = &#123;Guybrush.ink&#125;,
     url = &#123;https://guybrush.ink&#125;,
-    author = &#123;Guybrush.ink Team&#125;,
+    author = &#123;Julien Blanchon&#125;,
     year = &#123;2025&#125;,
     note = &#123;Accessed on {currentDate}&#125;
 &#125;</pre>
