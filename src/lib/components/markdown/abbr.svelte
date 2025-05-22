@@ -23,14 +23,7 @@
 		<abbr
 			{...props}
 			{title}
-			class={[
-				'pointer-events-none cursor-help',
-				'text-gray-900 dark:text-gray-100',
-				'border-b border-dashed border-gray-400 dark:border-gray-500',
-				'hover:border-gray-600 dark:hover:border-gray-400',
-				'transition-colors duration-200',
-				className
-			]}
+			class={['pointer-events-none cursor-help', 'text-gray-900 dark:text-gray-100', className]}
 		>
 			{@render children()}
 		</abbr>

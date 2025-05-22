@@ -91,7 +91,7 @@
 	};
 </script>
 
-<div class="my-8 font-mono">
+<div class="my-2 font-mono">
 	<div
 		class="flex flex-wrap items-center justify-between gap-2 rounded-t-lg border border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
 	>

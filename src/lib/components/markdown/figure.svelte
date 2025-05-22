@@ -9,6 +9,6 @@
 	let { children, class: className, ...props }: Props = $props();
 </script>
 
-<figure class={['my-8', 'max-w-full', className]} {...props}>
+<figure class={['my-4', 'max-w-full', className]} {...props}>
 	{@render children()}
 </figure>

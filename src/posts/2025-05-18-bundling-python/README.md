@@ -19,7 +19,7 @@ In this post, I’ll show how to use `box` to bundle Python inference logic (e.g
 
 Shipping a single binary has several advantages:
 
-- 🐍 **No Python required on the user’s machine**
+- 🐍 **No Python required on the user's machine**
 - 💻 **Cross-platform builds** (Linux, macOS, Windows)
 - 🧳 **Easy integration as a Tauri sidecar**
 - 🧩 **Reproducibility** — you ship exactly the Python version and dependencies you want

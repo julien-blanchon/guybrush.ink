@@ -767,3 +767,8 @@ body {
 	}
 }
 
+
+
+.callout-title {
+	@apply flex items-center ;
+}
