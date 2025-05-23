@@ -23,7 +23,7 @@ It's especially well-suited for:
 * Background jobs
 * Anything where local development doesn't scale
 
-## The Vision Behind Modal
+## 1. The Vision Behind Modal
 
 Modal was born from a simple but powerful observation: **data teams deserve better tools**. As [Erik Bernhardsson explains in his foundational blog post](https://erikbern.com/2022/12/07/what-i-have-been-working-on-modal.html), data work is fundamentally different from traditional software engineering, yet we've been forcing data teams to adopt backend-normative workflows that don't fit their needs.
 
@@ -58,11 +58,11 @@ If you've ever thought,
 **"Why can't cloud infra feel like writing Python?"**
 Modal is your answer.
 
-## 🚀 How I Got Started With Modal
+## 2. How I Got Started With Modal
 
 I first stumbled upon Modal while trying to deploy a Stable Diffusion pipeline. At the time, most people were using **Runpod Serverless** or **Replicate** to deploy their ML endpoints.
 
-### The Pain of Traditional Deployment
+### 2.1 The Pain of Traditional Deployment
 
 The **Runpod** developer experience was genuinely painful. You had to:
 
@@ -89,7 +89,7 @@ class Predictor:
 
 This worked for simple cases, but complex workflows? Forget about it.
 
-### Then Came Modal
+### 2.2 Then Came Modal
 
 When I discovered Modal, the difference was immediately obvious. Here's is an example of a Stable Diffusion deployment, using various Modal features we will cover in this post:
 
@@ -199,7 +199,7 @@ The experience was refreshingly simple:
 4. ✅ **No registry pushes** — changes deploy instantly
 5. ✅ **No rigid structure** — full flexibility in my workflow
 
-### Comparison with Traditional Serverless Platforms
+### 2.3 Comparison with Traditional Serverless Platforms
 
 | Platform | Setup Time | Deployment | Flexibility | GPU Support | Model Loading |
 |----------|------------|------------|-------------|-------------|---------------|
@@ -214,7 +214,7 @@ Just Python. I wrapped my existing Stable Diffusion code into Modal functions an
 > [!TIP]
 > Modal makes GPU APIs as easy to deploy as a FastAPI route — exactly the kind of fast feedback loop that data teams need.
 
-### What I Use Modal For Now
+### 2.4 What I Use Modal For Now
 
 Since that first deployment, Modal has become my go-to for:
 
@@ -227,7 +227,7 @@ Each time, it scaled with me. Each time, it *just worked*. Each time, I experien
 > [!IMPORTANT]
 > The best infrastructure is the kind you don't have to think about. Modal delivers exactly that experience.
 
-## 🧩 What Makes Modal Special
+## 3. What Makes Modal Special
 
 This post walks through the **Modal features that have transformed my deployment workflow**, and why they matter for real-world applications. I'll cover:
 
@@ -244,7 +244,7 @@ Each feature solves a real pain point I've encountered when deploying ML workloa
 > [!IMPORTANT]
 > If you've been avoiding cloud deployment because it feels too complex, Modal might change your mind entirely.
 
-## 🐳 3.1 Containers Done Right — Declarative, Pythonic, Reproducible
+## 4. Containers Done Right — Declarative, Pythonic, Reproducible
 
 In most cloud environments, containerizing your code is a chore:
 
@@ -278,7 +278,7 @@ That's it:
 
 This `image` object can be reused across multiple functions and endpoints `@app.function(image=image)`
 
-### 💡 Why It's Great
+### 4.1 Why It's Great
 
 | Feature | Traditional Docker | Modal |
 |---------|-------------------|-------|
@@ -288,16 +288,16 @@ This `image` object can be reused across multiple functions and endpoints `@app.
 | **Reproducibility** | "Works on my machine" | Guaranteed identical |
 | **Local Resources** | Heavy Docker Desktop | Zero local overhead |
 
-* ✅ **Remote Builds**
+* **Remote Builds**
   Modal builds containers in the cloud — so your laptop can stay cool.
 
-* 🚀 **Layer Caching**
+* **Layer Caching**
   Only the changed layer is rebuilt. Fast iteration, every time.
 
-* 📁 **Local File Attachments**
+* **Local File Attachments**
   Add local scripts, configs, or whole packages — all from Python.
 
-* 🧪 **Reproducible Runs**
+* **Reproducible Runs**
   Every function runs in a clean, identical container. Goodbye "works on my machine."
 
 You're not locked in either — Modal also supports:
@@ -317,7 +317,7 @@ You can even generate a image procedurally in Python, while a Dockerfile is a st
 
 ![Figure 2 - Modal Flow vs Traditional Flow](./images/figure2.excalidraw.svg)
 
-## 🔐 3.2 Secrets Mounting — Secure by Default, Easy to Share
+## 5. Secrets Mounting — Secure by Default, Easy to Share
 
 Handling secrets — API keys, tokens, credentials — is often painful:
 
@@ -336,7 +336,7 @@ def call_api():
     ...
 ```
 
-### 🔐 Why It Works So Well
+### 5.1 Why It Works So Well
 
 | Approach | Security | Ease of Use | Team Sharing |
 |----------|----------|-------------|--------------|
@@ -345,13 +345,13 @@ def call_api():
 | **Cloud Secret Managers** | ✅ Secure | ❌ Complex | ⚠️ Setup heavy |
 | **Modal Secrets** | ✅ Secure | ✅ Simple | ✅ Built-in |
 
-* 🔄 **Easily Swappable**
+* **Easily Swappable**
   Change the name — not your code.
 
-* 👥 **Workspace Scoped**
+* **Workspace Scoped**
   Share across your team, projects, and functions.
 
-* 🧼 **Safe by Design**
+* **Safe by Design**
   Secrets are encrypted, scoped, and never persist where they shouldn't.
 
 You can create secrets via:
@@ -378,13 +378,13 @@ You can create secrets via:
 
 ![Figure 3 - Modal Secrets](./images/figure3.excalidraw.svg)
 
-## 💾 3.3 Volume & Cloud Bucket Mounts — Share Data Like a Pro
+## 6. Volume & Cloud Bucket Mounts — Share Data Like a Pro
 
 Whether you're training models, processing batches of files, or running inference with pretrained models, at some point you'll need **shared persistent storage**.
 
 Modal offers two powerful and Pythonic tools for this:
 
-### 📁 1. Volumes — Ephemeral, Fast, Commit-Consistent
+### 6.1 Volumes — Ephemeral, Fast, Commit-Consistent
 
 Think of `modal.Volume` as a **distributed scratch disk** — a shared folder that multiple Modal functions can read from and write to:
 
@@ -398,7 +398,7 @@ def write_file():
     vol.commit() # Commit the changes to the volume
 ```
 
-### 🔍 What makes volumes great?
+### 6.2 What makes volumes great?
 
 | Feature | Modal Volumes | Traditional NFS | Cloud Block Storage |
 |---------|---------------|-----------------|-------------------|
@@ -414,7 +414,7 @@ def write_file():
 > [!TIP]
 > `.commit()` is required to persist writes across functions. Think of it like a distributed save button.
 
-### 🪣 2. CloudBucketMount — Mount S3, GCS, or R2 Directly
+### 6.3 CloudBucketMount — Mount S3, GCS, or R2 Directly
 
 If you want to bring your own storage, you can use `modal.CloudBucketMount` to mount S3, GCS, or R2 directly.
 
@@ -429,7 +429,7 @@ def read_data():
     print(Path("/my-mount/file.txt").read_text())
 ```
 
-## ⏰ 3.4 Cron Jobs and Scheduling — Set It and Forget It
+## 7. Cron Jobs and Scheduling — Set It and Forget It
 
 Some things just need to happen on a schedule:
 
@@ -453,7 +453,7 @@ def refresh_data():
 > [!TIP]
 > You can pair scheduling with Modal volumes, cloud mounts, or GPU-backed processing — all in one place.
 
-## 🌐 3.5 Web Endpoints — Deploy APIs Without a Server
+## 8. Web Endpoints — Deploy APIs Without a Server
 
 Modal makes it effortless to expose your Python functions as **fully scalable web APIs** — no servers, no ports, no infra setup.
 
@@ -483,7 +483,7 @@ modal deploy hello_api.py
 > [!NOTE]
 > This works great for internal tools, ML-powered endpoints, and rapid prototyping.
 
-### 🤖 FastAPI Compatibility — First-Class
+### 8.1 FastAPI Compatibility — First-Class
 
 The `@modal.fastapi_endpoint` decorator wraps your function in a real FastAPI app behind the scenes, giving you:
 
@@ -507,7 +507,7 @@ Need more flexibility? Use:
 > [!TIP]
 > Modal supports full web frameworks — not just endpoints. Your whole app can live in the cloud.
 
-### ⚙️ Serverless and Scalable
+### 8.2 Serverless and Scalable
 
 Every endpoint:
 
@@ -518,7 +518,7 @@ Every endpoint:
 
 You don't manage servers or scaling. Modal takes care of all the boring parts — reliably.
 
-### 🔐 Security Built-In
+### 8.3 Security Built-In
 
 Want to restrict access? Just add:
 
@@ -544,7 +544,7 @@ For advanced needs, you can still use FastAPI's native security (OAuth2, JWT, et
 > [!IMPORTANT]
 > Modal's web endpoints turn Python functions into production-ready APIs — with autoscaling, FastAPI docs, and zero maintenance.
 
-## ⚡ 3.6 No Cold Starts — Memory Snapshots & `@enter`
+## 9. No Cold Starts — Memory Snapshots & `@enter`
 
 Serverless platforms often suffer from one problem: **cold starts**.
 
@@ -560,7 +560,7 @@ Modal gives you multiple tools to fight back:
 - Always keep a pool of containers warm
 - Try to reduce the cold start time by using snapshots
 
-### 🔁 Keep Containers Warm
+### 9.1 Keep Containers Warm
 
 Avoid spinning up cold containers altogether by keeping a pool ready:
 
@@ -589,7 +589,7 @@ def long_tail_fn():
 
 This keeps the container alive for 5 minutes after the last request — perfect for bursty workloads. This is based on the assumption that if a user just made a request, they will make another one in the near future.
 
-### 📸 Memory Snapshots — The Killer Feature
+### 9.2 Memory Snapshots — The Killer Feature
 
 You can go one step further: **snapshot the container memory** after warmup and reuse it for future cold starts.
 
@@ -613,13 +613,13 @@ The next time you call the function, it will directly start from the snapshot an
 
 This is based on CRIU under the hood[^4], the CRIU and Nvidia team are currently also working on the ability to save VRAM state as well. This will be a game changer at this could basically eliminate the cold start time [^5] [^6].
 
-## 👥 3.7 Organization and Teams — Workspaces & Environments
+## 10. Organization and Teams — Workspaces & Environments
 
 Modal isn't just solo-developer friendly — it's **team-ready** out of the box.
 
 You don't need to share secrets in Slack, sync buckets manually, or create separate billing accounts. Modal provides two key primitives:
 
-### 🧩 Workspaces
+### 10.1 Workspaces
 
 A **workspace** is your team's shared space for:
 
@@ -632,7 +632,7 @@ A **workspace** is your team's shared space for:
 
 Everyone in the workspace can access shared resources — without having to copy-paste credentials or redo infrastructure.
 
-### 🌱 Environments
+### 10.2 Environments
 
 Environments help you separate:
 
@@ -649,7 +649,7 @@ modal deploy --name my-app --environment staging
 > [!NOTE]
 > Modal environments are optional — but powerful for teams managing multiple pipelines or app states.
 
-## ☁️ 3.8 Cloud Abstraction & Region Selection
+## 11. Cloud Abstraction & Region Selection
 
 One of Modal's underrated strengths is that it hides the complexity of cloud infrastructure. You don't need:
 
@@ -659,13 +659,13 @@ One of Modal's underrated strengths is that it hides the complexity of cloud inf
 
 Just write Python, and Modal handles the rest.
 
-### 🧭 When You *Do* Want Control
+### 11.1 When You *Do* Want Control
 
 You can **explicitly select cloud and region** when needed — for:
 
-* 🚀 **Low latency** inference
-* 🏛️ **Data residency** & compliance
-* 💸 **Cost optimization** (e.g., egress near your storage)
+* Low latency inference
+* Data residency & compliance
+* Cost optimization (e.g., egress near your storage)
 
 Here's how to do it:
 
@@ -677,7 +677,7 @@ def my_fn():
 
 Modal instantly runs your code on GCP in the `us-west1` region — no provisioning needed.
 
-### 🌱 Supported Clouds
+### 11.2 Supported Clouds
 
 | Cloud Provider | Status | Regions Available |
 |----------------|--------|------------------|
@@ -700,12 +700,12 @@ You can choose from:
 > Modal gives you a fully managed experience, but when you need to fine-tune your compute location — you can.
 > The result? Serverless that scales globally, but respects your constraints.
 
-### 3.9 — Built-In Debugging and Monitoring
+### 11.3 Built-In Debugging and Monitoring
 
 ...
 <!-- I will to by my self keep this comment -->
 
-### Conclusion 
+### 12. Conclusion 
 
 Modal has fundamentally changed how I think about deploying and scaling applications. By eliminating the friction between local development and cloud execution, it embodies Erik Bernhardsson's vision of fast feedback loops that make data teams truly productive.
 
