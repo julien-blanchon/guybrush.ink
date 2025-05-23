@@ -775,16 +775,18 @@ body {
 
 
 @layer base {
-	/* Reduce the margin of p follow by ul or ol */
-	p:has(+ ul),
-	p:has(+ ol) {
-	  @apply !mb-0; /* Reduce margin when followed by a list */
-	}
+	article {
+		/* Reduce the margin of p follow by ul or ol */
+		& p:has(+ ul),
+		& p:has(+ ol) {
+		@apply !mb-0; /* Reduce margin when followed by a list */
+		}
 
-	/* Add margin on ul or ul if not followed by another ul or ol */
-	ul:not(:has(+ ul, + ol)),
-	ol:not(:has(+ ul, + ol)) {
-		@apply !mb-4;
+		/* Add margin on ul or ul if not followed by another ul or ol */
+		& ul:not(:has(+ ul, + ol)),
+		& ol:not(:has(+ ul, + ol)) {
+			@apply !mb-4;
+		}
 	}
 
   }
