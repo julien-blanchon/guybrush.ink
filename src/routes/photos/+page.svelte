@@ -24,7 +24,7 @@
 </script>
 
 <div class="columns-2 gap-4 space-y-4 sm:columns-2 md:columns-3 lg:columns-4">
-	{#each images as image}
+	{#each images as image (image.src)}
 		<img
 			src={image.src}
 			alt={image.alt}

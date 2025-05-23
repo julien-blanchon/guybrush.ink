@@ -109,7 +109,7 @@
 				reflectX
 			>
 				<Graticule class="stroke-surface-content/5" />
-				{#each countries.features as country}
+				{#each countries.features as country (country.properties.name)}
 					{#if visitedCountriesName.includes(country.properties.name)}
 						<GeoPath
 							geojson={country}
@@ -135,7 +135,7 @@
 			<!-- Front hemisphere orbits and map -->
 
 			<Graticule class="stroke-surface-content/20" />
-			{#each countries.features as country}
+			{#each countries.features as country (country.properties.name)}
 				{#if visitedCountriesName.includes(country.properties.name)}
 					<GeoPath
 						geojson={country}
@@ -156,7 +156,7 @@
 					/>
 				{/if}
 			{/each}
-			{#each orbits as track}
+			{#each orbits as track (track.join(','))}
 				<GeoPath
 					geojson={{ type: 'LineString', coordinates: track }}
 					class="pointer-events-none z-0 cursor-default stroke-pink-900 stroke-2 opacity-20"

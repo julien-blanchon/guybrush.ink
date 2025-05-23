@@ -12,7 +12,7 @@
 <p
 	{...props}
 	class={[
-		'mb-5 text-base leading-relaxed text-gray-700 last:mb-0 dark:text-gray-300',
+		'mb-3 text-base leading-relaxed text-gray-700 last:mb-0 dark:text-gray-300',
 		'tracking-normal',
 		'text-pretty hyphens-auto',
 		className

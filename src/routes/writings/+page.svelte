@@ -38,7 +38,7 @@
 						</h2>
 						<div class="flex flex-wrap items-center gap-2">
 							{#if post.categories && post.categories.length}
-								{#each post.categories as category}
+								{#each post.categories as category (category)}
 									<span
 										class="rounded bg-blue-50 px-2 py-0.5 text-xs font-medium tracking-wide text-blue-700 capitalize dark:bg-blue-900/30 dark:text-blue-300"
 										>{category}</span

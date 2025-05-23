@@ -6,9 +6,13 @@ date: '2025-05-22'
 published: true
 categories:
   - modal
+  - cloud
+  - infrastructure
 ---
 
 > **Modal** is a modern cloud platform designed for developers who want to run Python code in the cloud without dealing with infrastructure.
+> 
+> It has become my go-to solution for any endpoint that I need to deploy and for running batch processing at scale.
 > 
 > Instead of provisioning servers, writing Dockerfiles, or wrestling with Kubernetes, you just write Python functions. Modal handles everything else behind the scenes — from container builds to GPU provisioning, autoscaling, secrets, storage, and deployment. All defined in code, all versioned, all reproducible.
 
@@ -19,70 +23,226 @@ It's especially well-suited for:
 * Background jobs
 * Anything where local development doesn't scale
 
-Modal is built by a small but highly experienced team, including **Erik Bernhardsson**[^1] (creator of Luigi and Annoy). You can feel their attention to developer experience the moment you write your first:
+## The Vision Behind Modal
 
-```python {1}
-@app.function
-def my_task():
-    pass
+Modal was born from a simple but powerful observation: **data teams deserve better tools**. As [Erik Bernhardsson explains in his foundational blog post](https://erikbern.com/2022/12/07/what-i-have-been-working-on-modal.html), data work is fundamentally different from traditional software engineering, yet we've been forcing data teams to adopt backend-normative workflows that don't fit their needs.
+
+The core insight? **Data teams need fast feedback loops on production data**. Whether you're running SQL queries or training ML models, it's often pointless to work with non-production data. But this creates a fundamental tension with traditional software engineering practices that strictly separate local development from production environments.
+
+Erik and his team at Modal[^1] asked: *What if we could take the cloud inside the innermost feedback loop?* What if instead of the painful cycle of:
+
+```
+build container → push container → trigger job → download logs
 ```
 
+![Figure 1 - Traditional Development Loop](images/figure1.excalidraw.svg)
+
+You could just write Python and have it run in the cloud in under a second?
+
+To deliver this vision, Modal built their own infrastructure from the ground up — custom file system, container runtime, and scheduler — all designed around Erik's core principle that **fast feedback loops are the secret to developer productivity**.
+
 > [!NOTE]
-> Modal transforms infrastructure from a roadblock into something you barely notice.
+> Modal transforms infrastructure from a roadblock into something you barely notice — exactly what data teams need to be productive.
+
+The foundational building block is deceptively simple: a decorator that takes any Python function and moves its execution to the cloud:
+
+```python {1}
+@app.function()
+def my_task():
+    print("This will be executed in the cloud")
+```
+
+But this primitive unlocks incredible power. As Erik puts it: *"This might seem like a very trivial thing, but it turns out you can use this as a very powerful primitive to build a lot of cool stuff."*
 
 If you've ever thought,
 **"Why can't cloud infra feel like writing Python?"**
 Modal is your answer.
 
-![Figure 1](./images/figure1.excalidraw.svg)
-
 ## 🚀 How I Got Started With Modal
 
-I first stumbled upon Modal while trying to deploy a Stable Diffusion inpainting pipeline. I had already built a complete virtual staging system using **ComfyUI** and **🤗 Diffusers**, but making it *scalable, cost-efficient, and developer-friendly* was frustrating.
+I first stumbled upon Modal while trying to deploy a Stable Diffusion pipeline. At the time, most people were using **Runpod Serverless** or **Replicate** to deploy their ML endpoints.
 
-Then came Modal.
+### The Pain of Traditional Deployment
 
-What immediately stood out:
+The **Runpod** developer experience was genuinely painful. You had to:
 
-| Traditional Deployment | Modal Approach |
-|----------------------|----------------|
-| Write Dockerfile | Define image in Python |
-| Manage GPU drivers | GPU access built-in |
-| Setup Kubernetes cluster | Zero cluster management |
-| Configure autoscaling | Automatic scaling |
-| Handle secrets manually | Secure secret injection |
+1. Write a Dockerfile locally
+2. Build it on your machine (or rent a GPU instance just for building!)
+3. Push massive images to a registry
+4. Configure everything through their web dashboard
 
-Just Python. I wrapped my existing code into a Modal function and deployed it — **within minutes**, I had a running GPU endpoint faster than anything I'd previously deployed.
+The worst part? Model weights were typically bundled into Docker images, creating **50GB+ monsters** that took forever to build, push, and pull. Want to tweak a hyperparameter? Rebuild the entire image. Need to update an environment variable? Back to the dashboard.
+
+**Replicate** was simpler — no Dockerfile required — but came with rigid constraints. Your code had to fit their exact structure:
+
+```python
+# Replicate's rigid structure
+class Predictor:
+    def setup(self):
+        # Load model here
+        pass
+    
+    def predict(self, prompt: str) -> str:
+        # Your logic here, but it must fit this pattern
+        pass
+```
+
+This worked for simple cases, but complex workflows? Forget about it.
+
+### Then Came Modal
+
+When I discovered Modal, the difference was immediately obvious. Here's is an example of a Stable Diffusion deployment, using various Modal features we will cover in this post:
+
+```python title="stable_diffusion.py" showLineNumbers
+import modal
+
+# Define the environment in pure Python
+image = (
+    modal.Image.debian_slim(python_version="3.11")
+    .pip_install("torch", "diffusers", "transformers")
+    .pip_install("xformers", gpu="A10G")  # GPU-optimized build
+)
+
+# Get a volume by name, to avoid redownloading the model
+# Create it if it doesn't exist
+model_volume = modal.Volume.from_name(
+    "sd-models", 
+    create_if_missing=True
+ )
+
+# Get a secret by name from modal
+huggingface_token = modal.Secret.from_name("huggingface-token")
+
+app = modal.App("stable-diffusion", image=image)
+
+@app.cls(
+    gpu=["A10G", "A100:40GB"], # Run on A10G or A100 (improve disponibility)
+    volumes={"/models": model_volume}, # Mount a volume for model caching
+    secrets=[huggingface_token], # Inject secrets into the container
+    container_idle_timeout=300,  # Keep warm for 5 minutes
+    enable_memory_snapshot=True  # Enable memory snapshots
+)
+class StableDiffusion:
+    # This runs once and gets snapshotted
+    # This can save up to 10s on cold starts
+    @modal.enter(snap=True)
+    def load_model(self):
+        import os
+        from diffusers import StableDiffusionPipeline
+        
+        # Load the model from the HuggingFace model hub
+        # This will download the model to the volume the first time
+        # Subsequent runs will use the cached volume
+        self.pipe = StableDiffusionPipeline.from_pretrained(
+            "runwayml/stable-diffusion-v1-5",
+            cache_dir="/models",
+            token=os.environ["HF_TOKEN"]
+        )
+    
+    # This runs from snapshot, moves model to GPU
+    @modal.enter(snap=False)
+    def move_to_gpu(self):
+        self.pipe = self.pipe.to("cuda")
+    
+    @modal.method()
+    def generate(self, prompt: str, steps: int = 20):
+        image = self.pipe(prompt, num_inference_steps=steps).images[0]
+        return image
+    
+    # You can also define multiple methods that will use the same machine type (save on cold start)
+    @modal.method()
+    def generate_with_lora(self, prompt: str, steps: int = 20, lora_path: str):
+        self.pipe.load_lora_weights(lora_path)
+        image = self.pipe(prompt, num_inference_steps=steps).images[0]
+        self.pipe.unload_lora_weights()
+        return image
+
+@app.function()
+@modal.web_endpoint(method="POST", docs=True)
+def api_generate(prompt: str, steps: int = 20, enable_lora: bool = False):
+    sd = StableDiffusion()
+    if enable_lora:
+        image = sd.generate_with_lora.remote(
+            prompt,
+            steps,
+            lora_path="path/to/lora"
+         )
+    else:
+        image = sd.generate.remote(prompt, steps)
+    ...
+    return {"status": "generated", "prompt": prompt, "image": image}
+
+# Bonus: Scheduled a weekly report
+@app.function(schedule=modal.Period(days=7))
+def generate_weekly_report():
+    ...
+
+# Local entrypoint, expose a function runnable from the CLI with
+# `modal run stable_diffusion.py::run_batch_job`
+@app.local_entrypoint()
+def run_batch_job():
+    my_list_of_prompts = [...]
+
+    # Run the API in parallel for each prompt
+    for result in api_generate.map(my_list_of_prompts):
+        print(result)
+
+```
+
+That's it. **No Dockerfile. No registry. No dashboard configuration.** Just Python code that runs in the cloud.
+
+The experience was refreshingly simple:
+
+1. ✅ **No Dockerfile needed** — just Python dependencies
+2. ✅ **No manual GPU setup** — Modal handles the hardware
+3. ✅ **No complex orchestration** — scaling and monitoring built-in
+4. ✅ **No registry pushes** — changes deploy instantly
+5. ✅ **No rigid structure** — full flexibility in my workflow
+
+### Comparison with Traditional Serverless Platforms
+
+| Platform | Setup Time | Deployment | Flexibility | GPU Support | Model Loading |
+|----------|------------|------------|-------------|-------------|---------------|
+| **Runpod** | Hours | Manual, Complex | High but Messy | Manual Config | Bundle in image |
+| **Replicate** | Minutes | Simple but Limited | Low | Built-in | Rigid structure |
+| **Modal** | Minutes | Instant | High | Built-in | Your choice |
+
+What really stood out was how Modal preserved my existing workflow. I didn't have to restructure my code or learn a new paradigm — I just added a few decorators and my local code became cloud-ready. I could even test locally and deploy the exact same code to the cloud.
+
+Just Python. I wrapped my existing Stable Diffusion code into Modal functions and deployed it — **within minutes**, I had a running GPU endpoint that was faster and more reliable than anything I'd previously deployed.
 
 > [!TIP]
-> Modal makes GPU APIs as easy to deploy as a FastAPI route.
+> Modal makes GPU APIs as easy to deploy as a FastAPI route — exactly the kind of fast feedback loop that data teams need.
 
-Later, I discovered **ComfyDeploy**[^2] — a remote execution setup where ComfyUI runs inside Modal using powerful cloud GPUs.
-That sealed the deal.
+### What I Use Modal For Now
 
-Since then, I've used Modal for:
+Since that first deployment, Modal has become my go-to for:
 
-* Internal APIs
-* Scheduled ML jobs
-* Prototypes and production endpoints
+* **Internal APIs** — Quick endpoints for team tools and dashboards
+* **Scheduled ML jobs** — Daily model retraining, data processing pipelines
+* **Prototypes and production endpoints** — From proof-of-concept to customer-facing APIs
 
-Each time, it scaled with me. Each time, it *just worked*.
-
-## 🧩 Coming Up Next
-
-This post is a breakdown of the **Modal features I use most**, and *why they matter in real workflows*. We'll cover:
-
-1. Containers (without Dockerfiles)
-2. Secrets and environment isolation
-3. Persistent Volumes and bucket mounts
-4. GPUs and autoscaling
-5. Scheduling, logging, observability
-6. Python-first APIs with seamless local → remote transition
-
-Whether you're scaling a side project or deploying a full ML pipeline, Modal makes the journey *pleasantly boring* — in the best way possible.
+Each time, it scaled with me. Each time, it *just worked*. Each time, I experienced what Erik envisioned: infrastructure that gets out of your way so you can focus on the actual work.
 
 > [!IMPORTANT]
-> If you've built something cool and you're dreading the deployment phase, Modal might be the missing piece.
+> The best infrastructure is the kind you don't have to think about. Modal delivers exactly that experience.
+
+## 🧩 What Makes Modal Special
+
+This post walks through the **Modal features that have transformed my deployment workflow**, and why they matter for real-world applications. I'll cover:
+
+1. **Containers without Dockerfiles** — Define environments in pure Python
+2. **Secrets that actually work** — Secure, shareable, and simple
+3. **Storage that scales** — Volumes and cloud bucket mounts
+4. **Scheduling made easy** — Cron jobs without the complexity
+5. **Web endpoints** — Deploy APIs faster than FastAPI locally
+6. **Cold start elimination** — Memory snapshots and smart scaling
+7. **Team collaboration** — Workspaces and environments that just work
+
+Each feature solves a real pain point I've encountered when deploying ML workloads. Modal doesn't just make deployment possible — it makes it **enjoyable**.
+
+> [!IMPORTANT]
+> If you've been avoiding cloud deployment because it feels too complex, Modal might change your mind entirely.
 
 ## 🐳 3.1 Containers Done Right — Declarative, Pythonic, Reproducible
 
@@ -98,27 +258,32 @@ In most cloud environments, containerizing your code is a chore:
 
 Here, you define your image **entirely in Python**, in just a few lines:
 
-```python title="container.py" {3-6}
+```python title="container.py" {3-11}
 import modal
 
 image = (
     modal.Image.debian_slim(python_version="3.10")
     .apt_install("git")
     .pip_install("torch==2.2.0", "transformers")
+    .pip_install("bitsandbytes", gpu="H100")  # Execute with a GPU
 )
 ```
 
-That's it —
-❌ No Dockerfile
-❌ No local Docker
-❌ No painful rebuilds
+That's it:
+
+- ❌ No Dockerfile
+- ❌ No local Docker needed, build with GPU in the cloud
+- ❌ No painful rebuilds, just change the code and redeploy. Each layer is cached and only rebuilt if the code changes.
+- ❌ No registry pull & pushes
+
+This `image` object can be reused across multiple functions and endpoints `@app.function(image=image)`
 
 ### 💡 Why It's Great
 
 | Feature | Traditional Docker | Modal |
 |---------|-------------------|-------|
 | **Build Location** | Local machine | Cloud (remote) |
-| **Layer Caching** | Manual optimization | Automatic |
+| **Layer Caching** | Local (take spaces) | Modal manages layers for you |
 | **Dependency Management** | Dockerfile syntax | Python methods |
 | **Reproducibility** | "Works on my machine" | Guaranteed identical |
 | **Local Resources** | Heavy Docker Desktop | Zero local overhead |
@@ -148,7 +313,9 @@ You're not locked in either — Modal also supports:
 > You never have to open Docker Desktop again.
 > Modal gives you Docker power, minus the Docker pain.
 
-![Figure 2](./images/figure2.excalidraw.svg)
+You can even generate a image procedurally in Python, while a Dockerfile is a static description of the image.
+
+![Figure 2 - Modal Flow vs Traditional Flow](./images/figure2.excalidraw.svg)
 
 ## 🔐 3.2 Secrets Mounting — Secure by Default, Easy to Share
 
@@ -168,9 +335,6 @@ def call_api():
     token = os.environ["HF_TOKEN"]
     ...
 ```
-
-> [!CAUTION]
-> Secrets are never written to disk or logs. They live only in ephemeral execution environments.
 
 ### 🔐 Why It Works So Well
 
@@ -212,13 +376,11 @@ You can create secrets via:
 > [!IMPORTANT]
 > Secrets are injected cleanly, stored securely, and scoped smartly. All you do is write Python.
 
-<--- Suggestion: Diagram showing a "secret vault" connected via a line to a container bubble → function bubble, all encapsulated in a secure execution environment --->
-
-![Figure 3](./images/figure3.excalidraw.svg)
+![Figure 3 - Modal Secrets](./images/figure3.excalidraw.svg)
 
 ## 💾 3.3 Volume & Cloud Bucket Mounts — Share Data Like a Pro
 
-Whether you're training models, processing batches of files, or running inference, at some point you'll need **shared persistent storage**.
+Whether you're training models, processing batches of files, or running inference with pretrained models, at some point you'll need **shared persistent storage**.
 
 Modal offers two powerful and Pythonic tools for this:
 
@@ -231,32 +393,30 @@ vol = modal.Volume.from_name("my-volume")
 
 @app.function(volumes={"/models": vol})
 def write_file():
-    with open("/models/weights.bin", "wb") as f:
-        f.write(...)
-    vol.commit()
+    with Path("/models/weights.bin").open("wb") as f:
+        f.write(...) # Write to the volume
+    vol.commit() # Commit the changes to the volume
 ```
 
 ### 🔍 What makes volumes great?
 
 | Feature | Modal Volumes | Traditional NFS | Cloud Block Storage |
 |---------|---------------|-----------------|-------------------|
-| **Setup Complexity** | Zero config | Complex | Moderate |
+| **Setup Complexity** | Zero config | Complex, you handle the NFS server | Moderate, you handle the block storage |
 | **Cross-function Access** | ✅ Built-in | ✅ Yes | ❌ Single mount |
 | **Performance** | ⚡ Optimized | ⚠️ Network dependent | ✅ Good |
-| **Consistency** | 🔒 Commit-based | ⚠️ Eventually consistent | ✅ Strong |
-| **Cost** | 💰 Pay-per-use | 💰 Always-on | 💰 Always-on |
+| **Cost** | Modal doesn't charge for volumes ! | 💰 Always-on | 💰 Always-on |
 
 * ⚡ **Fast Access** — Designed for high-speed reads across workers
 * 🧠 **Great for ephemeral data** — model checkpoints, logs, outputs
 * 🔁 **Cross-function Sharing** — multiple functions can use the same volume
-* ☁️ **Upload support** — send files from local via `volume.batch_upload(...)`
 
 > [!TIP]
 > `.commit()` is required to persist writes across functions. Think of it like a distributed save button.
 
 ### 🪣 2. CloudBucketMount — Mount S3, GCS, or R2 Directly
 
-Accessing cloud storage should be easy. Modal makes it feel native:
+If you want to bring your own storage, you can use `modal.CloudBucketMount` to mount S3, GCS, or R2 directly.
 
 ```python title="cloud_mount.py" {2-5}
 @app.function(
@@ -266,49 +426,20 @@ Accessing cloud storage should be easy. Modal makes it feel native:
     )}
 )
 def read_data():
-    print(open("/my-mount/file.txt").read())
+    print(Path("/my-mount/file.txt").read_text())
 ```
-
-### 🌍 Why it's powerful:
-
-* ☁️ **Access cloud buckets like local paths**
-* 🔒 **Secure via secrets or OIDC roles** — no hardcoded tokens
-* 📂 **Scoped Mounts** — limit to specific paths with `key_prefix`
-* 🔁 **Optional write support** — just set `read_only=False`
-
-> [!WARNING]
-> You still need credentials — but with Modal secrets, this becomes seamless and secure.
-
-> [!IMPORTANT]
-> Modal gives you the best of local and cloud storage:
->
-> * Volumes = fast, shared scratch space
-> * Buckets = scalable cloud data access
->   All without needing to manage NFS, blob SDKs, or rsync scripts.
 
 ## ⏰ 3.4 Cron Jobs and Scheduling — Set It and Forget It
 
 Some things just need to happen on a schedule:
 
 * Refresh a dataset daily
-* Retrain a model weekly
-* Ping your API every 15 minutes to keep it warm
+* Ping your API every 15 minutes for monitoring
 * Generate reports every Monday at 9am
 
 With Modal, you can schedule any Python function to run — **reliably, remotely, on CPU or GPU**.
 
-### 🧭 Why You'll Love It
-
-| Scheduling Solution | Setup Complexity | Reliability | GPU Support | Cost When Idle |
-|-------------------|------------------|-------------|-------------|----------------|
-| **Local Cron** | ✅ Simple | ❌ Single point of failure | ❌ No | 💰 Always running |
-| **GitHub Actions** | ⚠️ YAML config | ✅ Reliable | ❌ Limited | ✅ Free tier |
-| **Airflow** | ❌ Complex setup | ✅ Enterprise grade | ⚠️ With effort | 💰 Always running |
-| **Modal Scheduling** | ✅ One line | ✅ Cloud native | ✅ Built-in | ✅ Pay per execution |
-
-* ✅ No Airflow, Cronitor, or GitHub Actions needed
-* ✅ Runs even when your laptop is off
-* ✅ Define and deploy from Python — just like everything else
+Creating a cron job is as simple as decorating your function with `@app.function(schedule=modal.Period(days=1))` or `@app.function(schedule=modal.Cron("0 8 * * 1"))`
 
 ```python title="cron_example.py" {1}
 @app.function(schedule=modal.Period(days=1))
@@ -316,64 +447,11 @@ def refresh_data():
     print("Updating dataset...")
 ```
 
-Need finer control?
-
-```python title="cron_custom.py" {1}
-@app.function(schedule=modal.Cron("0 8 * * 1"))
-def monday_task():
-    ...
-```
-
 > [!NOTE]
 > Modal schedules run in the cloud with full infra isolation — unlike local cron jobs or notebooks with timers.
 
 > [!TIP]
 > You can pair scheduling with Modal volumes, cloud mounts, or GPU-backed processing — all in one place.
-
-<--- Suggestion: Draw a clock icon funneling into a Modal function icon, optionally annotated with schedule examples like "Daily", "Weekly", "0 8 * * 1" --->
-
-
-### 🔁 Basic Scheduling with `modal.Period`
-
-Just add a `schedule=` parameter to your function and deploy. Modal takes care of the rest:
-
-```python {1}
-@app.function(schedule=modal.Period(days=1))
-def refresh_dataset():
-    ...
-```
-
-* Runs every 24h from deployment time
-* Great for low-maintenance automation
-* Works with `modal deploy` or `app.deploy()`
-
-You can also use finer intervals:
-
-```python /6/#i /30/#s
-modal.Period(hours=6)     # every 6 hours  
-modal.Period(minutes=30)  # every 30 minutes  
-```
-
-### 📆 Fine Control with `modal.Cron`
-
-Want your job to run **at 8 AM every Monday**? Use cron syntax:
-
-```python {1}
-@app.function(schedule=modal.Cron("0 8 * * 1"))
-def monday_digest():
-    ...
-```
-
-* Fully timezone-aware (UTC)
-* Great for predictable weekly/monthly runs
-
-### 📋 Monitoring and Managing
-
-* View job history and logs in the Modal dashboard
-* Trigger manually anytime with "Run now"
-* Want to pause? Just remove the schedule and redeploy
-
-> TL;DR: Modal gives you production-ready scheduling in 1 line of code. No servers, no crontabs, no YAML. Just Python.
 
 ## 🌐 3.5 Web Endpoints — Deploy APIs Without a Server
 
@@ -394,7 +472,7 @@ Run it locally:
 modal serve hello_api.py
 ```
 
-You'll get a `.modal.run` domain with automatic FastAPI docs at `/docs`.
+You'll get a `.modal.run` domain and you can even get automatic FastAPI docs at `/docs` with `@modal.fastapi_endpoint(docs=True)`
 
 To persist it in the cloud:
 
@@ -409,30 +487,14 @@ modal deploy hello_api.py
 
 The `@modal.fastapi_endpoint` decorator wraps your function in a real FastAPI app behind the scenes, giving you:
 
-| Feature | Modal FastAPI | Traditional FastAPI | Serverless Functions |
-|---------|---------------|-------------------|-------------------|
-| **Type Validation** | ✅ Built-in | ✅ Built-in | ⚠️ Manual |
-| **Auto Documentation** | ✅ `/docs` endpoint | ✅ `/docs` endpoint | ❌ None |
-| **Scaling** | ✅ Automatic | ❌ Manual | ✅ Automatic |
-| **GPU Access** | ✅ Optional | ❌ Complex setup | ❌ Not available |
-| **Cold Starts** | ⚡ Optimized | N/A | ⚠️ Slow |
-
 * ✅ **Type annotations and input validation**
 * ✅ **Auto-generated OpenAPI docs**
 * ✅ **Support for query params, POST bodies, or Pydantic models**
 
-```python title="fastapi_input.py" {2-3}
-@app.function()
-@modal.fastapi_endpoint()
-def square(x: int):
-    return {"square": x**2}
-```
-
 ```python title="json_post.py" {2}
 @app.function()
 @modal.fastapi_endpoint(method="POST")
-def greet(data: dict):
-    name = data.get("name", "world")
+def greet(name: str):
     return {"message": f"Hello {name}!"}
 ```
 
@@ -454,14 +516,7 @@ Every endpoint:
 * Optionally runs with GPUs
 * Cleans itself up when idle
 
-You don't manage servers or ports. Modal takes care of all the boring parts — reliably.
-
-> [!CAUTION]
-> This is real serverless — but with dev ergonomics you'll actually enjoy.
-
-To reduce latency further, jump to [**3.6 – No Cold Starts**](./#⚡-36-no-cold-starts--memory-snapshots--enter).
-
-<--- Suggestion: Diagram showing an HTTP request hitting a Modal cloud endpoint → container spin-up → Python code → response → scale down --->
+You don't manage servers or scaling. Modal takes care of all the boring parts — reliably.
 
 ### 🔐 Security Built-In
 
@@ -474,7 +529,17 @@ def admin_tools():
     return "Restricted access"
 ```
 
-For advanced needs: use FastAPI's native security (OAuth2, JWT, etc.) — it all works the same way.
+This will add a basic auth layer to your endpoint
+
+```bash
+export TOKEN_ID=wk-...
+export TOKEN_SECRET=ws-...
+curl -H "Modal-Key: $TOKEN_ID" \
+     -H "Modal-Secret: $TOKEN_SECRET" \
+     https://my-secure-endpoint.modal.run
+```
+
+For advanced needs, you can still use FastAPI's native security (OAuth2, JWT, etc.) — it all works the same way.
 
 > [!IMPORTANT]
 > Modal's web endpoints turn Python functions into production-ready APIs — with autoscaling, FastAPI docs, and zero maintenance.
@@ -485,14 +550,15 @@ Serverless platforms often suffer from one problem: **cold starts**.
 
 When a function spins up:
 
-1. A container is provisioned
-2. Code is imported
-3. Libraries are loaded
-4. Models might download or initialize
+1. A machine is provisioned on the cloud provider
+2. Machine is booted
+3. Endpoint is initialized: loading libraries, model on disk ...
 
-This delay can range from **seconds to minutes** — especially in ML workflows.
+This delay can range from **seconds to minutes** — especially in ML workflows where huge models need to be loaded from disk and load in the VRAM.
 
 Modal gives you multiple tools to fight back:
+- Always keep a pool of containers warm
+- Try to reduce the cold start time by using snapshots
 
 ### 🔁 Keep Containers Warm
 
@@ -521,110 +587,31 @@ def long_tail_fn():
     ...
 ```
 
-This keeps the container alive for 5 minutes after the last request — perfect for bursty workloads.
-
-### 🧠 Preloading with `@enter`
-
-Modal supports **lifecycle hooks** that run before any request is handled:
-
-```python title="preload_model.py" {2-4}
-@app.cls()
-class MyApp:
-    @modal.enter()
-    def preload(self):
-        self.model = load_big_model()
-```
-
-Now `self.model` is instantly available for every method invocation — no repeated loading.
+This keeps the container alive for 5 minutes after the last request — perfect for bursty workloads. This is based on the assumption that if a user just made a request, they will make another one in the near future.
 
 ### 📸 Memory Snapshots — The Killer Feature
 
-You can go one step further: **save container memory** after warmup and reuse it for future cold starts.
+You can go one step further: **snapshot the container memory** after warmup and reuse it for future cold starts.
 
-```python title="snapshot_func.py" {1}
-@app.function(enable_memory_snapshot=True)
-def my_func():
-    ...
-```
-
-For classes:
-
-```python title="snapshot_cls.py" {1}
-@app.cls(enable_memory_snapshot=True)
-class Embedder:
-    ...
-```
-
-This captures the post-warmup state of the container — so future launches resume from memory instantly.
-
-### 🎯 Best Practices
-
-```python title="snapshot_best.py" {1,3,6}
+```python title="snapshot_best.py" {1,3,7}
 @app.cls(enable_memory_snapshot=True, gpu="A10G")
 class Embedder:
-    @modal.enter(snap=True)
+    @modal.enter(snap=True) # Here we import libraries and load models from disk to RAM
     def load_model(self):
         self.model = load_model_to_cpu()
 
-    @modal.enter(snap=False)
-    def move_to_gpu(self):
+    @modal.enter(snap=False) # Here we eventually move models from RAM to VRAM
+    def move_to_gpu(self): 
         self.model = self.model.to("cuda")
 ```
 
-| Lifecycle Hook | When It Runs | GPU Access | Snapshot Included | Best For |
-|----------------|--------------|-------------|------------------|----------|
-| `@enter(snap=True)` | Before snapshot | ❌ No | ✅ Yes | Model loading, CPU setup |
-| `@enter(snap=False)` | After snapshot restore | ✅ Yes | ❌ No | GPU initialization |
+This will:
+- Run the `snap=True` hook first, and save the state of the container as a snapshot (ie, all the memory allocations).
+- Run the `snap=False` hook second from the snapshot.
 
-Tips:
+The next time you call the function, it will directly start from the snapshot and skip the `snap=True` hook.
 
-* Use `@enter(snap=True)` for heavy CPU init (e.g., `from_pretrained()`)
-* Use `@enter(snap=False)` for GPU logic
-* Use `volumes` to avoid repeated downloads
-
-<--- Suggestion: Diagram showing:
-
-1. Container warmup
-2. Model loaded
-3. Snapshot saved
-4. Future containers start from snapshot state instantly --->
-
-### 🧩 Dynamic Autoscaling
-
-Adjust container counts based on time or logic:
-
-```python title="autoscale_scheduler.py" {1,5-6}
-@app.function(schedule=modal.Cron("0 * * * *"))
-def update_autoscaler():
-    hour = datetime.utcnow().hour
-    if 9 <= hour < 18:
-        my_func.update_autoscaler(min_containers=3)
-    else:
-        my_func.update_autoscaler(min_containers=0)
-```
-
-### ⚠️ Snapshot Gotchas
-
-> [!WARNING]
-> Know these before you go snapshot-heavy:
-
-* GPU access is disabled during `@enter(snap=True)`
-* Snapshotting happens **after** the first real run
-* Random seeds / global states get frozen into the snapshot
-* `torch.cuda.is_available()` may return false during snapshot
-* `xformers` needs this env var[^3]:
-
-  ```python {1}
-  image = modal.Image.debian_slim().env({"XFORMERS_ENABLE_TRITON": "1"})
-  ```
-
-> [!IMPORTANT]
-> Modal turns cold starts into **warm launches**:
->
-> * Use `@enter()` to preload
-> * Use `enable_memory_snapshot=True` to snapshot
-> * Use `min_containers` to stay warm
-> * Control cost/latency tradeoffs with fine-tuned autoscaling
+This is based on CRIU under the hood[^4], the CRIU and Nvidia team are currently also working on the ability to save VRAM state as well. This will be a game changer at this could basically eliminate the cold start time [^5] [^6].
 
 ## 👥 3.7 Organization and Teams — Workspaces & Environments
 
@@ -662,13 +649,6 @@ modal deploy --name my-app --environment staging
 > [!NOTE]
 > Modal environments are optional — but powerful for teams managing multiple pipelines or app states.
 
-Secrets and volumes are scoped to the **workspace**, but you can use different values per environment if needed.
-
-> [!TIP]
-> Think: "GitHub repo = workspace, branch = environment."
-
-<--- Suggestion: Diagram with Workspace (top-level), under it multiple Environments (Dev, Staging, Prod), and each linked to secrets, volumes, endpoints --->
-
 ## ☁️ 3.8 Cloud Abstraction & Region Selection
 
 One of Modal's underrated strengths is that it hides the complexity of cloud infrastructure. You don't need:
@@ -697,14 +677,14 @@ def my_fn():
 
 Modal instantly runs your code on GCP in the `us-west1` region — no provisioning needed.
 
-### �� Supported Clouds
+### 🌱 Supported Clouds
 
-| Cloud Provider | Status | Regions Available | Best For |
-|----------------|--------|------------------|----------|
-| **AWS** | ✅ Available | Multiple US/EU | General workloads |
-| **GCP** | ✅ Available | Multiple US/EU | ML/AI workloads |
-| **Azure** | 🚧 Coming soon | TBD | Enterprise integration |
-| **Auto** | ✅ Default | All available | Let Modal optimize |
+| Cloud Provider | Status | Regions Available |
+|----------------|--------|------------------|
+| **AWS** | ✅ Available | Multiple US/EU |
+| **GCP** | ✅ Available | Multiple US/EU |
+| **Azure** | 🚧 Coming soon | TBD |
+| **Auto** | ✅ Default | All available |
 
 You can choose from:
 
@@ -720,23 +700,32 @@ You can choose from:
 > Modal gives you a fully managed experience, but when you need to fine-tune your compute location — you can.
 > The result? Serverless that scales globally, but respects your constraints.
 
-<--- Suggestion: World map-style sketch with regions marked ("us-west1", "us-central1", "europe-west4") and a Modal box routing functions smartly or via user config --->
-
-### 3.9 — Observability & Monitoring
+### 3.9 — Built-In Debugging and Monitoring
 
 ...
 <!-- I will to by my self keep this comment -->
 
 ### Conclusion 
 
-... 
-<!-- I will to by my self keep this comment -->
+Modal has fundamentally changed how I think about deploying and scaling applications. By eliminating the friction between local development and cloud execution, it embodies Erik Bernhardsson's vision of fast feedback loops that make data teams truly productive.
+
+Whether you're building ML inference endpoints, running scheduled data pipelines, or prototyping with GPUs, Modal's Python-first approach means you can focus on your code rather than wrestling with infrastructure.
+
+> [!NOTE]
+> **The Serverless Python Ecosystem**: Modal isn't alone in this space. [Beam Cloud](https://beam.cloud/) offers a similar Python-native serverless platform with their own custom runtime, and they've open-sourced the underlying engine as [Beta9](https://github.com/beam-cloud/beta9) for self-hosting. If you're looking to self-host, this might be for you. However they still miss some of the features that Modal has.
+
+If you've been putting off that deployment because the infrastructure feels too complex, give Modal a try. It might just be the missing piece that turns your side project into something you can actually ship.
 
 ---
 
-[^1]: Erik Bernhardsson is the former CTO of Better.com and creator of popular open-source projects like Luigi (Spotify's workflow engine) and Annoy (approximate nearest neighbors library). His experience building large-scale data infrastructure shows in Modal's developer-first design.
+[^1]: Erik Bernhardsson is the co-founder and CEO of Modal. He was previously CTO of Better.com and spent seven years at Spotify building large-scale data infrastructure. He's also the creator of popular open-source projects like Luigi (Spotify's workflow engine) and Annoy (approximate nearest neighbors library). His 2022 blog post ["What I have been working on: Modal"](https://erikbern.com/2022/12/07/what-i-have-been-working-on-modal.html) explains the foundational vision behind Modal and why data teams deserve better tools.
 
-[^2]: ComfyDeploy is a service that allows you to run ComfyUI workflows remotely on powerful cloud GPUs. It integrates seamlessly with Modal, making it easy to scale ComfyUI workloads without managing infrastructure.
+[^2]: ComfyDeploy is a service that allows you to run ComfyUI workflows remotely on powerful cloud GPUs.
 
 [^3]: The `XFORMERS_ENABLE_TRITON` environment variable is required when using xformers with memory snapshots because Triton kernels need to be properly initialized in the snapshot environment. Without this, you may encounter CUDA-related errors when the snapshot is restored.
 
+[^4]: [CRIU](https://github.com/checkpoint-restore/criu) is a tool that allows you to save the state of a container and restore it later. It is used under the hood by Modal to implement memory snapshots.
+
+[^5]: CRIUGpu Paper https://arxiv.org/html/2502.16631v1
+
+[^6]: NVIDIA has published extensive documentation on CUDA checkpointing with CRIU. See their technical blog post (https://developer.nvidia.com/blog/checkpointing-cuda-applications-with-criu/) and the ongoing discussions about implementation challenges in the CUDA checkpoint repository (https://github.com/NVIDIA/cuda-checkpoint/issues/4).

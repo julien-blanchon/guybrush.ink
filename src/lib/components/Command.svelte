@@ -337,7 +337,7 @@
 															</Command.Empty>
 														{:else}
 															<Command.GroupItems>
-																{#each posts as post}
+																{#each posts as post (post.slug)}
 																	<Command.LinkItem
 																		href={`/writings/${post.slug}`}
 																		keywords={post.categories}

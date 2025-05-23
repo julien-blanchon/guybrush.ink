@@ -25,7 +25,8 @@
 <blockquote
 	{...props}
 	class={[
-		'my-4 rounded-lg border-l-4 border-gray-400 bg-gray-50 px-6 py-5 text-gray-700 dark:border-gray-600 dark:bg-gray-800/50 dark:text-gray-300',
+		'border-1 !border-l-4 border-[var(--rc-color-light)] dark:border-[var(--rc-color-dark)]',
+		'my-4 rounded-lg  bg-gray-50 px-6 py-5 text-gray-700 dark:bg-gray-900 dark:text-gray-300',
 		'shadow-sm',
 		'italic',
 		'text-base leading-relaxed',
