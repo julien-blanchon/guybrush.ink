@@ -35,7 +35,7 @@ Erik and his team at Modal[^1] asked: *What if we could take the cloud inside th
 build container → push container → trigger job → download logs
 ```
 
-![Figure 1 - Traditional Development Loop](images/figure1.excalidraw.svg)
+![Figure 1 - Traditional Development Loop](./images/figure1.excalidraw.svg)
 
 You could just write Python and have it run in the cloud in under a second?
 
