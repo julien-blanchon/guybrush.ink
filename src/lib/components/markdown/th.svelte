@@ -3,7 +3,7 @@
 	import type { SvelteHTMLElements } from 'svelte/elements';
 
 	type Props = SvelteHTMLElements['th'] & {
-		children: Snippet;
+		children?: Snippet;
 	};
 
 	let { children, class: className, ...props }: Props = $props();
@@ -17,5 +17,5 @@
 		'bg-gray-50 dark:bg-gray-800',
 		'border-b border-gray-200 dark:border-gray-700',
 		className
-	]}>{@render children()}</th
+	]}>{@render children?.()}</th
 >
