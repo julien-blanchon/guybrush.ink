@@ -26,7 +26,7 @@ categories:
 
 Community war-stories echo this:
 
-*  *"20 `<Html>` panels dropped Chrome from 120 fps to 50 fps"* – pmndrs discussion [link](https://github.com/pmndrs/react-three-fiber/discussions/3130)
+*  *"20 `<Html>` panels dropped Chrome from 120 fps to 50 fps"* – [pmndrs](https://github.com/pmndrs) discussion [link](https://github.com/pmndrs/react-three-fiber/discussions/3130)
 *  Discourse thread on low FPS with many HTML overlays [link](https://discourse.threejs.org/t/many-html-elements-from-three-js-fiber-drei-causes-low-framerate-in-chrome/28540)
 
 > **Rule of thumb** from R3F performance guide: *"If you can, keep UI inside the scene graph. Each DOM node is a liability."*  [link](https://r3f.docs.pmnd.rs/advanced/scaling-performance)
@@ -63,11 +63,11 @@ You can try it out yourself:
 
 ## Meet `threlte-uikit`
 
-[threlte-uikit](https://github.com/threlte/threlte-uikit) ports pmndrs' WebGL-native [UIKit](https://github.com/pmndrs/uikit) to Threlte.  Widgets are instanced quads rendered in the same pass as your meshes—no DOM, no compositor juggling.
+[threlte-uikit](https://github.com/threlte/threlte-uikit) ports [pmndrs'](https://github.com/pmndrs) WebGL-native [UIKit](https://github.com/pmndrs/uikit) to Threlte.  Widgets are instanced quads rendered in the same pass as your meshes—no DOM, no compositor juggling.
 
-```svelte
-<script>
-  import { Root, Container, Text, Image, SVG, Video, Fullscreen } from 'threlte-uikit';
+```svelte title="src/components/HUD.svelte"
+<script lang="ts">
+  import {Root, Container, Text, Image, SVG, Video, Fullscreen} from 'threlte-uikit';
 </script>
 
 // Use in a Threlte Context (inside a <Canvas>)
