@@ -718,7 +718,7 @@ If you've been putting off that deployment because the infrastructure feels too 
 
 ---
 
-[^1]: Erik Bernhardsson is the co-founder and CEO of Modal. He was previously CTO of Better.com and spent seven years at Spotify building large-scale data infrastructure. He's also the creator of popular open-source projects like Luigi (Spotify's workflow engine) and Annoy (approximate nearest neighbors library). His 2022 blog post ["What I have been working on: Modal"](https://erikbern.com/2022/12/07/what-i-have-been-working-on-modal.html) explains the foundational vision behind Modal and why data teams deserve better tools.
+[^1]: Erik Bernhardsson is the co-founder and CEO of Modal.
 
 [^2]: ComfyDeploy is a service that allows you to run ComfyUI workflows remotely on powerful cloud GPUs.
 

@@ -20,6 +20,124 @@
 			Here is an non exhaustive list of projects I've worked on.
 		</p>
 
+		<!-- RobotHub -->
+		<section class="mb-10" aria-labelledby="project-robothub-heading">
+			<h3
+				id="project-robothub-heading"
+				class="mt-6 mb-2 flex items-center text-xl font-semibold text-gray-800 dark:text-gray-200"
+			>
+				<span
+					class="project-badge mr-2 inline-flex size-7 items-center justify-center rounded-full border border-blue-200 bg-blue-100 text-sm font-medium text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200"
+				></span>
+				RobotHub
+			</h3>
+
+			<p class="mb-4 text-base leading-relaxed tracking-normal">
+				RobotHub is an open-source platform that brings real-time robot control, AI inference and collaborative 3D visualisation directly to your browser.
+			</p>
+
+			<div
+				class="mb-6 rounded-md border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+			>
+				<div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+					<div class="flex-1 space-y-4">
+						<article>
+							<p class="mt-2 text-base leading-relaxed tracking-normal">
+								Built with SvelteKit, Threlte and WebRTC, RobotHub lets you connect USB robots, stream cameras, and run AI policies – all through a shareable URL like
+								<code>#workspace-abc</code>. It powers live demos hosted on Hugging Face Spaces and runs 100 % in the browser.
+							</p>
+						</article>
+
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
+							>
+								<span class="icon-[pixelarticons--calendar] mr-1.5 h-3.5 w-3.5"></span>
+								2025
+							</span>
+							<span
+								class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-500/20"
+							>
+								<span class="icon-[mdi--robot] mr-1.5 h-3.5 w-3.5"></span>
+								Robotics
+							</span>
+							<span
+								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
+							>
+								<span class="icon-[ph--video-camera-thin] mr-1.5 h-3.5 w-3.5"></span>
+								WebRTC
+							</span>
+							<span
+								class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-900/20 dark:text-indigo-300 dark:ring-indigo-500/20"
+							>
+								<span class="icon-[devicon--svelte] mr-1.5 h-3.5 w-3.5"></span>
+								SvelteKit
+							</span>
+						</div>
+
+						<div class="mt-4 flex flex-col gap-2">
+							<Button
+								variant="outline"
+								class={[
+									'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
+									'border-green-300 bg-green-300/50 text-gray-800 transition-colors hover:border-green-400 hover:bg-green-400/50 dark:border-green-700 dark:bg-green-700/30 dark:text-gray-300 dark:hover:border-green-600 dark:hover:bg-green-600/30 '
+								]}
+							>
+								<a
+									href="https://blanchon-robothub-frontend.hf.space"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex w-full items-center justify-center"
+									aria-label="Open the live RobotHub demo"
+								>
+									<span class="icon-[material-symbols--rocket-launch] mr-1 size-6"></span>
+									<span class="mx-1">Live Demo</span>
+									<span class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"></span>
+								</a>
+							</Button>
+							<Button
+								variant="outline"
+								class={[
+									'group inline-flex w-full items-center justify-center rounded-md px-2 py-0.5 text-base font-medium',
+									'border-gray-300 bg-gray-300/50 text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-400/50 dark:border-gray-700 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-600/30 '
+								]}
+							>
+								<a
+									href="https://github.com/julien-blanchon/RobotHub-Frontend"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex w-full items-center justify-center"
+									aria-label="RobotHub GitHub Repository"
+								>
+									<span class="icon-[logos--github-icon] mr-1 size-6"></span>
+									<span class="mx-1">GitHub Repository</span>
+									<span class="icon-[pixelarticons--external-link] ml-1 size-4 opacity-0 duration-200 group-hover:opacity-100"></span>
+								</a>
+							</Button>
+						</div>
+					</div>
+
+					<div class="w-full sm:w-2/5">
+						<figure class="relative flex w-full flex-col items-center">
+							<enhanced:img
+								src="$lib/assets/projects/robothub/ui.png"
+								alt="RobotHub 3D interface showing robot and status HUDs"
+								class="aspect-video w-full rounded border border-gray-200 object-cover dark:border-gray-700"
+								sizes="(min-width: 1280px) 384px, (min-width: 768px) 320px, (min-width: 640px) 384px, 100vw"
+								loading="lazy"
+								width="768"
+								height="432"
+							/>
+							<figcaption class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+								Fig. 1: Live multi-robot control in the browser
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End RobotHub -->
+
 		<!-- Arxflix -->
 		<section class="mb-10" aria-labelledby="project-arxflix-heading">
 			<h3
@@ -187,7 +305,7 @@
 							<p class="mt-2 text-base leading-relaxed tracking-normal">
 								Montelimar is an open-source, on-device OCR engine and desktop application that lets
 								you snip a portion of your screen and instantly copy the recognized text to your
-								clipboard. It’s designed as a general-purpose, unopinionated toolkit with a
+								clipboard. It's designed as a general-purpose, unopinionated toolkit with a
 								flexible, modular architecture—ideal for anyone building custom OCR workflows. My
 								goal is for Montelimar to become the go-to framework for next-generation OCR apps,
 								especially those targeting non-Latin scripts and LaTeX-formatted content.
