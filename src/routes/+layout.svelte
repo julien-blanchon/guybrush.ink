@@ -66,9 +66,19 @@
 		Object.entries(imagePairs).filter(([_, value]) => value.light && value.dark)
 	) as ImagePairs;
 
-	const numberOfPairs = Object.keys(completeImagePairs).length;
-	const randomPair = Math.floor(Math.random() * numberOfPairs);
-	const selectedPair = Object.values(completeImagePairs)[randomPair];
+	// Prepare a deterministic fallback pair for SSR / prerender
+	const pairsArray = Object.values(completeImagePairs);
+	const fallbackPair = pairsArray[0];
+	let selectedPair = $state(fallbackPair);
+
+	// Randomize on the client after hydration to avoid build-time locking
+	onMount(() => {
+		// Avoid running if there is only one pair
+		if (pairsArray.length > 1) {
+			const randomPair = pairsArray[Math.floor(Math.random() * pairsArray.length)];
+			selectedPair = randomPair;
+		}
+	});
 
 	type NavBarItem = {
 		label: string;
