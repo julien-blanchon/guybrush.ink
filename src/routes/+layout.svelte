@@ -228,7 +228,7 @@
 		<div class="animate-in fade-in slide-in-from-bottom duration-700">
 			{#key page.url.pathname}
 				<div
-					class="noise_filter border-coffee-300 relative overflow-hidden rounded-lg border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
+					class="noise_filter border-coffee-300 relative overflow-clip rounded-lg border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
 					in:fly={transition(page.url.pathname, false)}
 					out:fly={transition(page.url.pathname, true)}
 					aria-live="polite"

@@ -710,7 +710,6 @@
 html,
 body {
 	overscroll-behavior: none;
-	overflow: auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
